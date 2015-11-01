@@ -17,6 +17,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		E0A775101BE68FB20021EE34 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E0A775091BE68FB20021EE34 /* GitUpKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E267E1A81B84D6C500BAB377;
+			remoteInfo = "GitUpKit (OSX)";
+		};
+		E0A775121BE68FB20021EE34 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E0A775091BE68FB20021EE34 /* GitUpKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E217531B1B91613300BE234A;
+			remoteInfo = "GitUpKit (iOS)";
+		};
+		E0A775141BE68FB20021EE34 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E0A775091BE68FB20021EE34 /* GitUpKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E2C338C419F8562F00063D95;
+			remoteInfo = Tests;
+		};
 		E0DEAF671BE685840018EA8B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E0DEAF4A1BE685840018EA8B /* Project object */;
@@ -34,6 +55,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E0A775091BE68FB20021EE34 /* GitUpKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GitUpKit.xcodeproj; path = GitUp/GitUpKit/GitUpKit.xcodeproj; sourceTree = "<group>"; };
 		E0DEAF521BE685840018EA8B /* Cypress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cypress.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0DEAF551BE685840018EA8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0DEAF571BE685840018EA8B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -74,9 +96,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E0A7750A1BE68FB20021EE34 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E0A775111BE68FB20021EE34 /* GitUpKit.framework */,
+				E0A775131BE68FB20021EE34 /* GitUpKit.framework */,
+				E0A775151BE68FB20021EE34 /* GitUpTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		E0DEAF491BE685840018EA8B = {
 			isa = PBXGroup;
 			children = (
+				E0A775091BE68FB20021EE34 /* GitUpKit.xcodeproj */,
 				E0DEAF541BE685840018EA8B /* Cypress */,
 				E0DEAF691BE685840018EA8B /* CypressTests */,
 				E0DEAF741BE685840018EA8B /* CypressUITests */,
@@ -215,6 +248,12 @@
 			mainGroup = E0DEAF491BE685840018EA8B;
 			productRefGroup = E0DEAF531BE685840018EA8B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = E0A7750A1BE68FB20021EE34 /* Products */;
+					ProjectRef = E0A775091BE68FB20021EE34 /* GitUpKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				E0DEAF511BE685840018EA8B /* Cypress */,
@@ -223,6 +262,30 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		E0A775111BE68FB20021EE34 /* GitUpKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GitUpKit.framework;
+			remoteRef = E0A775101BE68FB20021EE34 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E0A775131BE68FB20021EE34 /* GitUpKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GitUpKit.framework;
+			remoteRef = E0A775121BE68FB20021EE34 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E0A775151BE68FB20021EE34 /* GitUpTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GitUpTests.xctest;
+			remoteRef = E0A775141BE68FB20021EE34 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		E0DEAF501BE685840018EA8B /* Resources */ = {
@@ -401,6 +464,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Cypress/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GitUpKit/Third-Party/Libraries/libsqlite3/iPhoneOS/lib",
+					"$(PROJECT_DIR)/GitUpKit/Third-Party/Libraries/libsqlite3/iPhoneSimulator/lib",
+					"$(PROJECT_DIR)/GitUpKit/Third-Party/Libraries/libsqlite3/MacOSX/lib",
+					"$(PROJECT_DIR)/GitUpKit/Third-Party/Libraries/libssh2/iPhoneOS/lib",
+					"$(PROJECT_DIR)/GitUpKit/Third-Party/Libraries/libssh2/iPhoneSimulator/lib",
+					"$(PROJECT_DIR)/GitUpKit/Third-Party/Libraries/libssh2/MacOSX/lib",
+					"$(PROJECT_DIR)/GitUpKit/Third-Party/Libraries/libssl/iPhoneOS/lib",
+					"$(PROJECT_DIR)/GitUpKit/Third-Party/Libraries/libssl/iPhoneSimulator/lib",
+					"$(PROJECT_DIR)/GitUpKit/Third-Party/Libraries/libssl/MacOSX/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.danielweiner.Cypress;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -412,6 +487,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Cypress/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GitUpKit/Third-Party/Libraries/libsqlite3/iPhoneOS/lib",
+					"$(PROJECT_DIR)/GitUpKit/Third-Party/Libraries/libsqlite3/iPhoneSimulator/lib",
+					"$(PROJECT_DIR)/GitUpKit/Third-Party/Libraries/libsqlite3/MacOSX/lib",
+					"$(PROJECT_DIR)/GitUpKit/Third-Party/Libraries/libssh2/iPhoneOS/lib",
+					"$(PROJECT_DIR)/GitUpKit/Third-Party/Libraries/libssh2/iPhoneSimulator/lib",
+					"$(PROJECT_DIR)/GitUpKit/Third-Party/Libraries/libssh2/MacOSX/lib",
+					"$(PROJECT_DIR)/GitUpKit/Third-Party/Libraries/libssl/iPhoneOS/lib",
+					"$(PROJECT_DIR)/GitUpKit/Third-Party/Libraries/libssl/iPhoneSimulator/lib",
+					"$(PROJECT_DIR)/GitUpKit/Third-Party/Libraries/libssl/MacOSX/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.danielweiner.Cypress;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -484,6 +571,7 @@
 				E0DEAF7C1BE685840018EA8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E0DEAF7D1BE685840018EA8B /* Build configuration list for PBXNativeTarget "CypressTests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +580,7 @@
 				E0DEAF7F1BE685840018EA8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E0DEAF801BE685840018EA8B /* Build configuration list for PBXNativeTarget "CypressUITests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +589,7 @@
 				E0DEAF821BE685840018EA8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

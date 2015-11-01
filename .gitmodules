@@ -1,0 +1,3 @@
+[submodule "GitUp"]
+	path = GitUp
+	url = https://github.com/git-up/GitUp.git
