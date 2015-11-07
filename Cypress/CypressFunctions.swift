@@ -1,0 +1,51 @@
+//
+//  CypressFunctions.swift
+//  Cypress
+//
+//  Created by Daniel A. Weiner on 11/6/15.
+//  Copyright © 2015 Daniel Weiner. All rights reserved.
+//
+
+import UIKit
+
+class Cypress {
+    static func getDocumentsDirectoryPath() -> String {
+        return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first!
+    }
+    
+    static func getRepositoriesDirectoryURL() -> NSURL {
+        return NSURL(fileURLWithPath: getDocumentsDirectoryPath() + "/\("repositories")", isDirectory: true)
+    }
+}
+
+extension UIViewController {
+    func showErrorAlertWithMessage(message: String) {
+        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .Alert)
+        
+        let okayAction = UIAlertAction(title: "Okay", style: .Default, handler: nil)
+        alertController.preferredAction = okayAction
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func showTextInputPrompt(title: String, message: String, handler: (String) -> Void) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        
+        alertController.addTextFieldWithConfigurationHandler(nil)
+        
+        let confirmAction = UIAlertAction(title: "Okay", style: .Default, handler: {
+            (action: UIAlertAction) -> Void in
+            handler(alertController.textFields![0].text!)
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+            (action: UIAlertAction) -> Void in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        })
+        
+        alertController.addAction(confirmAction)
+        alertController.preferredAction = confirmAction
+        alertController.addAction(cancelAction)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+}

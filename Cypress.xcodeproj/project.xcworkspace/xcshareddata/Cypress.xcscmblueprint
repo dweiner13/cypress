@@ -1,0 +1,36 @@
+{
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "23FA20E70D0528EA0774E7AEF649B9012F8A36AC" : 0,
+    "70783EE7218D87FCBAABD7787F6E3A25EFFAFB2F" : 0,
+    "BE225267DC3B2D4E20DDA5A69C0155B71425F8BE" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "6438BF46-F783-4AED-B648-74E0113BF04E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "23FA20E70D0528EA0774E7AEF649B9012F8A36AC" : "Cypress\/GitUp\/",
+    "70783EE7218D87FCBAABD7787F6E3A25EFFAFB2F" : "Cypress\/GitUp\/GitUpKit\/Third-Party\/libgit2\/",
+    "BE225267DC3B2D4E20DDA5A69C0155B71425F8BE" : "Cypress\/GitUp\/GitUpKit\/Third-Party\/XLFacility\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Cypress",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Cypress.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/git-up\/GitUp.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "23FA20E70D0528EA0774E7AEF649B9012F8A36AC"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/git-up\/libgit2.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "70783EE7218D87FCBAABD7787F6E3A25EFFAFB2F"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/swisspol\/XLFacility.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "BE225267DC3B2D4E20DDA5A69C0155B71425F8BE"
+    }
+  ]
+}
