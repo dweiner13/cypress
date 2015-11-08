@@ -54,7 +54,7 @@ extension UIViewController {
     func askForConfirmation(title: String, message: String, confirmActionTitle: String, confirmedHandler: () -> Void) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         
-        let confirmAction = UIAlertAction(title: confirmActionTitle, style: .Default, handler: {
+        let confirmAction = UIAlertAction(title: confirmActionTitle, style: .Destructive, handler: {
             (action: UIAlertAction) -> Void in
             confirmedHandler()
         })
