@@ -71,6 +71,9 @@ class RepositoryTableViewController: UITableViewController, GCRepositoryDelegate
             let repo = try Repository(name: name)
             self.repositoryList.addRepository(repo)
             self.tableView.reloadData()
+            
+            let repoIndexPath = NSIndexPath(forRow: repositoryList.array.indexOf(repo)!, inSection: 0)
+            scrollToAndFlashRowAtIndexPath(repoIndexPath)
         }
         catch let e as NSError {
             showErrorAlertWithMessage(e.localizedDescription)
@@ -82,10 +85,19 @@ class RepositoryTableViewController: UITableViewController, GCRepositoryDelegate
             let repo = try Repository(url: NSURL(string: url)!, gcdelegate: self)
             self.repositoryList.addRepository(repo)
             self.tableView.reloadData()
+            let repoIndexPath = NSIndexPath(forRow: repositoryList.array.indexOf(repo)!, inSection: 0)
+            scrollToAndFlashRowAtIndexPath(repoIndexPath)
         }
         catch let e as NSError {
             showErrorAlertWithMessage(e.localizedDescription)
         }
+    }
+    
+    func scrollToAndFlashRowAtIndexPath(indexPath: NSIndexPath) {
+        self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .None, animated: true)
+        let repoCell = self.tableView.cellForRowAtIndexPath(indexPath)
+        repoCell?.setHighlighted(true, animated: false)
+        repoCell?.setHighlighted(false, animated: true)
     }
     
     // MARK: - GCRepositoryDelegate
