@@ -22,8 +22,13 @@ extension UIViewController {
     func showErrorAlertWithMessage(message: String) {
         let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .Alert)
         
-        let okayAction = UIAlertAction(title: "Okay", style: .Default, handler: nil)
+        let okayAction = UIAlertAction(title: "Okay", style: .Default, handler: {
+            (action: UIAlertAction) -> Void in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        })
         alertController.preferredAction = okayAction
+        
+        alertController.addAction(okayAction)
         
         self.presentViewController(alertController, animated: true, completion: nil)
     }
@@ -37,10 +42,23 @@ extension UIViewController {
             (action: UIAlertAction) -> Void in
             handler(alertController.textFields![0].text!)
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        
+        alertController.addAction(confirmAction)
+        alertController.preferredAction = confirmAction
+        alertController.addAction(cancelAction)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func askForConfirmation(title: String, message: String, confirmActionTitle: String, confirmedHandler: () -> Void) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        
+        let confirmAction = UIAlertAction(title: confirmActionTitle, style: .Default, handler: {
             (action: UIAlertAction) -> Void in
-            self.dismissViewControllerAnimated(true, completion: nil)
+            confirmedHandler()
         })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         
         alertController.addAction(confirmAction)
         alertController.preferredAction = confirmAction

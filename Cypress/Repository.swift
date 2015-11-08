@@ -9,7 +9,7 @@
 import UIKit
 import GitUpKit
 
-class Repository: CustomStringConvertible {
+class Repository: NSObject {
     var repository: GCRepository!
     
     var gcdelegate: GCRepositoryDelegate? {
@@ -28,16 +28,10 @@ class Repository: CustomStringConvertible {
         }
     }
     
-    var description: String {
-        get {
-            return "repository(name: \"\(name)\")"
-        }
-    }
-    
     // ought to be able to init: new, from web URL
     
     init(name: String) throws {
-        print("creating repo with name \(name)")
+        super.init()
         let repoPath = Cypress.getRepositoriesDirectoryURL().URLByAppendingPathComponent(name, isDirectory: true).path!
         if NSFileManager.defaultManager().fileExistsAtPath(repoPath) {
             repository = try GCRepository(existingLocalRepository: repoPath);
@@ -48,6 +42,7 @@ class Repository: CustomStringConvertible {
     }
     
     init(url: NSURL, gcdelegate: GCRepositoryDelegate?) throws {
+        super.init()
         let pathComponents = url.pathComponents!
         let gitName = pathComponents[pathComponents.count - 1] // "repo.git"
         let repoName = gitName.substringWithRange(gitName.startIndex ... gitName.endIndex.advancedBy(-5))
@@ -62,6 +57,15 @@ class Repository: CustomStringConvertible {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 try! self.repository.cloneUsingRemote(remote, recursive: false)
             })
+        }
+    }
+    
+    func delete() {
+        do {
+            try NSFileManager.defaultManager().removeItemAtPath(repository.workingDirectoryPath)
+        }
+        catch let e {
+            print(e)
         }
     }
 }
