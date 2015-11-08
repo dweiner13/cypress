@@ -23,6 +23,7 @@
 		E0DEAF601BE685840018EA8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0DEAF5E1BE685840018EA8B /* LaunchScreen.storyboard */; };
 		E0DEAF6B1BE685840018EA8B /* CypressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DEAF6A1BE685840018EA8B /* CypressTests.swift */; };
 		E0DEAF761BE685840018EA8B /* CypressUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DEAF751BE685840018EA8B /* CypressUITests.swift */; };
+		E0E5D8271BEFAD220010A976 /* FileBrowserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E5D8261BEFAD220010A976 /* FileBrowserTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,7 @@
 		E0DEAF711BE685840018EA8B /* CypressUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CypressUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0DEAF751BE685840018EA8B /* CypressUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CypressUITests.swift; sourceTree = "<group>"; };
 		E0DEAF771BE685840018EA8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E0E5D8261BEFAD220010A976 /* FileBrowserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowserTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 				E0363E641BEE5BBB00C8584F /* MasterNavigationController.swift */,
 				E0C713141BEEC8CD008595B9 /* ProgressTableViewCell.swift */,
 				E0C713151BEEC8CD008595B9 /* ProgressTableViewCell.xib */,
+				E0E5D8261BEFAD220010A976 /* FileBrowserTableViewController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 				E0954D211BED725E00649A5E /* Repository.swift in Sources */,
 				E0DEAF561BE685840018EA8B /* AppDelegate.swift in Sources */,
 				E0954D1F1BED718B00649A5E /* RepositoryList.swift in Sources */,
+				E0E5D8271BEFAD220010A976 /* FileBrowserTableViewController.swift in Sources */,
 				E0954D231BED74D200649A5E /* CypressFunctions.swift in Sources */,
 				E0363E651BEE5BBB00C8584F /* MasterNavigationController.swift in Sources */,
 				E0363E601BEDA1F800C8584F /* DetailViewController.swift in Sources */,

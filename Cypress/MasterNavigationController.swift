@@ -21,7 +21,6 @@ class MasterNavigationController: UINavigationController, GCRepositoryDelegate {
     func addProgressViewAndTextLabel() {
         // add progress view to toolbar
         let progressRect = CGRect(x: 0, y: 0, width: self.toolbar.frame.width, height: 2)
-        print(self.toolbar.frame)
         progressView = UIProgressView(frame: progressRect)
         progressView!.progress = 0.5
         progressView!.hidden = true

@@ -28,7 +28,6 @@ class RepositoryList {
         list = []
         let defaults = NSUserDefaults.standardUserDefaults()
         if let storedRepositoryList: AnyObject = defaults.objectForKey("repositoryList") {
-            print("reading saved repo list")
             for repoName: String in storedRepositoryList as! [String] {
                 do {
                     try list.append(Repository(name: repoName))
@@ -73,7 +72,6 @@ class RepositoryList {
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(repositoryNames, forKey: "repositoryList")
         defaults.synchronize()
-        print("saved repo list")
     }
     
     // MARK: - Comparing
