@@ -22,6 +22,7 @@ class RepositoryList {
         list = []
         let defaults = NSUserDefaults.standardUserDefaults()
         if let storedRepositoryList: AnyObject = defaults.objectForKey("repositoryList") {
+            print("reading saved repo list")
             for repoName: String in storedRepositoryList as! [String] {
                 do {
                     try list.append(Repository(name: repoName))
@@ -35,10 +36,20 @@ class RepositoryList {
     
     func addRepository(repo: Repository) {
         list.append(repo);
+        save()
     }
     
     func asArray() -> [Repository] {
         return list;
+    }
+    
+    func repositoryWithGCRepository(gcRepo: GCRepository) -> (repo: Repository, indexInArray: Int)? {
+        for var i = 0; i < list.count; i++ {
+            if list[i].repository == gcRepo {
+                return (list[i], i)
+            }
+        }
+        return nil
     }
     
     // MARK: - Saving
@@ -51,5 +62,6 @@ class RepositoryList {
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(repositoryNames, forKey: "repositoryList")
         defaults.synchronize()
+        print("saved repo list")
     }
 }

@@ -115,10 +115,11 @@
             </objects>
             <point key="canvasLocation" x="-925" y="1226"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Master Navigation Controller-->
         <scene sceneID="OPB-ny-2A0">
             <objects>
-                <navigationController storyboardIdentifier="mainNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kHZ-Oe-Qen" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="mainNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" toolbarHidden="NO" id="kHZ-Oe-Qen" customClass="MasterNavigationController" customModule="Cypress" customModuleProvider="target" sceneMemberID="viewController">
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Hb-EH-EGP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

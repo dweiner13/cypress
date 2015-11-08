@@ -7,21 +7,20 @@
 //
 
 import UIKit
+import GitUpKit
 
-private let repositoryListCellIdentifier = "repositoryListCell"
+private let repositoryListCellIdentifier = "progressCell"
 
-class RepositoryTableViewController: UITableViewController {
+class RepositoryTableViewController: UITableViewController, GCRepositoryDelegate {
     
     var repositoryList = RepositoryList.sharedRepositoryList
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+//        (self.navigationController! as! MasterNavigationController).addProgressViewAndTextLabel()
+        
+        self.tableView.registerNib(UINib(nibName: "ProgressTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "progressCell")
     }
 
     override func didReceiveMemoryWarning() {
@@ -80,7 +79,7 @@ class RepositoryTableViewController: UITableViewController {
     
     func confirmedCloneExistingRepositoryWithURL(url: String) {
         do {
-            let repo = try Repository(url: NSURL(string: url)!)
+            let repo = try Repository(url: NSURL(string: url)!, gcdelegate: self)
             self.repositoryList.addRepository(repo)
             self.tableView.reloadData()
         }
@@ -88,27 +87,53 @@ class RepositoryTableViewController: UITableViewController {
             showErrorAlertWithMessage(e.localizedDescription)
         }
     }
+    
+    // MARK: - GCRepositoryDelegate
+    func repository(repository: GCRepository!, willStartTransferWithURL url: NSURL!) {
+//        (self.navigationController! as! MasterNavigationController).startAction(withMessage: "Cloning from \(url.host!)")
+        let indexOfRepository = repositoryList.repositoryWithGCRepository(repository)!.indexInArray
+        let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: indexOfRepository, inSection: 0)) as! ProgressTableViewCell
+        cell.startProgress()
+    }
+    
+    func repository(repository: GCRepository!, updateTransferProgress progress: Float, transferredBytes bytes: UInt) {
+        let indexOfRepository = repositoryList.repositoryWithGCRepository(repository)!.indexInArray
+        let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: indexOfRepository, inSection: 0)) as! ProgressTableViewCell
+        cell.updateProgress(progress)
+//        (self.navigationController! as! MasterNavigationController).updateActionProgress(progress, transferredBytes: Int(bytes))
+    }
+    
+    func repository(repository: GCRepository!, didFinishTransferWithURL url: NSURL!, success: Bool) {
+        let indexOfRepository = repositoryList.repositoryWithGCRepository(repository)!.indexInArray
+        let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: indexOfRepository, inSection: 0)) as! ProgressTableViewCell
+        cell.stopProgress()
+//        (self.navigationController! as! MasterNavigationController).finishAction()
+    }
 
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return repositoryList.asArray().count
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 1
+        return repositoryList.asArray().count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(repositoryListCellIdentifier, forIndexPath: indexPath)
+        print(indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier(repositoryListCellIdentifier, forIndexPath: indexPath) as! ProgressTableViewCell
 
         // Configure the cell...
         let repo = repositoryList.asArray()[indexPath.row]
-        cell.textLabel!.text = repo.name
+        cell.mainLabel!.text = repo.name
 
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
     /*
