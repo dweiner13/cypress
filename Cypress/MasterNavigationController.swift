@@ -9,7 +9,7 @@
 import UIKit
 import GitUpKit
 
-class MasterNavigationController: UINavigationController, GCRepositoryDelegate {
+class MasterNavigationController: UINavigationController, UIPopoverPresentationControllerDelegate, GCRepositoryDelegate {
     
     var progressView: UIProgressView? = nil
     var toolbarLabel: UILabel? = nil
@@ -40,7 +40,6 @@ class MasterNavigationController: UINavigationController, GCRepositoryDelegate {
         super.didReceiveMemoryWarning	()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation
@@ -68,5 +67,10 @@ class MasterNavigationController: UINavigationController, GCRepositoryDelegate {
     func finishAction() {
         progressView!.hidden = true
         toolbarLabel!.text = ""
+    }
+    
+    // MARK: PopoverPresentationControllerDelegate
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.None
     }
 }

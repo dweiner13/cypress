@@ -15,13 +15,13 @@ class FileBrowserTableViewController: UITableViewController {
     var files = [NSURL]()
     
     var directories = [NSURL]()
+    
+    var longPressBackButtonGestureRecognizer: UILongPressGestureRecognizer!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let contents = try! NSFileManager.defaultManager().contentsOfDirectoryAtURL(directory, includingPropertiesForKeys: nil, options: .SkipsHiddenFiles)
-        print(directory)
-        print(contents)
         for item: NSURL in contents {
             var isDirectory: ObjCBool = ObjCBool(false)
             NSFileManager.defaultManager().fileExistsAtPath(item.path!, isDirectory: &isDirectory)
@@ -34,11 +34,56 @@ class FileBrowserTableViewController: UITableViewController {
         }
         
         self.navigationItem.title = directory.lastPathComponent
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        // Create long-press view and gesture recognizer
+        longPressBackButtonGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "longPressedNavigationBar:")
+        self.navigationController!.navigationBar.addGestureRecognizer(longPressBackButtonGestureRecognizer)
+        longPressBackButtonGestureRecognizer.enabled = true
+    }
+    
+    func longPressedNavigationBar(sender: UIGestureRecognizer) {
+        if sender.state != .Began {
+            return
+        }
+        // set default rectangle in case we can't find back button
+        var rect = CGRect(x: 0, y: 0, width: 100, height: 40)
+        
+        //iterate through subviews looking for something where the back button should be
+        for subview in self.navigationController!.navigationBar.subviews {
+            if subview.frame.origin.x < 30 && subview.frame.width < self.navigationController!.navigationBar.frame.width/2 {
+                rect = subview.frame
+                break
+            }
+        }
+        
+        // get long press location
+        let longPressPoint = sender.locationInView(self.navigationController!.navigationBar)
+        
+        if rect.contains(longPressPoint) {
+            self.longPressedBackButton(rect)
+        }
+    }
+    
+    func longPressedBackButton(backButtonRect: CGRect) {
+        let navigationHistoryViewController = NavigationHistoryTableViewController()
+        navigationHistoryViewController.sourceNavigationController = self.navigationController!
+        navigationHistoryViewController.modalPresentationStyle = .Popover
+        navigationHistoryViewController.popoverPresentationController!.sourceRect = backButtonRect
+        navigationHistoryViewController.popoverPresentationController!.sourceView = self.navigationController!.navigationBar
+        navigationHistoryViewController.popoverPresentationController!.delegate = self.navigationController! as! MasterNavigationController
+        self.navigationController?.presentViewController(navigationHistoryViewController, animated: true, completion: nil)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        longPressBackButtonGestureRecognizer.enabled = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -148,6 +193,4 @@ class FileBrowserTableViewController: UITableViewController {
         return true
     }
     */
-
-    
 }
