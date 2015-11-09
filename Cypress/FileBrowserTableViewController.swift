@@ -10,7 +10,7 @@ import UIKit
 
 class FileBrowserTableViewController: UITableViewController {
     
-    var directory: NSURL!
+    var directory: NSURL?
     
     var files = [NSURL]()
     
@@ -20,8 +20,41 @@ class FileBrowserTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Create long-press view and gesture recognizer
+        longPressBackButtonGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "longPressedNavigationBar:")
+        self.navigationController!.navigationBar.addGestureRecognizer(longPressBackButtonGestureRecognizer)
+        longPressBackButtonGestureRecognizer.enabled = true
         
-        let contents = try! NSFileManager.defaultManager().contentsOfDirectoryAtURL(directory, includingPropertiesForKeys: nil, options: .SkipsHiddenFiles)
+        if directory == nil {
+            resetDirectory()
+        }
+        else {
+            self.populateDataFromDirectory()
+        }
+        
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    func resetDirectory() {
+        if let activeRepo = AppState.sharedAppState.activeRepository {
+            directory = NSURL(fileURLWithPath: activeRepo.repository.workingDirectoryPath, isDirectory: true)
+            files = []
+            directories = []
+            self.populateDataFromDirectory()
+        }
+        else {
+            self.performSegueWithIdentifier("showRepositoryListSegue", sender: self)
+            files = []
+            directories = []
+        }
+    }
+    
+    func populateDataFromDirectory() {
+        let contents = try! NSFileManager.defaultManager().contentsOfDirectoryAtURL(directory!, includingPropertiesForKeys: nil, options: .SkipsHiddenFiles)
         for item: NSURL in contents {
             var isDirectory: ObjCBool = ObjCBool(false)
             NSFileManager.defaultManager().fileExistsAtPath(item.path!, isDirectory: &isDirectory)
@@ -32,21 +65,7 @@ class FileBrowserTableViewController: UITableViewController {
                 files.append(item)
             }
         }
-        
-        self.navigationItem.title = directory.lastPathComponent
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        // Create long-press view and gesture recognizer
-        longPressBackButtonGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "longPressedNavigationBar:")
-        self.navigationController!.navigationBar.addGestureRecognizer(longPressBackButtonGestureRecognizer)
-        longPressBackButtonGestureRecognizer.enabled = true
+        self.navigationItem.title = directory!.lastPathComponent
     }
     
     func longPressedNavigationBar(sender: UIGestureRecognizer) {

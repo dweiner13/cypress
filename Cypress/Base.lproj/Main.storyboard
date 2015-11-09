@@ -5,6 +5,23 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="SjF-Dg-HOd">
+            <objects>
+                <navigationController id="2of-i2-o20" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gH4-xH-rig">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="AWU-8d-hjs" kind="relationship" relationship="rootViewController" id="hug-bn-rrT"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yJr-j6-8YK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1548" y="172"/>
+        </scene>
         <!--Repositories-->
         <scene sceneID="X6b-oU-yOU">
             <objects>
@@ -19,22 +36,19 @@
                             <outlet property="delegate" destination="AWU-8d-hjs" id="vdF-gr-ZwR"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Repositories" id="hev-Te-Jrf">
+                    <navigationItem key="navigationItem" title="Repositories" prompt="Select a Git repository to open" id="hev-Te-Jrf">
                         <barButtonItem key="leftBarButtonItem" systemItem="add" id="6od-h1-LfL">
                             <connections>
                                 <action selector="tappedAddButton:" destination="AWU-8d-hjs" id="PXb-wf-qgo"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <segue destination="lIP-rW-KyW" kind="show" identifier="showRepositorySegue" id="NGc-tg-lIW"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eJm-MS-8CC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="685" y="872"/>
+            <point key="canvasLocation" x="2242" y="172"/>
         </scene>
-        <!--File Browser Table View Controller-->
+        <!--Title-->
         <scene sceneID="Met-ii-CbE">
             <objects>
                 <tableViewController storyboardIdentifier="fileBrowser" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lIP-rW-KyW" customClass="FileBrowserTableViewController" customModule="Cypress" customModuleProvider="target" sceneMemberID="viewController">
@@ -71,10 +85,17 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Title" id="c5d-5x-sQs">
+                        <barButtonItem key="rightBarButtonItem" title="Repositories" id="RtV-Xa-JWH">
+                            <connections>
+                                <segue destination="2of-i2-o20" kind="presentation" identifier="showRepositoryListSegue" modalPresentationStyle="formSheet" id="D70-86-F9w"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="som-uK-TRE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1427" y="872"/>
+            <point key="canvasLocation" x="691" y="872"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="HvN-5R-q62">
@@ -173,7 +194,7 @@
                         <animations/>
                     </toolbar>
                     <connections>
-                        <segue destination="AWU-8d-hjs" kind="relationship" relationship="rootViewController" id="GGj-bP-g0D"/>
+                        <segue destination="lIP-rW-KyW" kind="relationship" relationship="rootViewController" id="idh-9h-mXJ"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FUe-iH-aP3" userLabel="First Responder" sceneMemberID="firstResponder"/>

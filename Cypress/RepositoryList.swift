@@ -53,6 +53,15 @@ class RepositoryList {
         return nil
     }
     
+    func repositoryWithName(name: String) -> (repo: Repository, indexInArray: Int)? {
+        for var i = 0; i < list.count; i++ {
+            if list[i].name == name {
+                return (list[i], i)
+            }
+        }
+        return nil
+    }
+    
     func deleteRepository(repo: Repository) {
         repo.delete()
         for var i = 0; i < list.count; i++ {

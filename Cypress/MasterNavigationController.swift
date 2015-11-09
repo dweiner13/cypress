@@ -16,6 +16,15 @@ class MasterNavigationController: UINavigationController, UIPopoverPresentationC
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        NSNotificationCenter.defaultCenter().addObserverForName(AppState.Notification.activeRepositoryChanged.rawValue, object: nil, queue: nil, usingBlock: {
+            _ in
+            self.popToRootViewControllerAnimated(false)
+            let rootViewController = self.viewControllers[0] as! FileBrowserTableViewController
+            rootViewController.resetDirectory()
+            rootViewController.tableView.reloadData()
+        })
     }
     
     func addProgressViewAndTextLabel() {

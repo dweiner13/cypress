@@ -102,7 +102,6 @@ class RepositoryTableViewController: UITableViewController, GCRepositoryDelegate
     
     // MARK: - GCRepositoryDelegate
     func repository(repository: GCRepository!, willStartTransferWithURL url: NSURL!) {
-//        (self.navigationController! as! MasterNavigationController).startAction(withMessage: "Cloning from \(url.host!)")
         let indexOfRepository = repositoryList.repositoryWithGCRepository(repository)!.indexInArray
         let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: indexOfRepository, inSection: 0)) as! ProgressTableViewCell
         cell.startProgress()
@@ -112,14 +111,12 @@ class RepositoryTableViewController: UITableViewController, GCRepositoryDelegate
         let indexOfRepository = repositoryList.repositoryWithGCRepository(repository)!.indexInArray
         let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: indexOfRepository, inSection: 0)) as! ProgressTableViewCell
         cell.updateProgress(progress)
-//        (self.navigationController! as! MasterNavigationController).updateActionProgress(progress, transferredBytes: Int(bytes))
     }
     
     func repository(repository: GCRepository!, didFinishTransferWithURL url: NSURL!, success: Bool) {
         let indexOfRepository = repositoryList.repositoryWithGCRepository(repository)!.indexInArray
         let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: indexOfRepository, inSection: 0)) as! ProgressTableViewCell
         cell.stopProgress()
-//        (self.navigationController! as! MasterNavigationController).finishAction()
     }
 
     // MARK: - Table view data source
@@ -145,7 +142,8 @@ class RepositoryTableViewController: UITableViewController, GCRepositoryDelegate
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        performSegueWithIdentifier("showRepositorySegue", sender: self.repositoryList.array[indexPath.row])
+        self.presentingViewController!.dismissViewControllerAnimated(true, completion: nil)
+        AppState.sharedAppState.activeRepository = self.repositoryList.array[indexPath.row]
     }
 
     // Override to support conditional editing of the table view.
