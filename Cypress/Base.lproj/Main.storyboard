@@ -36,10 +36,15 @@
                             <outlet property="delegate" destination="AWU-8d-hjs" id="vdF-gr-ZwR"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Repositories" prompt="Select a Git repository to open" id="hev-Te-Jrf">
+                    <navigationItem key="navigationItem" title="Repositories" prompt="Select a Git repository to open, or create a new one" id="hev-Te-Jrf">
                         <barButtonItem key="leftBarButtonItem" systemItem="add" id="6od-h1-LfL">
                             <connections>
                                 <action selector="tappedAddButton:" destination="AWU-8d-hjs" id="PXb-wf-qgo"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="ThY-7M-lQW">
+                            <connections>
+                                <action selector="tappedCancelButton:" destination="AWU-8d-hjs" id="HSC-gy-TiY"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

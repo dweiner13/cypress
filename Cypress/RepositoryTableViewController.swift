@@ -60,6 +60,10 @@ class RepositoryTableViewController: UITableViewController, GCRepositoryDelegate
         })
     }
     
+    @IBAction func tappedCancelButton(sender: UIBarButtonItem) {
+        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     func tappedAddNewRepositoryAction() {
         showTextInputPrompt("New Repository", message: "Enter the name for the new repository", handler: {
             self.confirmedAddNewRepositoryWithName($0)
