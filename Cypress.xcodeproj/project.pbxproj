@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E00FE2791BF014CC00BBC45A /* CypressTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00FE2781BF014CC00BBC45A /* CypressTabBarViewController.swift */; };
 		E0363E601BEDA1F800C8584F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0363E5F1BEDA1F800C8584F /* DetailViewController.swift */; };
 		E0363E651BEE5BBB00C8584F /* MasterNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0363E641BEE5BBB00C8584F /* MasterNavigationController.swift */; };
 		E0954D1B1BED713F00649A5E /* RepositoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0954D1A1BED713F00649A5E /* RepositoryTableViewController.swift */; };
@@ -87,6 +88,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E00FE2781BF014CC00BBC45A /* CypressTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CypressTabBarViewController.swift; sourceTree = "<group>"; };
 		E0363E5F1BEDA1F800C8584F /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		E0363E641BEE5BBB00C8584F /* MasterNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterNavigationController.swift; sourceTree = "<group>"; };
 		E0954D1A1BED713F00649A5E /* RepositoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryTableViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				E0C713151BEEC8CD008595B9 /* ProgressTableViewCell.xib */,
 				E0E5D8261BEFAD220010A976 /* FileBrowserTableViewController.swift */,
 				E0E5D82A1BEFE76F0010A976 /* NavigationHistoryTableViewController.swift */,
+				E00FE2781BF014CC00BBC45A /* CypressTabBarViewController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 			files = (
 				E0C713161BEEC8CD008595B9 /* ProgressTableViewCell.swift in Sources */,
 				E0954D1B1BED713F00649A5E /* RepositoryTableViewController.swift in Sources */,
+				E00FE2791BF014CC00BBC45A /* CypressTabBarViewController.swift in Sources */,
 				E0954D211BED725E00649A5E /* Repository.swift in Sources */,
 				E0DEAF561BE685840018EA8B /* AppDelegate.swift in Sources */,
 				E0954D1F1BED718B00649A5E /* RepositoryList.swift in Sources */,
