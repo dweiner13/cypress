@@ -14,11 +14,12 @@ private let repositoryListCellIdentifier = "progressCell"
 class RepositoryTableViewController: UITableViewController, GCRepositoryDelegate {
     
     var repositoryList = RepositoryList.sharedRepositoryList
+    
+    // memory leak?
+    var selectedRepositoryCell: UITableViewCell?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        (self.navigationController! as! MasterNavigationController).addProgressViewAndTextLabel()
         
         self.tableView.registerNib(UINib(nibName: "ProgressTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "progressCell")
     }
@@ -140,14 +141,31 @@ class RepositoryTableViewController: UITableViewController, GCRepositoryDelegate
         // Configure the cell...
         let repo = repositoryList.array[indexPath.row]
         cell.mainLabel!.text = repo.name
+        if repo == AppState.sharedAppState.activeRepository {
+            selectedRepositoryCell = cell
+            cell.accessoryType = .Checkmark
+            cell.mainLabel!.enabled = false
+        }
 
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        cell?.accessoryType = .Checkmark
+        selectedRepositoryCell?.accessoryType = .None
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         self.presentingViewController!.dismissViewControllerAnimated(true, completion: nil)
         AppState.sharedAppState.activeRepository = self.repositoryList.array[indexPath.row]
+    }
+    
+    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        if tableView.cellForRowAtIndexPath(indexPath)!.textLabel!.enabled {
+            return indexPath
+        }
+        else {
+            return nil
+        }
     }
 
     // Override to support conditional editing of the table view.
