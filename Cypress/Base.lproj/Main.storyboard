@@ -10,6 +10,8 @@
         <scene sceneID="SjF-Dg-HOd">
             <objects>
                 <navigationController id="2of-i2-o20" sceneMemberID="viewController">
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="400" height="400"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="gH4-xH-rig">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -28,7 +30,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="repositoryTableViewController" title="Repositories" useStoryboardIdentifierAsRestorationIdentifier="YES" id="AWU-8d-hjs" customClass="RepositoryTableViewController" customModule="Cypress" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="repositoryListTableView" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="9YG-3Z-Sjz">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -106,10 +108,10 @@
             </objects>
             <point key="canvasLocation" x="691" y="872"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Cypress Navigation Controller-->
         <scene sceneID="9kh-4k-1Yr">
             <objects>
-                <navigationController storyboardIdentifier="detailNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Mzv-ox-OfI" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="detailNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Mzv-ox-OfI" customClass="CypressNavigationController" customModule="Cypress" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="VjL-am-xHR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -161,7 +163,15 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="XFI-wQ-Xep"/>
+                    <navigationItem key="navigationItem" id="XFI-wQ-Xep">
+                        <barButtonItem key="rightBarButtonItem" title="Aa" id="Hi5-vD-S0d">
+                            <connections>
+                                <segue destination="DPA-uA-Fmr" kind="popoverPresentation" identifier="showFileContentsConfig" popoverAnchorBarButtonItem="Hi5-vD-S0d" id="COp-Cp-gdD">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="contentsTextView" destination="q2B-gw-kFQ" id="NyB-Cm-nzG"/>
                     </connections>
@@ -169,6 +179,93 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uci-Us-dPN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="691" y="1649"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="eUR-gc-bPD">
+            <objects>
+                <navigationController id="DPA-uA-Fmr" sceneMemberID="viewController">
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="400" height="400"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="i2M-Xl-zYR">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Gxf-Og-YGG" kind="relationship" relationship="rootViewController" id="q5R-zr-jnm"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i9C-Ew-x1W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1400" y="1649"/>
+        </scene>
+        <!--Editor settings-->
+        <scene sceneID="WFw-81-aqs">
+            <objects>
+                <tableViewController id="Gxf-Og-YGG" customClass="FileContentsConfigViewController" customModule="Cypress" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ZNf-lc-IQL">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection id="0Y9-c6-zMx">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="switchCell" id="K9N-Ss-qb3" customClass="SwitchTableViewCell" customModule="Cypress" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="64" width="400" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="K9N-Ss-qb3" id="opO-Ep-sTD">
+                                            <rect key="frame" x="0.0" y="0.0" width="400" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wan-CD-7oI">
+                                                    <rect key="frame" x="343" y="6.5" width="51" height="31"/>
+                                                    <animations/>
+                                                    <connections>
+                                                        <action selector="WordWrapValueChanged:" destination="Gxf-Og-YGG" eventType="valueChanged" id="Wiy-wM-Iht"/>
+                                                    </connections>
+                                                </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Word wrap" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lzN-13-h17">
+                                                    <rect key="frame" x="16" y="11" width="319" height="21"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstItem="lzN-13-h17" firstAttribute="leading" secondItem="opO-Ep-sTD" secondAttribute="leadingMargin" constant="8" id="FQD-o1-vQZ"/>
+                                                <constraint firstItem="Wan-CD-7oI" firstAttribute="leading" secondItem="lzN-13-h17" secondAttribute="trailing" constant="8" id="VCN-Nf-ucV"/>
+                                                <constraint firstItem="Wan-CD-7oI" firstAttribute="centerY" secondItem="opO-Ep-sTD" secondAttribute="centerY" id="aWq-5Z-qst"/>
+                                                <constraint firstItem="lzN-13-h17" firstAttribute="centerY" secondItem="opO-Ep-sTD" secondAttribute="centerY" id="jBX-iU-iif"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Wan-CD-7oI" secondAttribute="trailing" id="tpo-br-fbf"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                        <connections>
+                                            <outlet property="mainLabel" destination="lzN-13-h17" id="JCF-c4-k4b"/>
+                                            <outlet property="mainSwitch" destination="Wan-CD-7oI" id="WQ4-GZ-r7l"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="Gxf-Og-YGG" id="wg7-lj-CWF"/>
+                            <outlet property="delegate" destination="Gxf-Og-YGG" id="LE6-tc-PYF"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Editor settings" id="EHU-L6-0Sd"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="400" height="400"/>
+                    <connections>
+                        <outlet property="wordWrapSwitch" destination="Wan-CD-7oI" id="Y3M-0Y-1C6"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="THE-Hx-EAL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1976" y="1649"/>
         </scene>
         <!--Cypress Tab Bar View Controller-->
         <scene sceneID="RbK-3c-yBq">

@@ -11,19 +11,22 @@ import UIKit
 private let _singletonSharedInstance = AppState()
 
 class AppState {
+    static var sharedAppState: AppState {
+        return _singletonSharedInstance
+    }
+    
     enum Notification: String {
         case activeRepositoryChanged = "appStateActiveRepositoryChanged"
+        case fileContentsViewSettingsChanged = "fileContentsViewSettingsChanged"
     }
+    
+    // State variables
     
     var activeRepository: Repository? {
         didSet {
             NSNotificationCenter.defaultCenter().postNotificationName("appStateActiveRepositoryChanged", object: self)
             save()
         }
-    }
-    
-    static var sharedAppState: AppState {
-        return _singletonSharedInstance
     }
     
     init() {

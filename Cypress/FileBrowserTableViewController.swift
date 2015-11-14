@@ -38,12 +38,6 @@ class FileBrowserTableViewController: UITableViewController {
             let controllers = split.viewControllers
             self.fileContentsViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? FileContentsViewController
         }
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -111,7 +105,7 @@ class FileBrowserTableViewController: UITableViewController {
         navigationHistoryViewController.modalPresentationStyle = .Popover
         navigationHistoryViewController.popoverPresentationController!.sourceRect = backButtonRect
         navigationHistoryViewController.popoverPresentationController!.sourceView = self.navigationController!.navigationBar
-        navigationHistoryViewController.popoverPresentationController!.delegate = self.navigationController! as! MasterNavigationController
+        navigationHistoryViewController.popoverPresentationController!.delegate = self.navigationController! as! CypressNavigationController
         self.navigationController?.presentViewController(navigationHistoryViewController, animated: true, completion: nil)
     }
     
@@ -194,41 +188,6 @@ class FileBrowserTableViewController: UITableViewController {
             self.performSegueWithIdentifier("showFileContents", sender: self)
         }
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
     
     // MARK: - Navigation
     
@@ -244,6 +203,7 @@ class FileBrowserTableViewController: UITableViewController {
                 controller.detailItem = url
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true
+                controller.fileContentsViewSettings = FileContentsViewSettings.sharedFileContentsViewSettings
             }
         }
     }

@@ -11,6 +11,11 @@
 		E00FE27B1BF0223400BBC45A /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00FE27A1BF0223400BBC45A /* AppState.swift */; };
 		E0363E601BEDA1F800C8584F /* FileContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */; };
 		E0363E651BEE5BBB00C8584F /* MasterNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0363E641BEE5BBB00C8584F /* MasterNavigationController.swift */; };
+		E06EB6B21BF7D5500035D2E6 /* FileContentsConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06EB6B11BF7D5500035D2E6 /* FileContentsConfigViewController.swift */; };
+		E06EB6B71BF7D6F70035D2E6 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06EB6B51BF7D6F70035D2E6 /* SwitchTableViewCell.swift */; };
+		E06EB6B81BF7D6F70035D2E6 /* SwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E06EB6B61BF7D6F70035D2E6 /* SwitchTableViewCell.xib */; };
+		E06EB6BD1BF7DBA30035D2E6 /* FileContentsViewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06EB6BC1BF7DBA30035D2E6 /* FileContentsViewSettings.swift */; };
+		E06EB6C11BF7E3990035D2E6 /* CypressNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06EB6C01BF7E3990035D2E6 /* CypressNavigationController.swift */; };
 		E0954D1B1BED713F00649A5E /* RepositoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0954D1A1BED713F00649A5E /* RepositoryTableViewController.swift */; };
 		E0954D1F1BED718B00649A5E /* RepositoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0954D1E1BED718B00649A5E /* RepositoryList.swift */; };
 		E0954D211BED725E00649A5E /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0954D201BED725E00649A5E /* Repository.swift */; };
@@ -93,6 +98,11 @@
 		E00FE27A1BF0223400BBC45A /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileContentsViewController.swift; sourceTree = "<group>"; };
 		E0363E641BEE5BBB00C8584F /* MasterNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterNavigationController.swift; sourceTree = "<group>"; };
+		E06EB6B11BF7D5500035D2E6 /* FileContentsConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileContentsConfigViewController.swift; sourceTree = "<group>"; };
+		E06EB6B51BF7D6F70035D2E6 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
+		E06EB6B61BF7D6F70035D2E6 /* SwitchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwitchTableViewCell.xib; sourceTree = "<group>"; };
+		E06EB6BC1BF7DBA30035D2E6 /* FileContentsViewSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileContentsViewSettings.swift; sourceTree = "<group>"; };
+		E06EB6C01BF7E3990035D2E6 /* CypressNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CypressNavigationController.swift; sourceTree = "<group>"; };
 		E0954D1A1BED713F00649A5E /* RepositoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryTableViewController.swift; sourceTree = "<group>"; };
 		E0954D1E1BED718B00649A5E /* RepositoryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryList.swift; sourceTree = "<group>"; };
 		E0954D201BED725E00649A5E /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
@@ -145,12 +155,31 @@
 		E020529D1BF7C997003BD3A0 /* Files tab */ = {
 			isa = PBXGroup;
 			children = (
-				E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */,
 				E0363E641BEE5BBB00C8584F /* MasterNavigationController.swift */,
 				E0E5D8261BEFAD220010A976 /* FileBrowserTableViewController.swift */,
 				E0E5D82A1BEFE76F0010A976 /* NavigationHistoryTableViewController.swift */,
+				E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */,
+				E06EB6B11BF7D5500035D2E6 /* FileContentsConfigViewController.swift */,
 			);
 			name = "Files tab";
+			sourceTree = "<group>";
+		};
+		E06EB6B91BF7D7000035D2E6 /* Progress cell */ = {
+			isa = PBXGroup;
+			children = (
+				E0C713141BEEC8CD008595B9 /* ProgressTableViewCell.swift */,
+				E0C713151BEEC8CD008595B9 /* ProgressTableViewCell.xib */,
+			);
+			name = "Progress cell";
+			sourceTree = "<group>";
+		};
+		E06EB6BB1BF7D7110035D2E6 /* Switch cell */ = {
+			isa = PBXGroup;
+			children = (
+				E06EB6B51BF7D6F70035D2E6 /* SwitchTableViewCell.swift */,
+				E06EB6B61BF7D6F70035D2E6 /* SwitchTableViewCell.xib */,
+			);
+			name = "Switch cell";
 			sourceTree = "<group>";
 		};
 		E0954D241BED8A2100649A5E /* View */ = {
@@ -158,9 +187,10 @@
 			children = (
 				E020529D1BF7C997003BD3A0 /* Files tab */,
 				E0954D1A1BED713F00649A5E /* RepositoryTableViewController.swift */,
-				E0C713141BEEC8CD008595B9 /* ProgressTableViewCell.swift */,
-				E0C713151BEEC8CD008595B9 /* ProgressTableViewCell.xib */,
+				E06EB6C01BF7E3990035D2E6 /* CypressNavigationController.swift */,
+				E06EB6B91BF7D7000035D2E6 /* Progress cell */,
 				E00FE2781BF014CC00BBC45A /* CypressTabBarViewController.swift */,
+				E06EB6BB1BF7D7110035D2E6 /* Switch cell */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -172,6 +202,7 @@
 				E0954D201BED725E00649A5E /* Repository.swift */,
 				E0954D1E1BED718B00649A5E /* RepositoryList.swift */,
 				E00FE27A1BF0223400BBC45A /* AppState.swift */,
+				E06EB6BC1BF7DBA30035D2E6 /* FileContentsViewSettings.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -379,6 +410,7 @@
 				E0DEAF5D1BE685840018EA8B /* Assets.xcassets in Resources */,
 				E0DEAF5B1BE685840018EA8B /* Main.storyboard in Resources */,
 				E0C713171BEEC8CD008595B9 /* ProgressTableViewCell.xib in Resources */,
+				E06EB6B81BF7D6F70035D2E6 /* SwitchTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,11 +438,15 @@
 				E0C713161BEEC8CD008595B9 /* ProgressTableViewCell.swift in Sources */,
 				E0954D1B1BED713F00649A5E /* RepositoryTableViewController.swift in Sources */,
 				E00FE2791BF014CC00BBC45A /* CypressTabBarViewController.swift in Sources */,
+				E06EB6BD1BF7DBA30035D2E6 /* FileContentsViewSettings.swift in Sources */,
+				E06EB6B71BF7D6F70035D2E6 /* SwitchTableViewCell.swift in Sources */,
+				E06EB6B21BF7D5500035D2E6 /* FileContentsConfigViewController.swift in Sources */,
 				E00FE27B1BF0223400BBC45A /* AppState.swift in Sources */,
 				E0954D211BED725E00649A5E /* Repository.swift in Sources */,
 				E0DEAF561BE685840018EA8B /* AppDelegate.swift in Sources */,
 				E0954D1F1BED718B00649A5E /* RepositoryList.swift in Sources */,
 				E0E5D8271BEFAD220010A976 /* FileBrowserTableViewController.swift in Sources */,
+				E06EB6C11BF7E3990035D2E6 /* CypressNavigationController.swift in Sources */,
 				E0E5D82C1BEFE76F0010A976 /* NavigationHistoryTableViewController.swift in Sources */,
 				E0954D231BED74D200649A5E /* CypressFunctions.swift in Sources */,
 				E0363E651BEE5BBB00C8584F /* MasterNavigationController.swift in Sources */,
