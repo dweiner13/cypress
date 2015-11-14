@@ -17,6 +17,8 @@ class FileBrowserTableViewController: UITableViewController {
     var directories = [NSURL]()
     
     var longPressBackButtonGestureRecognizer: UILongPressGestureRecognizer!
+    
+    var fileContentsViewController: FileContentsViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,11 +34,23 @@ class FileBrowserTableViewController: UITableViewController {
             self.populateDataFromDirectory()
         }
         
+        if let split = self.splitViewController {
+            let controllers = split.viewControllers
+            self.fileContentsViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? FileContentsViewController
+        }
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        
+        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
+        
+        super.viewWillAppear(animated)
     }
     
     func resetDirectory() {
@@ -176,6 +190,9 @@ class FileBrowserTableViewController: UITableViewController {
             newFileBrowser.directory = directories[indexPath.row]
             self.navigationController!.showViewController(newFileBrowser, sender: directories[indexPath.row])
         }
+        else {
+            self.performSegueWithIdentifier("showFileContents", sender: self)
+        }
     }
 
     /*
@@ -212,4 +229,22 @@ class FileBrowserTableViewController: UITableViewController {
         return true
     }
     */
+    
+    // MARK: - Navigation
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showFileContents" {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
+                let url: NSURL?
+                // doesn't check if selected row is in directories or files section but doesn't matter
+                // because this segue will only be performed if selected row is in files section
+                url = files[indexPath.row]
+                
+                let controller = (segue.destinationViewController as! UINavigationController).topViewController as! FileContentsViewController
+                controller.detailItem = url
+                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+                controller.navigationItem.leftItemsSupplementBackButton = true
+            }
+        }
+    }
 }

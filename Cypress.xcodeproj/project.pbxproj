@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		E00FE2791BF014CC00BBC45A /* CypressTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00FE2781BF014CC00BBC45A /* CypressTabBarViewController.swift */; };
 		E00FE27B1BF0223400BBC45A /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00FE27A1BF0223400BBC45A /* AppState.swift */; };
-		E0363E601BEDA1F800C8584F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0363E5F1BEDA1F800C8584F /* DetailViewController.swift */; };
+		E0363E601BEDA1F800C8584F /* FileContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */; };
 		E0363E651BEE5BBB00C8584F /* MasterNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0363E641BEE5BBB00C8584F /* MasterNavigationController.swift */; };
 		E0954D1B1BED713F00649A5E /* RepositoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0954D1A1BED713F00649A5E /* RepositoryTableViewController.swift */; };
 		E0954D1F1BED718B00649A5E /* RepositoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0954D1E1BED718B00649A5E /* RepositoryList.swift */; };
@@ -91,7 +91,7 @@
 /* Begin PBXFileReference section */
 		E00FE2781BF014CC00BBC45A /* CypressTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CypressTabBarViewController.swift; sourceTree = "<group>"; };
 		E00FE27A1BF0223400BBC45A /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
-		E0363E5F1BEDA1F800C8584F /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileContentsViewController.swift; sourceTree = "<group>"; };
 		E0363E641BEE5BBB00C8584F /* MasterNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterNavigationController.swift; sourceTree = "<group>"; };
 		E0954D1A1BED713F00649A5E /* RepositoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryTableViewController.swift; sourceTree = "<group>"; };
 		E0954D1E1BED718B00649A5E /* RepositoryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryList.swift; sourceTree = "<group>"; };
@@ -142,16 +142,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E020529D1BF7C997003BD3A0 /* Files tab */ = {
+			isa = PBXGroup;
+			children = (
+				E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */,
+				E0363E641BEE5BBB00C8584F /* MasterNavigationController.swift */,
+				E0E5D8261BEFAD220010A976 /* FileBrowserTableViewController.swift */,
+				E0E5D82A1BEFE76F0010A976 /* NavigationHistoryTableViewController.swift */,
+			);
+			name = "Files tab";
+			sourceTree = "<group>";
+		};
 		E0954D241BED8A2100649A5E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E020529D1BF7C997003BD3A0 /* Files tab */,
 				E0954D1A1BED713F00649A5E /* RepositoryTableViewController.swift */,
-				E0363E5F1BEDA1F800C8584F /* DetailViewController.swift */,
-				E0363E641BEE5BBB00C8584F /* MasterNavigationController.swift */,
 				E0C713141BEEC8CD008595B9 /* ProgressTableViewCell.swift */,
 				E0C713151BEEC8CD008595B9 /* ProgressTableViewCell.xib */,
-				E0E5D8261BEFAD220010A976 /* FileBrowserTableViewController.swift */,
-				E0E5D82A1BEFE76F0010A976 /* NavigationHistoryTableViewController.swift */,
 				E00FE2781BF014CC00BBC45A /* CypressTabBarViewController.swift */,
 			);
 			name = View;
@@ -406,7 +414,7 @@
 				E0E5D82C1BEFE76F0010A976 /* NavigationHistoryTableViewController.swift in Sources */,
 				E0954D231BED74D200649A5E /* CypressFunctions.swift in Sources */,
 				E0363E651BEE5BBB00C8584F /* MasterNavigationController.swift in Sources */,
-				E0363E601BEDA1F800C8584F /* DetailViewController.swift in Sources */,
+				E0363E601BEDA1F800C8584F /* FileContentsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
