@@ -26,9 +26,8 @@ extension UIViewController {
             (action: UIAlertAction) -> Void in
             self.dismissViewControllerAnimated(true, completion: nil)
         })
-        alertController.preferredAction = okayAction
-        
         alertController.addAction(okayAction)
+        alertController.preferredAction = okayAction
         
         self.presentViewController(alertController, animated: true, completion: nil)
     }
