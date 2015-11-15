@@ -21,13 +21,17 @@ class MasterNavigationController: CypressNavigationController {
             _ in
             self.popToRootViewControllerAnimated(false)
             let rootViewController = self.viewControllers[0] as! FileBrowserTableViewController
-            rootViewController.resetDirectory()
+            rootViewController.directoryContents = DirectoryContents(directoryURL: nil)
             rootViewController.tableView.reloadData()
         })
+        
+        if let root = topViewController as? FileBrowserTableViewController {
+            root.directoryContents = DirectoryContents(directoryURL: nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning	()
+        super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 

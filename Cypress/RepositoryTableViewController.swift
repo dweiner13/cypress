@@ -192,7 +192,7 @@ class RepositoryTableViewController: UITableViewController, GCRepositoryDelegate
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let repo = sender as! Repository
         let destinationViewController = segue.destinationViewController as! FileBrowserTableViewController
-        destinationViewController.directory = NSURL(fileURLWithPath: repo.repository.workingDirectoryPath, isDirectory: true)
+        destinationViewController.directoryContents = DirectoryContents(directoryURL: NSURL(fileURLWithPath: repo.repository.workingDirectoryPath, isDirectory: true))
     }
 
 }

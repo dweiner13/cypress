@@ -25,6 +25,7 @@
 		E0A7751E1BE691EF0021EE34 /* GitUpKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E0A775131BE68FB20021EE34 /* GitUpKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E0C713161BEEC8CD008595B9 /* ProgressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C713141BEEC8CD008595B9 /* ProgressTableViewCell.swift */; };
 		E0C713171BEEC8CD008595B9 /* ProgressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E0C713151BEEC8CD008595B9 /* ProgressTableViewCell.xib */; };
+		E0D2078C1BF85A3A000B54D1 /* DirectoryContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D2078B1BF85A3A000B54D1 /* DirectoryContents.swift */; };
 		E0DEAF561BE685840018EA8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DEAF551BE685840018EA8B /* AppDelegate.swift */; };
 		E0DEAF5B1BE685840018EA8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0DEAF591BE685840018EA8B /* Main.storyboard */; };
 		E0DEAF5D1BE685840018EA8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0DEAF5C1BE685840018EA8B /* Assets.xcassets */; };
@@ -112,6 +113,7 @@
 		E0A775091BE68FB20021EE34 /* GitUpKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GitUpKit.xcodeproj; path = GitUp/GitUpKit/GitUpKit.xcodeproj; sourceTree = "<group>"; };
 		E0C713141BEEC8CD008595B9 /* ProgressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressTableViewCell.swift; sourceTree = "<group>"; };
 		E0C713151BEEC8CD008595B9 /* ProgressTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProgressTableViewCell.xib; sourceTree = "<group>"; };
+		E0D2078B1BF85A3A000B54D1 /* DirectoryContents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectoryContents.swift; sourceTree = "<group>"; };
 		E0DEAF521BE685840018EA8B /* Cypress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cypress.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0DEAF551BE685840018EA8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0DEAF5A1BE685840018EA8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -157,11 +159,8 @@
 		E020529D1BF7C997003BD3A0 /* Files tab */ = {
 			isa = PBXGroup;
 			children = (
-				E0363E641BEE5BBB00C8584F /* MasterNavigationController.swift */,
-				E0E5D8261BEFAD220010A976 /* FileBrowserTableViewController.swift */,
-				E0E5D82A1BEFE76F0010A976 /* NavigationHistoryTableViewController.swift */,
-				E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */,
-				E06EB6B11BF7D5500035D2E6 /* FileContentsConfigViewController.swift */,
+				E0954D241BED8A2100649A5E /* View */,
+				E0D2078F1BF86165000B54D1 /* Data */,
 			);
 			name = "Files tab";
 			sourceTree = "<group>";
@@ -187,27 +186,26 @@
 		E0954D241BED8A2100649A5E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E020529D1BF7C997003BD3A0 /* Files tab */,
-				E0954D1A1BED713F00649A5E /* RepositoryTableViewController.swift */,
-				E06EB6C01BF7E3990035D2E6 /* CypressNavigationController.swift */,
-				E06EB6B91BF7D7000035D2E6 /* Progress cell */,
-				E00FE2781BF014CC00BBC45A /* CypressTabBarViewController.swift */,
-				E06EB6BB1BF7D7110035D2E6 /* Switch cell */,
+				E0363E641BEE5BBB00C8584F /* MasterNavigationController.swift */,
+				E0E5D8261BEFAD220010A976 /* FileBrowserTableViewController.swift */,
+				E0E5D82A1BEFE76F0010A976 /* NavigationHistoryTableViewController.swift */,
+				E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */,
+				E06EB6B11BF7D5500035D2E6 /* FileContentsConfigViewController.swift */,
+				E0D2078B1BF85A3A000B54D1 /* DirectoryContents.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
 		};
-		E0954D251BED8A2E00649A5E /* Model */ = {
+		E0954D251BED8A2E00649A5E /* App */ = {
 			isa = PBXGroup;
 			children = (
 				E0954D221BED74D200649A5E /* CypressFunctions.swift */,
-				E0954D201BED725E00649A5E /* Repository.swift */,
-				E0954D1E1BED718B00649A5E /* RepositoryList.swift */,
 				E00FE27A1BF0223400BBC45A /* AppState.swift */,
-				E06EB6BC1BF7DBA30035D2E6 /* FileContentsViewSettings.swift */,
-				E06EB6C21BF7EEF20035D2E6 /* OpenFile.swift */,
+				E06EB6C01BF7E3990035D2E6 /* CypressNavigationController.swift */,
+				E00FE2781BF014CC00BBC45A /* CypressTabBarViewController.swift */,
+				E0DEAF551BE685840018EA8B /* AppDelegate.swift */,
 			);
-			name = Model;
+			name = App;
 			sourceTree = "<group>";
 		};
 		E0A7750A1BE68FB20021EE34 /* Products */ = {
@@ -218,6 +216,42 @@
 				E0A775151BE68FB20021EE34 /* GitUpTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		E0D2078F1BF86165000B54D1 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E06EB6C21BF7EEF20035D2E6 /* OpenFile.swift */,
+				E06EB6BC1BF7DBA30035D2E6 /* FileContentsViewSettings.swift */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		E0D207911BF861C9000B54D1 /* Repository list */ = {
+			isa = PBXGroup;
+			children = (
+				E0D207931BF861FC000B54D1 /* Data */,
+				E0D207921BF861FA000B54D1 /* View */,
+			);
+			name = "Repository list";
+			sourceTree = "<group>";
+		};
+		E0D207921BF861FA000B54D1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E0954D1A1BED713F00649A5E /* RepositoryTableViewController.swift */,
+				E06EB6B91BF7D7000035D2E6 /* Progress cell */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		E0D207931BF861FC000B54D1 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E0954D201BED725E00649A5E /* Repository.swift */,
+				E0954D1E1BED718B00649A5E /* RepositoryList.swift */,
+			);
+			name = Data;
 			sourceTree = "<group>";
 		};
 		E0DEAF491BE685840018EA8B = {
@@ -244,9 +278,10 @@
 		E0DEAF541BE685840018EA8B /* Cypress */ = {
 			isa = PBXGroup;
 			children = (
-				E0954D251BED8A2E00649A5E /* Model */,
-				E0954D241BED8A2100649A5E /* View */,
-				E0DEAF551BE685840018EA8B /* AppDelegate.swift */,
+				E0D207911BF861C9000B54D1 /* Repository list */,
+				E0954D251BED8A2E00649A5E /* App */,
+				E020529D1BF7C997003BD3A0 /* Files tab */,
+				E06EB6BB1BF7D7110035D2E6 /* Switch cell */,
 				E0DEAF591BE685840018EA8B /* Main.storyboard */,
 				E0DEAF5C1BE685840018EA8B /* Assets.xcassets */,
 				E0DEAF5E1BE685840018EA8B /* LaunchScreen.storyboard */,
@@ -447,6 +482,7 @@
 				E06EB6B21BF7D5500035D2E6 /* FileContentsConfigViewController.swift in Sources */,
 				E00FE27B1BF0223400BBC45A /* AppState.swift in Sources */,
 				E0954D211BED725E00649A5E /* Repository.swift in Sources */,
+				E0D2078C1BF85A3A000B54D1 /* DirectoryContents.swift in Sources */,
 				E0DEAF561BE685840018EA8B /* AppDelegate.swift in Sources */,
 				E0954D1F1BED718B00649A5E /* RepositoryList.swift in Sources */,
 				E0E5D8271BEFAD220010A976 /* FileBrowserTableViewController.swift in Sources */,
