@@ -102,6 +102,31 @@ class RepositoryTableViewController: UITableViewController, GCRepositoryDelegate
         repoCell?.setHighlighted(false, animated: true)
     }
     
+    func showAuthenticationPromptForURL(url: NSURL) -> (username: String, password: String)? {
+        print("showing auth prompt")
+        
+        var returnValue: (username: String, password: String)? = nil
+        
+        let alertController = UIAlertController(title: "Authenticate", message: "Please enter your username and password for \(url.host!)", preferredStyle: .Alert)
+        alertController.addTextFieldWithConfigurationHandler(nil)
+        alertController.addTextFieldWithConfigurationHandler() {
+            textField -> Void in
+            textField.secureTextEntry = true
+        }
+        let confirmAction = UIAlertAction(title: "Okay", style: .Default, handler: {
+            (action: UIAlertAction) -> Void in
+            returnValue = (username: alertController.textFields![0].text!, password: alertController.textFields![1].text!)
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alertController.addAction(confirmAction)
+        alertController.preferredAction = confirmAction
+        alertController.addAction(cancelAction)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+        
+        return returnValue
+    }
+    
     // MARK: - GCRepositoryDelegate
     func repository(repository: GCRepository!, willStartTransferWithURL url: NSURL!) {
         let indexOfRepository = repositoryList.repositoryWithGCRepository(repository)!.indexInArray
