@@ -22,9 +22,17 @@ class AppState {
     
     // State variables
     
+    // SAVED
     var activeRepository: Repository? {
         didSet {
             NSNotificationCenter.defaultCenter().postNotificationName("appStateActiveRepositoryChanged", object: self)
+            save()
+        }
+    }
+    
+    // NOT SAVED
+    var currentOpenFile: OpenFile? {
+        didSet {
             save()
         }
     }

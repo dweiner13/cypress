@@ -8,14 +8,18 @@
 
 import UIKit
 
-class FileContentsViewController: UIViewController {
+class FileContentsViewController: UIViewController, UITextViewDelegate {
     
     // The URL of the file being shown
     var detailItem: NSURL? {
-        didSet{
+        didSet {
+            self.openFile = OpenFile(url: self.detailItem!)
+            AppState.sharedAppState.currentOpenFile = self.openFile
             configureView()
         }
     }
+    
+    var openFile: OpenFile? = nil
     
     var fileContentsViewSettings: FileContentsViewSettings? = nil
     
@@ -27,6 +31,8 @@ class FileContentsViewController: UIViewController {
         let defaultInsets = self.contentsTextView.textContainerInset
         self.contentsTextView.textContainerInset = UIEdgeInsets(top: defaultInsets.top, left: 8.0, bottom: defaultInsets.bottom, right: defaultInsets.right)
         self.configureTextDisplay()
+        
+        contentsTextView.delegate = self
         
         NSNotificationCenter.defaultCenter().addObserverForName(FileContentsViewSettings.Notification.fileContentsViewSettingsChanged.rawValue, object: nil, queue: nil, usingBlock: {
             _ in
@@ -41,10 +47,9 @@ class FileContentsViewController: UIViewController {
     
     func configureView() {
         // Update the user interface for the detail item.
-        if let detail = self.detailItem {
+        if let file = self.openFile {
             if let textView = contentsTextView {
-                let contents = try? String(contentsOfFile: detail.path!)
-                textView.text = contents;
+                textView.text = file.text
             }
         }
     }
@@ -71,6 +76,17 @@ class FileContentsViewController: UIViewController {
                 config.fileContentsViewSettings = self.fileContentsViewSettings
             }
         }
+    }
+    
+    // MARK: UITextViewDelegate
+    
+    func textViewDidChange(textView: UITextView) {
+        openFile?.text = textView.text
+    }
+    
+    func textViewDidEndEditing(textView: UITextView) {
+        openFile?.text = textView.text
+        openFile?.save()
     }
 
 }
