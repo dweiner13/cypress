@@ -30,6 +30,7 @@ class ProgressTableViewCell: UITableViewCell, GCRepositoryDelegate {
     }
     
     func startProgress() {
+        print("startProgress")
         activityIndicator.startAnimating()
         progressView.hidden = false
         progressView.progress = 0
@@ -37,10 +38,12 @@ class ProgressTableViewCell: UITableViewCell, GCRepositoryDelegate {
     }
     
     func updateProgress(progress: Float) {
+        print("updateProgress")
         progressView.setProgress(progress, animated: true)
     }
     
     func stopProgress() {
+        print("stopProgress")
         activityIndicator.stopAnimating()
         progressView.hidden = true
         progressView.progress = 0

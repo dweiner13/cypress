@@ -11,7 +11,7 @@ import GitUpKit
 
 private let repositoryListCellIdentifier = "progressCell"
 
-class RepositoryTableViewController: UITableViewController, GCRepositoryDelegate {
+class RepositoryTableViewController: UITableViewController, RepositoryDelegate          {
     
     var repositoryList = RepositoryList.sharedRepositoryList
     
@@ -84,7 +84,7 @@ class RepositoryTableViewController: UITableViewController, GCRepositoryDelegate
     
     func confirmedCloneExistingRepositoryWithURL(url: String) {
         do {
-            let repo = try Repository(url: NSURL(string: url)!, gcdelegate: self)
+            let repo = try Repository(url: NSURL(string: url)!, delegate: self)
             self.repositoryList.addRepository(repo)
             self.tableView.reloadData()
             let repoIndexPath = NSIndexPath(forRow: repositoryList.array.indexOf(repo)!, inSection: 0)
@@ -102,10 +102,8 @@ class RepositoryTableViewController: UITableViewController, GCRepositoryDelegate
         repoCell?.setHighlighted(false, animated: true)
     }
     
-    func showAuthenticationPromptForURL(url: NSURL) -> (username: String, password: String)? {
+    func showAuthenticationPromptForURL(url: NSURL, completionHandler: (success: Bool, username: String?, password: String?) -> Void) {
         print("showing auth prompt")
-        
-        var returnValue: (username: String, password: String)? = nil
         
         let alertController = UIAlertController(title: "Authenticate", message: "Please enter your username and password for \(url.host!)", preferredStyle: .Alert)
         alertController.addTextFieldWithConfigurationHandler(nil)
@@ -115,35 +113,43 @@ class RepositoryTableViewController: UITableViewController, GCRepositoryDelegate
         }
         let confirmAction = UIAlertAction(title: "Okay", style: .Default, handler: {
             (action: UIAlertAction) -> Void in
-            returnValue = (username: alertController.textFields![0].text!, password: alertController.textFields![1].text!)
+            completionHandler(success: true, username: alertController.textFields![0].text!, password: alertController.textFields![1].text!)
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+            _ in
+            completionHandler(success: false, username: nil, password: nil)
+        })
         alertController.addAction(confirmAction)
         alertController.preferredAction = confirmAction
         alertController.addAction(cancelAction)
         
         self.presentViewController(alertController, animated: true, completion: nil)
-        
-        return returnValue
     }
     
-    // MARK: - GCRepositoryDelegate
-    func repository(repository: GCRepository!, willStartTransferWithURL url: NSURL!) {
-        let indexOfRepository = repositoryList.repositoryWithGCRepository(repository)!.indexInArray
+    // MARK: - RepositoryDelegate
+    func repository(repository: Repository, willStartTransferWithURL url: NSURL) {
+        let indexOfRepository = repositoryList.array.indexOf(repository)!
         let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: indexOfRepository, inSection: 0)) as! ProgressTableViewCell
+        
         cell.startProgress()
     }
     
-    func repository(repository: GCRepository!, updateTransferProgress progress: Float, transferredBytes bytes: UInt) {
-        let indexOfRepository = repositoryList.repositoryWithGCRepository(repository)!.indexInArray
+    func repository(repository: Repository, updateTransferProgress progress: Float, transferredBytes bytes: UInt) {
+        let indexOfRepository = repositoryList.array.indexOf(repository)!
         let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: indexOfRepository, inSection: 0)) as! ProgressTableViewCell
+        
         cell.updateProgress(progress)
     }
     
-    func repository(repository: GCRepository!, didFinishTransferWithURL url: NSURL!, success: Bool) {
-        let indexOfRepository = repositoryList.repositoryWithGCRepository(repository)!.indexInArray
+    func repository(repository: Repository, didFinishTransferWithURL url: NSURL, success: Bool) {
+        let indexOfRepository = repositoryList.array.indexOf(repository)!
         let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: indexOfRepository, inSection: 0)) as! ProgressTableViewCell
+        
         cell.stopProgress()
+    }
+    
+    func repository(repository: Repository, requiresPlainTextAuthenticationForURL url: NSURL, user: String?, callback: (success: Bool, username: String?, password: String?) -> Void) {
+        self.showAuthenticationPromptForURL(url, completionHandler: callback)
     }
 
     // MARK: - Table view data source
