@@ -9,7 +9,7 @@
 import UIKit
 import GitUpKit
 
-class MasterNavigationController: CypressNavigationController {
+class FileBrowserNavigationController: CypressNavigationController {
     
     var progressView: UIProgressView? = nil
     var toolbarLabel: UILabel? = nil
@@ -18,15 +18,16 @@ class MasterNavigationController: CypressNavigationController {
         super.viewDidLoad()
         
         NSNotificationCenter.defaultCenter().addObserverForName(AppState.Notification.activeRepositoryChanged.rawValue, object: nil, queue: nil, usingBlock: {
-            _ in
+            notification in
+            print("received notification: \(notification.name)")
             self.popToRootViewControllerAnimated(false)
             let rootViewController = self.viewControllers[0] as! FileBrowserTableViewController
-            rootViewController.directoryContents = DirectoryContents(directoryURL: nil)
+            rootViewController.directoryURL = nil
             rootViewController.tableView.reloadData()
         })
         
         if let root = topViewController as? FileBrowserTableViewController {
-            root.directoryContents = DirectoryContents(directoryURL: nil)
+            root.directoryURL = nil
         }
     }
 

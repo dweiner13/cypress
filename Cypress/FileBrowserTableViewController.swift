@@ -14,26 +14,36 @@ class FileBrowserTableViewController: UITableViewController {
     
     var fileContentsViewController: FileContentsViewController?
     
+    var directoryURL: NSURL! {
+        didSet {
+            directoryContents = DirectoryContents(directoryURL: directoryURL)
+            configureView()
+        }
+    }
+    
     var directoryContents: DirectoryContents!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Create long-press view and gesture recognizer
-        longPressBackButtonGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "longPressedNavigationBar:")
-        self.navigationController!.navigationBar.addGestureRecognizer(longPressBackButtonGestureRecognizer)
-        longPressBackButtonGestureRecognizer.enabled = true
         
         if let split = self.splitViewController {
             let controllers = split.viewControllers
             self.fileContentsViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? FileContentsViewController
         }
-        
+    }
+    
+    func configureView() {
         self.navigationItem.title = directoryContents.directoryName
         self.tableView.dataSource = directoryContents
     }
     
     override func viewWillAppear(animated: Bool) {
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
+        
+        // Create long-press view and gesture recognizer
+        longPressBackButtonGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "longPressedNavigationBar:")
+        self.navigationController!.navigationBar.addGestureRecognizer(longPressBackButtonGestureRecognizer)
+        longPressBackButtonGestureRecognizer.enabled = true
         
         super.viewWillAppear(animated)
     }
@@ -79,16 +89,13 @@ class FileBrowserTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    // MARK: - Table view delegate
-    
     
     // TODO: take this navigation code and remove it from view controller
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == directoryContents.foldersSectionIndex { //tapped directory
             let newFileBrowser = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("fileBrowser") as! FileBrowserTableViewController
-            newFileBrowser.directoryContents = DirectoryContents(directoryURL: directoryContents.directories[indexPath.row])
-            self.navigationController!.showViewController(newFileBrowser, sender: directoryContents.directories[indexPath.row])
+            newFileBrowser.directoryURL = (self.tableView.dataSource as! DirectoryContents).objectAtIndexPath(indexPath)
+            self.navigationController!.pushViewController(newFileBrowser, animated: true)
         }
         else { // tapped file
             self.performSegueWithIdentifier("showFileContents", sender: self)

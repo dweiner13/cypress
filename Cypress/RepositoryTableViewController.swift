@@ -41,10 +41,7 @@ class RepositoryTableViewController: UITableViewController, GCRepositoryDelegate
             (action: UIAlertAction) -> Void in
             self.tappedCloneExistingRepositoryAction()
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
-            (action: UIAlertAction) -> Void in
-            self.dismissViewControllerAnimated(true, completion: nil)
-        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         
         alertController.addAction(createNewAction)
         alertController.addAction(cloneAction)
@@ -184,15 +181,6 @@ class RepositoryTableViewController: UITableViewController, GCRepositoryDelegate
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             })
         }
-    }
-
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let repo = sender as! Repository
-        let destinationViewController = segue.destinationViewController as! FileBrowserTableViewController
-        destinationViewController.directoryContents = DirectoryContents(directoryURL: NSURL(fileURLWithPath: repo.repository.workingDirectoryPath, isDirectory: true))
     }
 
 }

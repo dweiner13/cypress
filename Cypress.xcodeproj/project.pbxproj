@@ -10,7 +10,7 @@
 		E00FE2791BF014CC00BBC45A /* CypressTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00FE2781BF014CC00BBC45A /* CypressTabBarViewController.swift */; };
 		E00FE27B1BF0223400BBC45A /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00FE27A1BF0223400BBC45A /* AppState.swift */; };
 		E0363E601BEDA1F800C8584F /* FileContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */; };
-		E0363E651BEE5BBB00C8584F /* MasterNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0363E641BEE5BBB00C8584F /* MasterNavigationController.swift */; };
+		E0363E651BEE5BBB00C8584F /* FileBrowserNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0363E641BEE5BBB00C8584F /* FileBrowserNavigationController.swift */; };
 		E06EB6B21BF7D5500035D2E6 /* FileContentsConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06EB6B11BF7D5500035D2E6 /* FileContentsConfigViewController.swift */; };
 		E06EB6B71BF7D6F70035D2E6 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06EB6B51BF7D6F70035D2E6 /* SwitchTableViewCell.swift */; };
 		E06EB6B81BF7D6F70035D2E6 /* SwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E06EB6B61BF7D6F70035D2E6 /* SwitchTableViewCell.xib */; };
@@ -99,7 +99,7 @@
 		E00FE2781BF014CC00BBC45A /* CypressTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CypressTabBarViewController.swift; sourceTree = "<group>"; };
 		E00FE27A1BF0223400BBC45A /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileContentsViewController.swift; sourceTree = "<group>"; };
-		E0363E641BEE5BBB00C8584F /* MasterNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterNavigationController.swift; sourceTree = "<group>"; };
+		E0363E641BEE5BBB00C8584F /* FileBrowserNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowserNavigationController.swift; sourceTree = "<group>"; };
 		E06EB6B11BF7D5500035D2E6 /* FileContentsConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileContentsConfigViewController.swift; sourceTree = "<group>"; };
 		E06EB6B51BF7D6F70035D2E6 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		E06EB6B61BF7D6F70035D2E6 /* SwitchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwitchTableViewCell.xib; sourceTree = "<group>"; };
@@ -186,12 +186,11 @@
 		E0954D241BED8A2100649A5E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E0363E641BEE5BBB00C8584F /* MasterNavigationController.swift */,
+				E0363E641BEE5BBB00C8584F /* FileBrowserNavigationController.swift */,
 				E0E5D8261BEFAD220010A976 /* FileBrowserTableViewController.swift */,
 				E0E5D82A1BEFE76F0010A976 /* NavigationHistoryTableViewController.swift */,
 				E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */,
 				E06EB6B11BF7D5500035D2E6 /* FileContentsConfigViewController.swift */,
-				E0D2078B1BF85A3A000B54D1 /* DirectoryContents.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -221,6 +220,7 @@
 		E0D2078F1BF86165000B54D1 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				E0D2078B1BF85A3A000B54D1 /* DirectoryContents.swift */,
 				E06EB6C21BF7EEF20035D2E6 /* OpenFile.swift */,
 				E06EB6BC1BF7DBA30035D2E6 /* FileContentsViewSettings.swift */,
 			);
@@ -489,7 +489,7 @@
 				E06EB6C11BF7E3990035D2E6 /* CypressNavigationController.swift in Sources */,
 				E0E5D82C1BEFE76F0010A976 /* NavigationHistoryTableViewController.swift in Sources */,
 				E0954D231BED74D200649A5E /* CypressFunctions.swift in Sources */,
-				E0363E651BEE5BBB00C8584F /* MasterNavigationController.swift in Sources */,
+				E0363E651BEE5BBB00C8584F /* FileBrowserNavigationController.swift in Sources */,
 				E0363E601BEDA1F800C8584F /* FileContentsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

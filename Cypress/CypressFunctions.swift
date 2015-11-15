@@ -14,7 +14,7 @@ class Cypress {
     }
     
     static func getRepositoriesDirectoryURL() -> NSURL {
-        return NSURL(fileURLWithPath: getDocumentsDirectoryPath() + "/\("repositories")", isDirectory: true)
+        return NSURL(fileURLWithPath: getDocumentsDirectoryPath() + "/repositories", isDirectory: true)
     }
 }
 

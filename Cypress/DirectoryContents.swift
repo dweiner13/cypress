@@ -55,6 +55,16 @@ class DirectoryContents: NSObject, UITableViewDataSource {
         }
     }
     
+    func objectAtIndexPath(indexPath: NSIndexPath) -> NSURL? {
+        if indexPath.section == foldersSectionIndex {
+            return directories[indexPath.row]
+        }
+        else if indexPath.section == filesSectionIndex {
+            return files[indexPath.row]
+        }
+        return nil
+    }
+    
     func loadContents() {
         let contents = try! NSFileManager.defaultManager().contentsOfDirectoryAtURL(directoryURL!, includingPropertiesForKeys: nil, options: .SkipsHiddenFiles)
         for item: NSURL in contents {
@@ -83,30 +93,20 @@ class DirectoryContents: NSObject, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            if directories.isEmpty {
-                return files.count
-            }
-            else {
-                return directories.count
-            }
+        if section == foldersSectionIndex {
+            return directories.count
         }
-        else if section == 1 {
+        else if section == filesSectionIndex {
             return files.count
         }
         return 0
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            if directories.isEmpty {
-                return "Files"
-            }
-            else {
-                return "Folders"
-            }
+        if section == foldersSectionIndex {
+            return "Folders"
         }
-        else if section == 1 {
+        else if section == filesSectionIndex {
             return "Files"
         }
         return nil
@@ -114,15 +114,10 @@ class DirectoryContents: NSObject, UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("basicCell", forIndexPath: indexPath)
-        if indexPath.section == 0 {
-            if directories.isEmpty {
-                cell.textLabel!.text = files[indexPath.row].lastPathComponent
-            }
-            else {
-                cell.textLabel!.text = directories[indexPath.row].lastPathComponent
-            }
+        if indexPath.section == foldersSectionIndex {
+            cell.textLabel!.text = directories[indexPath.row].lastPathComponent
         }
-        else if indexPath.section == 1 {
+        else if indexPath.section == filesSectionIndex {
             cell.textLabel!.text = files[indexPath.row].lastPathComponent
         }
         return cell
