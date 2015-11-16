@@ -9,19 +9,16 @@
 import UIKit
 import GitUpKit
 
-private let repositoryListCellIdentifier = "progressCell"
+private let repositoryListCellIdentifier = "RepositoryTableViewCell"
 
-class RepositoryTableViewController: UITableViewController, RepositoryDelegate          {
+class RepositoryTableViewController: UITableViewController, RepositoryDelegate {
     
     var repositoryList = RepositoryList.sharedRepositoryList
-    
-    // memory leak?
-    var selectedRepositoryCell: UITableViewCell?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.registerNib(UINib(nibName: "ProgressTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "progressCell")
+        self.tableView.registerNib(UINib(nibName: "RepositoryTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: repositoryListCellIdentifier)
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,7 +71,7 @@ class RepositoryTableViewController: UITableViewController, RepositoryDelegate  
             self.repositoryList.addRepository(repo)
             self.tableView.reloadData()
             
-            let repoIndexPath = NSIndexPath(forRow: repositoryList.array.indexOf(repo)!, inSection: 0)
+            let repoIndexPath = indexPathForObject(repo)
             scrollToAndFlashRowAtIndexPath(repoIndexPath)
         }
         catch let e as NSError {
@@ -87,7 +84,7 @@ class RepositoryTableViewController: UITableViewController, RepositoryDelegate  
             let repo = try Repository(url: NSURL(string: url)!, delegate: self)
             self.repositoryList.addRepository(repo)
             self.tableView.reloadData()
-            let repoIndexPath = NSIndexPath(forRow: repositoryList.array.indexOf(repo)!, inSection: 0)
+            let repoIndexPath = indexPathForObject(repo)
             scrollToAndFlashRowAtIndexPath(repoIndexPath)
         }
         catch let e as NSError {
@@ -97,9 +94,8 @@ class RepositoryTableViewController: UITableViewController, RepositoryDelegate  
     
     func scrollToAndFlashRowAtIndexPath(indexPath: NSIndexPath) {
         self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .None, animated: true)
-        let repoCell = self.tableView.cellForRowAtIndexPath(indexPath)
-        repoCell?.setHighlighted(true, animated: false)
-        repoCell?.setHighlighted(false, animated: true)
+        let repoCell = self.tableView.cellForRowAtIndexPath(indexPath) as! RepositoryTableViewCell
+        repoCell.flashHighlight()
     }
     
     func showAuthenticationPromptForURL(url: NSURL, completionHandler: (success: Bool, username: String?, password: String?) -> Void) {
@@ -128,22 +124,19 @@ class RepositoryTableViewController: UITableViewController, RepositoryDelegate  
     
     // MARK: - RepositoryDelegate
     func repository(repository: Repository, willStartTransferWithURL url: NSURL) {
-        let indexOfRepository = repositoryList.array.indexOf(repository)!
-        let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: indexOfRepository, inSection: 0)) as! ProgressTableViewCell
+        let cell = self.tableView.cellForRowAtIndexPath(indexPathForObject(repository)) as! RepositoryTableViewCell
         
         cell.startProgress()
     }
     
     func repository(repository: Repository, updateTransferProgress progress: Float, transferredBytes bytes: UInt) {
-        let indexOfRepository = repositoryList.array.indexOf(repository)!
-        let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: indexOfRepository, inSection: 0)) as! ProgressTableViewCell
+        let cell = self.tableView.cellForRowAtIndexPath(indexPathForObject(repository)) as! RepositoryTableViewCell
         
         cell.updateProgress(progress)
     }
     
     func repository(repository: Repository, didFinishTransferWithURL url: NSURL, success: Bool) {
-        let indexOfRepository = repositoryList.array.indexOf(repository)!
-        let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: indexOfRepository, inSection: 0)) as! ProgressTableViewCell
+        let cell = self.tableView.cellForRowAtIndexPath(indexPathForObject(repository)) as! RepositoryTableViewCell
         
         cell.stopProgress()
     }
@@ -152,43 +145,41 @@ class RepositoryTableViewController: UITableViewController, RepositoryDelegate  
         self.showAuthenticationPromptForURL(url, completionHandler: callback)
     }
 
-    // MARK: - Table view data source
+    // MARK: - Data source
+    
+    func indexPathForObject(repo: Repository) -> NSIndexPath {
+        return NSIndexPath(forRow: repositoryList.indexOfRepository(repo)!, inSection: 0)
+    }
+    
+    func objectForIndexPath(indexPath: NSIndexPath) -> Repository {
+        return repositoryList.repositoryAtIndex(indexPath.row)!
+    }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return repositoryList.array.count
+        return repositoryList.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(repositoryListCellIdentifier, forIndexPath: indexPath) as! ProgressTableViewCell
-
-        // Configure the cell...
-        let repo = repositoryList.array[indexPath.row]
-        cell.mainLabel!.text = repo.name
-        if repo == AppState.sharedAppState.activeRepository {
-            selectedRepositoryCell = cell
-            cell.accessoryType = .Checkmark
-            cell.mainLabel!.enabled = false
-        }
-
+        let cell = tableView.dequeueReusableCellWithIdentifier(repositoryListCellIdentifier, forIndexPath: indexPath) as! RepositoryTableViewCell
+        cell.repository = objectForIndexPath(indexPath)
         return cell
     }
     
+    // MARK: - Delegate
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
-        cell?.accessoryType = .Checkmark
-        selectedRepositoryCell?.accessoryType = .None
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         self.presentingViewController!.dismissViewControllerAnimated(true, completion: nil)
-        AppState.sharedAppState.activeRepository = self.repositoryList.array[indexPath.row]
+        AppState.sharedAppState.activeRepository = objectForIndexPath(indexPath)
     }
     
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        if tableView.cellForRowAtIndexPath(indexPath)!.textLabel!.enabled {
+        if (tableView.cellForRowAtIndexPath(indexPath)! as! RepositoryTableViewCell).mainLabel!.enabled {
             return indexPath
         }
         else {
@@ -207,7 +198,7 @@ class RepositoryTableViewController: UITableViewController, RepositoryDelegate  
         if editingStyle == .Delete {
             // Delete the row from the data source
             askForConfirmation("Really delete?", message: "Are you sure? This can't be undone.", confirmActionTitle: "Delete", confirmedHandler: {
-                let repoAtIndexPath = self.repositoryList.array[indexPath.row]
+                let repoAtIndexPath = self.objectForIndexPath(indexPath)
                 self.repositoryList.deleteRepository(repoAtIndexPath)
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             })

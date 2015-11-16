@@ -9,11 +9,17 @@
 import UIKit
 import GitUpKit
 
-class ProgressTableViewCell: UITableViewCell, GCRepositoryDelegate {
+class RepositoryTableViewCell: UITableViewCell, GCRepositoryDelegate {
     
     @IBOutlet weak var mainLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var progressView: UIProgressView!
+    
+    var repository: Repository! {
+        didSet {
+            configureView()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,15 +28,30 @@ class ProgressTableViewCell: UITableViewCell, GCRepositoryDelegate {
         // Hide progress bar
         progressView.hidden = true
     }
+    
+    func configureView() {
+        mainLabel!.text = repository.name
+        if repository == AppState.sharedAppState.activeRepository {
+            accessoryType = .Checkmark
+            mainLabel!.enabled = false
+        }
+    }
+    
+    func flashHighlight() {
+        setHighlighted(true, animated: false)
+        setHighlighted(false, animated: true)
+    }
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        if selected {
+            accessoryType = .Checkmark
+        }
     }
     
     func startProgress() {
-        print("startProgress")
         activityIndicator.startAnimating()
         progressView.hidden = false
         progressView.progress = 0
@@ -38,12 +59,10 @@ class ProgressTableViewCell: UITableViewCell, GCRepositoryDelegate {
     }
     
     func updateProgress(progress: Float) {
-        print("updateProgress")
         progressView.setProgress(progress, animated: true)
     }
     
     func stopProgress() {
-        print("stopProgress")
         activityIndicator.stopAnimating()
         progressView.hidden = true
         progressView.progress = 0

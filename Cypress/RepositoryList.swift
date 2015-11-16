@@ -18,12 +18,6 @@ class RepositoryList {
         return _SingletonSharedInstance
     }
     
-    var array: [Repository] {
-        get {
-            return list
-        }
-    }
-    
     init() {
         list = []
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -39,9 +33,28 @@ class RepositoryList {
         }
     }
     
+    // MARK: - Modifying
+    
     func addRepository(repo: Repository) {
         list.append(repo);
         save()
+    }
+    
+    func deleteRepository(repo: Repository) {
+        repo.delete()
+        for var i = 0; i < list.count; i++ {
+            if list[i] == repo {
+                list.removeAtIndex(i)
+            }
+        }
+    }
+    
+    // MARK: - Getting
+    
+    var count: Int {
+        get {
+            return list.count
+        }
     }
     
     func repositoryWithGCRepository(gcRepo: GCRepository) -> (repo: Repository, indexInArray: Int)? {
@@ -62,13 +75,12 @@ class RepositoryList {
         return nil
     }
     
-    func deleteRepository(repo: Repository) {
-        repo.delete()
-        for var i = 0; i < list.count; i++ {
-            if list[i] == repo {
-                list.removeAtIndex(i)
-            }
-        }
+    func repositoryAtIndex(index: Int) -> Repository? {
+        return list[index]
+    }
+    
+    func indexOfRepository(repository: Repository) -> Int? {
+        return list.indexOf(repository)
     }
     
     // MARK: - Saving
