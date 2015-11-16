@@ -159,10 +159,10 @@
 		E020529D1BF7C997003BD3A0 /* Files tab */ = {
 			isa = PBXGroup;
 			children = (
-				E0A920D91BF954E7009C0552 /* File detail */,
 				E0A920D81BF954E1009C0552 /* File browser */,
+				E0A920D91BF954E7009C0552 /* File detail */,
 			);
-			name = "Files tab";
+			path = "Files tab";
 			sourceTree = "<group>";
 		};
 		E06EB6B91BF7D7000035D2E6 /* Progress cell */ = {
@@ -171,7 +171,7 @@
 				E0C713141BEEC8CD008595B9 /* RepositoryTableViewCell.swift */,
 				E0C713151BEEC8CD008595B9 /* RepositoryTableViewCell.xib */,
 			);
-			name = "Progress cell";
+			path = "Progress cell";
 			sourceTree = "<group>";
 		};
 		E06EB6BB1BF7D7110035D2E6 /* Switch cell */ = {
@@ -180,19 +180,19 @@
 				E06EB6B51BF7D6F70035D2E6 /* SwitchTableViewCell.swift */,
 				E06EB6B61BF7D6F70035D2E6 /* SwitchTableViewCell.xib */,
 			);
-			name = "Switch cell";
+			path = "Switch cell";
 			sourceTree = "<group>";
 		};
 		E0954D251BED8A2E00649A5E /* App */ = {
 			isa = PBXGroup;
 			children = (
-				E0954D221BED74D200649A5E /* CypressFunctions.swift */,
+				E0DEAF551BE685840018EA8B /* AppDelegate.swift */,
 				E00FE27A1BF0223400BBC45A /* AppState.swift */,
+				E0954D221BED74D200649A5E /* CypressFunctions.swift */,
 				E06EB6C01BF7E3990035D2E6 /* CypressNavigationController.swift */,
 				E00FE2781BF014CC00BBC45A /* CypressTabBarViewController.swift */,
-				E0DEAF551BE685840018EA8B /* AppDelegate.swift */,
 			);
-			name = App;
+			path = App;
 			sourceTree = "<group>";
 		};
 		E0A7750A1BE68FB20021EE34 /* Products */ = {
@@ -208,28 +208,28 @@
 		E0A920D81BF954E1009C0552 /* File browser */ = {
 			isa = PBXGroup;
 			children = (
-				E0D2078F1BF86165000B54D1 /* Data */,
 				E0A920DB1BF954FB009C0552 /* Controller */,
+				E0D2078F1BF86165000B54D1 /* Data */,
 			);
-			name = "File browser";
+			path = "File browser";
 			sourceTree = "<group>";
 		};
 		E0A920D91BF954E7009C0552 /* File detail */ = {
 			isa = PBXGroup;
 			children = (
-				E0A920DC1BF95501009C0552 /* Data */,
 				E0A920DA1BF954F8009C0552 /* Controller */,
+				E0A920DC1BF95501009C0552 /* Data */,
 			);
-			name = "File detail";
+			path = "File detail";
 			sourceTree = "<group>";
 		};
 		E0A920DA1BF954F8009C0552 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */,
 				E06EB6B11BF7D5500035D2E6 /* FileContentsConfigViewController.swift */,
+				E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */,
 			);
-			name = Controller;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		E0A920DB1BF954FB009C0552 /* Controller */ = {
@@ -239,7 +239,7 @@
 				E0E5D8261BEFAD220010A976 /* FileBrowserTableViewController.swift */,
 				E0E5D82A1BEFE76F0010A976 /* NavigationHistoryTableViewController.swift */,
 			);
-			name = Controller;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		E0A920DC1BF95501009C0552 /* Data */ = {
@@ -247,7 +247,7 @@
 			children = (
 				E0D2078B1BF85A3A000B54D1 /* DirectoryContents.swift */,
 			);
-			name = Data;
+			path = Data;
 			sourceTree = "<group>";
 		};
 		E0A920DD1BF9581D009C0552 /* Controller */ = {
@@ -255,26 +255,26 @@
 			children = (
 				E0954D1A1BED713F00649A5E /* RepositoryTableViewController.swift */,
 			);
-			name = Controller;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		E0D2078F1BF86165000B54D1 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				E06EB6C21BF7EEF20035D2E6 /* OpenFile.swift */,
 				E06EB6BC1BF7DBA30035D2E6 /* FileContentsViewSettings.swift */,
+				E06EB6C21BF7EEF20035D2E6 /* OpenFile.swift */,
 			);
-			name = Data;
+			path = Data;
 			sourceTree = "<group>";
 		};
 		E0D207911BF861C9000B54D1 /* Repository list */ = {
 			isa = PBXGroup;
 			children = (
-				E0D207931BF861FC000B54D1 /* Data */,
 				E0A920DD1BF9581D009C0552 /* Controller */,
+				E0D207931BF861FC000B54D1 /* Data */,
 				E0D207921BF861FA000B54D1 /* View */,
 			);
-			name = "Repository list";
+			path = "Repository list";
 			sourceTree = "<group>";
 		};
 		E0D207921BF861FA000B54D1 /* View */ = {
@@ -282,7 +282,7 @@
 			children = (
 				E06EB6B91BF7D7000035D2E6 /* Progress cell */,
 			);
-			name = View;
+			path = View;
 			sourceTree = "<group>";
 		};
 		E0D207931BF861FC000B54D1 /* Data */ = {
@@ -291,17 +291,17 @@
 				E0954D201BED725E00649A5E /* Repository.swift */,
 				E0954D1E1BED718B00649A5E /* RepositoryList.swift */,
 			);
-			name = Data;
+			path = Data;
 			sourceTree = "<group>";
 		};
 		E0DEAF491BE685840018EA8B = {
 			isa = PBXGroup;
 			children = (
-				E0A775091BE68FB20021EE34 /* GitUpKit.xcodeproj */,
 				E0DEAF541BE685840018EA8B /* Cypress */,
 				E0DEAF691BE685840018EA8B /* CypressTests */,
 				E0DEAF741BE685840018EA8B /* CypressUITests */,
 				E0DEAF531BE685840018EA8B /* Products */,
+				E0A775091BE68FB20021EE34 /* GitUpKit.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -318,14 +318,14 @@
 		E0DEAF541BE685840018EA8B /* Cypress */ = {
 			isa = PBXGroup;
 			children = (
-				E0D207911BF861C9000B54D1 /* Repository list */,
 				E0954D251BED8A2E00649A5E /* App */,
 				E020529D1BF7C997003BD3A0 /* Files tab */,
+				E0D207911BF861C9000B54D1 /* Repository list */,
 				E06EB6BB1BF7D7110035D2E6 /* Switch cell */,
-				E0DEAF591BE685840018EA8B /* Main.storyboard */,
 				E0DEAF5C1BE685840018EA8B /* Assets.xcassets */,
-				E0DEAF5E1BE685840018EA8B /* LaunchScreen.storyboard */,
 				E0DEAF611BE685840018EA8B /* Info.plist */,
+				E0DEAF5E1BE685840018EA8B /* LaunchScreen.storyboard */,
+				E0DEAF591BE685840018EA8B /* Main.storyboard */,
 			);
 			path = Cypress;
 			sourceTree = "<group>";
@@ -577,6 +577,7 @@
 				E0DEAF5A1BE685840018EA8B /* Base */,
 			);
 			name = Main.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 		E0DEAF5E1BE685840018EA8B /* LaunchScreen.storyboard */ = {
@@ -585,6 +586,7 @@
 				E0DEAF5F1BE685840018EA8B /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
