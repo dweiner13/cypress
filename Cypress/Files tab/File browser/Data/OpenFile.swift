@@ -12,19 +12,15 @@ class OpenFile {
     
     let url: NSURL
     var text: String
-    var encoding = UnsafeMutablePointer<NSStringEncoding>.alloc(1)
+    let encoding = NSStringEncoding()
     
     init(url: NSURL) {
         self.url = url
-        self.text = try! String(contentsOfURL: url, usedEncoding: self.encoding)
+        self.text = try! String(contentsOfURL: url, usedEncoding: &self.encoding)
     }
     
     func save() {
-        try! text.writeToFile(url.path!, atomically: false, encoding: encoding.memory)
+        try! text.writeToFile(url.path!, atomically: false, encoding: self.encoding)
         print("saved file \(url)")
-    }
-    
-    deinit {
-        encoding.dealloc(1)
     }
 }
