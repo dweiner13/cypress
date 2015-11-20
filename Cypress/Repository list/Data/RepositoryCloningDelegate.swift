@@ -63,12 +63,19 @@ class RepositoryCloningDelegate: NSObject, GCRepositoryDelegate {
                     }
                 }
                 .subscribeNext() {
-                    if let progress = self.progressStream.value {
+                    if self.progressStream.value != nil {
                         do {
                             debugPrint("retrying because credentials now exist: \($0?.credentials!)")
                             self.progressStream.value!.authenticationRequired = false
                             if let repo = self.repository {
-                                try repo.cloneUsingRemote(self.remote, recursive: false)
+                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                                    do {
+                                        try repo.cloneUsingRemote(self.remote, recursive: false)
+                                    }
+                                    catch let e as NSError {
+                                        errorStream.value = e
+                                    }
+                                })
                             }
                             else {
                                 debugPrint("repo does not exist")
