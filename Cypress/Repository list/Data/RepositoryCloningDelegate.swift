@@ -12,7 +12,7 @@ import RxSwift
 
 class RepositoryCloningDelegate: NSObject, GCRepositoryDelegate {
     
-    let progressStream = Variable<Float>(0)
+    let progressStream = Variable<Float?>(0)
     
     override init() {
         super.init()

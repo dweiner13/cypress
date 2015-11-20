@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import RxSwift
 
 struct RepositoryViewModel: Equatable {
     
@@ -18,10 +18,9 @@ struct RepositoryViewModel: Equatable {
     
     let name: String
     let url: NSURL
-    var status: RepoStatus
-    var statusProgress: Float?
+    var progressStream: Variable<Float?> = Variable(nil)
     
-    init(url: NSURL, status: RepoStatus) {
+    init(url: NSURL) {
         self.url = url
         if let name = url.lastPathComponent {
             self.name = name
@@ -30,7 +29,6 @@ struct RepositoryViewModel: Equatable {
             errorStream.value = NSError(domain: "URL had no last path component", code: 0, userInfo: nil)
             self.name = "[error]"
         }
-        self.status = status
     }
     
     func selectAsActive() {
@@ -39,7 +37,5 @@ struct RepositoryViewModel: Equatable {
 }
 
 func ==(lhs: RepositoryViewModel, rhs:RepositoryViewModel) -> Bool {
-    return lhs.url == rhs.url &&
-        lhs.status == rhs.status &&
-        lhs.statusProgress == rhs.statusProgress
+    return lhs.url == rhs.url
 }

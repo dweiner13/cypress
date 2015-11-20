@@ -15,6 +15,22 @@ a.subscribeNext() {
     print("\($0)")
 }
 
+struct testStruct {
+    
+    var a = 5
+    
+    var b = 6
+    
+}
+
+let v = Variable(testStruct())
+
+v.subscribeNext() {
+    print($0)
+}
+
+v.value.a = 2
+
 //let c = combineLatest(a, b, resultSelector: {$0 * $1})
 //    .filter({ $0 >= 0})
 //    .map({ "\($0) is positive" })

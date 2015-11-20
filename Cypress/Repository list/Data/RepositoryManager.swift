@@ -39,7 +39,7 @@ class RepositoryManager {
         createNewRepositoryAtURL(url)
     }
     
-    func cloneRepository(url: NSURL) -> (localURL: NSURL, progressStream: Variable<Float>)? {
+    func cloneRepository(url: NSURL) -> (localURL: NSURL, progressStream: Variable<Float?>)? {
         do {
             if let pathComponents = url.pathComponents {
                 let gitName = pathComponents[pathComponents.count - 1] // "repo.git"
@@ -88,6 +88,9 @@ class RepositoryManager {
         if let path = url.path {
             do {
                 try NSFileManager.defaultManager().removeItemAtPath(path)
+                if activeRepositoryStream.value == url {
+                    activeRepositoryStream.value = nil
+                }
             }
             catch let e as NSError {
                 errorStream.value = e

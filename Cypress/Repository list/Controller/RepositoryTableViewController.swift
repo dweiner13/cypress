@@ -18,10 +18,9 @@ class RepositoryTableViewController: UIViewController, UITableViewDelegate {
     
     @IBOutlet var tableView: UITableView!
     
-    var disposeBag = DisposeBag()
+    let disposeBag = DisposeBag()
     
-    let repositories = Variable([RepositoryViewModel]())
-    let otherRepositories = Variable([RepositoryViewModel]())
+    let repositories: Variable<[RepositoryViewModel]> = Variable([])
     
     let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, RepositoryViewModel>>()
     
@@ -33,9 +32,9 @@ class RepositoryTableViewController: UIViewController, UITableViewDelegate {
         
         let allRepositories =
             self.repositories.map() {
-                repositories in
+                repos in
                 return [
-                    SectionModel(model: "All Repositories", items: repositories)
+                    SectionModel(model: "All Repositories", items: repos)
                 ]
             }
         
@@ -43,6 +42,7 @@ class RepositoryTableViewController: UIViewController, UITableViewDelegate {
             (tableView, indexPath, repository: RepositoryViewModel) in
             let cell = tableView.dequeueReusableCellWithIdentifier(repositoryListCellIdentifier)! as! RepositoryTableViewCell
             cell.repository = repository
+            cell.configureView()
             return cell
         }
         
@@ -66,7 +66,7 @@ class RepositoryTableViewController: UIViewController, UITableViewDelegate {
             var isDirectory: ObjCBool = ObjCBool(false)
             NSFileManager.defaultManager().fileExistsAtPath(item.path!, isDirectory: &isDirectory)
             if isDirectory {
-                repositories.append(RepositoryViewModel(url: item, status: .Available))
+                repositories.append(RepositoryViewModel(url: item))
             }
         }
         self.repositories.value = repositories
@@ -105,28 +105,9 @@ class RepositoryTableViewController: UIViewController, UITableViewDelegate {
         // TODO: this is just for debugging
         let url = NSURL(string: "https://github.com/ReactiveX/RxSwift.git")!
         if let result = RepositoryManager.defaultManager().cloneRepository(url) {
-            let newRepo = RepositoryViewModel(url: result.localURL, status: .InProgress)
+            var newRepo = RepositoryViewModel(url: result.localURL)
+            newRepo.progressStream = result.progressStream
             self.repositories.value.append(newRepo)
-            result.progressStream
-                .subscribeNext() {
-                    progress in
-                    let index = self.repositories.value.indexOf({
-                        newRepo.name == $0.name
-                    })!
-                    let originalValue = self.repositories.value[index]
-                    print("progress update \(progress)")
-                    if progress != 1.00 {
-                        var newValue = RepositoryViewModel(url: originalValue.url, status: originalValue.status)
-                        newValue.statusProgress = progress
-                        self.repositories.value[index] = newValue
-                    }
-                    else {
-                        var newValue = RepositoryViewModel(url: originalValue.url, status: .Available)
-                        newValue.statusProgress = nil
-                        self.repositories.value[index] = newValue
-                    }
-                }
-                .addDisposableTo(disposeBag)
         }
     }
     
