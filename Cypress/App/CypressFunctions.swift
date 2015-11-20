@@ -22,10 +22,7 @@ extension UIViewController {
     func showErrorAlertWithMessage(message: String) {
         let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .Alert)
         
-        let okayAction = UIAlertAction(title: "Okay", style: .Default, handler: {
-            (action: UIAlertAction) -> Void in
-            self.dismissViewControllerAnimated(true, completion: nil)
-        })
+        let okayAction = UIAlertAction(title: "Okay", style: .Default, handler: nil)
         alertController.addAction(okayAction)
         alertController.preferredAction = okayAction
         

@@ -18,7 +18,7 @@ struct RepositoryViewModel: Equatable {
     
     let name: String
     let url: NSURL
-    var progressStream: Variable<CloningProgress?> = Variable(nil)
+    var cloningProgress: Observable<RepositoryCloningDelegate.CloningEvent>? = nil
     
     init(url: NSURL) {
         self.url = url

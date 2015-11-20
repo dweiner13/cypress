@@ -104,28 +104,38 @@ class RepositoryTableViewController: UIViewController, UITableViewDelegate {
     @IBAction func tappedAddButton(sender: UIBarButtonItem) {
         // TODO: this is just for debugging
         let url = NSURL(string: "https://github.com/danw13335/Cypress.git")!
+//        let url = NSURL(string: "https://github.com/ReactiveX/RxSwift.git")!
         if let result = RepositoryManager.defaultManager().cloneRepository(url) {
             var newRepo = RepositoryViewModel(url: result.localURL)
-            newRepo.progressStream = result.progressStream
+            newRepo.cloningProgress = result.cloningProgress
             self.repositories.value.append(newRepo)
-            newRepo.progressStream
-                .filter() {
-                    if let progressObject = $0 {
-                        return progressObject.authenticationRequired && progressObject.credentials == nil
+            
+            // bind actions to observable that emits status of cloning
+            newRepo.cloningProgress?
+                .subscribe(onNext: {
+                    event in
+                    debugPrint(event)
+                    switch event {
+                        case .requiresPlainTextAuthentication(let url, let delegate):
+                            self.showAuthenticationPromptForURL(url, withDelegate: delegate)
+                        default:
+                            break
                     }
-                    else {
-                        return false
+                }, onError: {
+                    error in
+                    if let repoIndex = self.repositories.value.indexOf(newRepo) {
+                        self.repositories.value.removeAtIndex(repoIndex)
                     }
-                }
-                .subscribeNext() {
-                    progressObject in
-                    self.showAuthenticationPromptForURL(url, withProgressStream: newRepo.progressStream)
-                }
+                    let err = error as NSError
+                    if err.domain != "User canceled transfer" {
+                        self.showErrorAlertWithMessage("\(err)")
+                    }
+                }, onCompleted: nil, onDisposed: nil)
                 .addDisposableTo(disposeBag)
         }
     }
     
-    func showAuthenticationPromptForURL(url: NSURL, withProgressStream progressStream: Variable<CloningProgress?>) {
+    func showAuthenticationPromptForURL(url: NSURL, withDelegate delegate: RepositoryCloningDelegate) {
         debugPrint("showing auth prompt")
         let alertController = UIAlertController(title: "Authenticate", message: "Please enter your username and password for \(url.host!)", preferredStyle: .Alert)
         alertController.addTextFieldWithConfigurationHandler(nil)
@@ -133,17 +143,18 @@ class RepositoryTableViewController: UIViewController, UITableViewDelegate {
             textField -> Void in
             textField.secureTextEntry = true
         }
+        
         let confirmAction = UIAlertAction(title: "Okay", style: .Default, handler: {
             (action: UIAlertAction) -> Void in
             debugPrint("setting credentials")
-            progressStream.value?.credentials = (username: alertController.textFields![0].text!, password: alertController.textFields![1].text!)
+            delegate.credentials.value = (username: alertController.textFields![0].text!, password: alertController.textFields![1].text!)
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
             _ in
             debugPrint("cancelling")
-            progressStream.value?.authenticationRequired = false
-            progressStream.value?.completed = true
+            delegate.cancelTransfer()
         })
+        
         alertController.addAction(confirmAction)
         alertController.preferredAction = confirmAction
         alertController.addAction(cancelAction)

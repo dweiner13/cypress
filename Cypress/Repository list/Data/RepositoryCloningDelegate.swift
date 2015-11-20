@@ -12,7 +12,19 @@ import RxSwift
 
 class RepositoryCloningDelegate: NSObject, GCRepositoryDelegate {
     
-    let progressStream = Variable<CloningProgress?>(CloningProgress(progress: 0, completed: false, authenticationRequired: false, credentials: nil))
+    enum CloningEvent {
+        case initialized
+        case willStartTransfer
+        case updateTransferProgress(Float)
+        case requiresPlainTextAuthentication(url: NSURL, delegate: RepositoryCloningDelegate)
+        case didFinishTransfer
+        case error(ErrorType)
+    }
+    
+    let credentials: Variable<(username: String, password: String)?> = Variable(nil)
+    
+    private let _cloningProgress: Variable<CloningEvent> = Variable(.initialized)
+    var cloningProgress: Observable<CloningEvent>! = nil
     
     var repository: GCRepository?
     var remote: GCRemote?
@@ -22,102 +34,82 @@ class RepositoryCloningDelegate: NSObject, GCRepositoryDelegate {
     override init() {
         super.init()
         
-        progressStream
-            .subscribeNext() {
-                debugPrint("progressStream changed to \($0)")
-            }
-            .addDisposableTo(disposeBag)
-    }
-    
-    func repository(repository: GCRepository!, willStartTransferWithURL url: NSURL!) {
-        debugPrint("willStartTransfer")
-        progressStream.value?.progress = 0.0
-    }
-    
-    func repository(repository: GCRepository!, updateTransferProgress progress: Float, transferredBytes bytes: UInt) {
-        progressStream.value?.progress = progress
-    }
-    
-    func repository(repository: GCRepository!, requiresPlainTextAuthenticationForURL url: NSURL!, user: String?, username: AutoreleasingUnsafeMutablePointer<NSString?>, password: AutoreleasingUnsafeMutablePointer<NSString?>) -> Bool {
-        debugPrint("requiresPlainTextAuthentication")
-        if let creds = progressStream.value?.credentials {
-            debugPrint("credentials exist: \(creds)")
-            username.memory = creds.username
-            password.memory = creds.password
-            progressStream.value?.credentials = nil
-            return true
-        }
-        else {
-            debugPrint("credentials do not exist")
-            // once credentials have been supplied (e.g. from a view controller
-            // that shows an alert), retry cloning with credentials
-            progressStream
-                .filter() {
-                    if let progress = $0 {
-                        debugPrint("progress is not nil: \(progress)")
-                        return progress.credentials != nil && progress.authenticationRequired
-                    }
-                    else {
-                        debugPrint("returning false because progress is nil")
-                        return false
+        cloningProgress = create() {
+            observer in
+            return self._cloningProgress
+                .subscribeNext() {
+                    event in
+                    switch event {
+                        case .error(let e):
+                            observer.onError(e)
+                        case .didFinishTransfer:
+                            observer.onCompleted()
+                        default:
+                            observer.onNext(event)
                     }
                 }
-                .subscribeNext() {
-                    if self.progressStream.value != nil {
+        }
+        // once credentials have been supplied (e.g. from a view controller
+        // that shows an alert), retry cloning with credentials
+        credentials
+            .subscribeNext() {
+                debugPrint("credentials have been set to \($0)")
+                if $0 != nil {
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                         do {
-                            debugPrint("retrying because credentials now exist: \($0?.credentials!)")
-                            self.progressStream.value!.authenticationRequired = false
-                            if let repo = self.repository {
-                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                                    do {
-                                        try repo.cloneUsingRemote(self.remote, recursive: false)
-                                    }
-                                    catch let e as NSError {
-                                        errorStream.value = e
-                                    }
-                                })
-                            }
-                            else {
-                                debugPrint("repo does not exist")
-                            }
-                            debugPrint("called retry request")
+                            try self.repository?.cloneUsingRemote(self.remote, recursive: false)
                         }
                         catch let e as NSError {
                             errorStream.value = e
                         }
-                    }
+                    })
                 }
-                .addDisposableTo(disposeBag)
+        }
+    }
+    
+    func repository(repository: GCRepository!, willStartTransferWithURL url: NSURL!) {
+        _cloningProgress.value = .willStartTransfer
+    }
+    
+    func repository(repository: GCRepository!, updateTransferProgress progress: Float, transferredBytes bytes: UInt) {
+        _cloningProgress.value = .updateTransferProgress(progress)
+    }
+    
+    func repository(repository: GCRepository!, requiresPlainTextAuthenticationForURL url: NSURL!, user: String?, username: AutoreleasingUnsafeMutablePointer<NSString?>, password: AutoreleasingUnsafeMutablePointer<NSString?>) -> Bool {
+        debugPrint("requiresPlainTextAuthentication")
+        if let creds = credentials.value {
+            debugPrint("credentials exist: \(creds)")
+            username.memory = creds.username
+            password.memory = creds.password
+            credentials.value = nil
+            return true
+        }
+        else {
+            debugPrint("credentials do not exist")
             
             debugPrint("putting out call for authentication required")
             
-            progressStream.value?.authenticationRequired = true
+            _cloningProgress.value = .requiresPlainTextAuthentication(url: url, delegate: self)
             
             return false
         }
     }
     
     func repository(repository: GCRepository!, didFinishTransferWithURL url: NSURL!, success: Bool) {
-        if !success {
-            debugPrint("didFinishTransfer with error")
-            errorStream.value = NSError(domain: "repository transfer finished with error: \(repository.workingDirectoryPath)", code: 0, userInfo: nil)
+        if success {
+            debugPrint("didFinishTransfer successfully")
+            _cloningProgress.value = .didFinishTransfer
         }
         else {
-            debugPrint("didFinishTransfer successfully")
-            progressStream.value = nil
+            debugPrint("didFinishTransfer with error")
         }
+    }
+    
+    func cancelTransfer() {
+        _cloningProgress.value = .error(NSError(domain: "User canceled transfer", code: 0, userInfo: nil))
     }
     
     deinit {
         debugPrint("RepositoryCloningDelegate deinit")
     }
-}
-
-struct CloningProgress {
-    
-    var progress: Float
-    var completed: Bool
-    var authenticationRequired: Bool
-    var credentials: (username: String, password: String)?
-    
 }

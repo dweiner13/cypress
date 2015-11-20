@@ -20,13 +20,28 @@ class RepositoryTableViewCell: UITableViewCell, GCRepositoryDelegate {
     
     var repository: RepositoryViewModel? {
         didSet {
-            if let progressStream = repository?.progressStream {
+            if let progressStream = repository?.cloningProgress {
                 progressStream
-                .subscribeNext() {
-                    _ in
-                    self.configureView()
-                }
-                .addDisposableTo(disposeBag)
+                    .subscribe(onNext: {
+                        event in
+                        switch event {
+                            case .willStartTransfer:
+                                self.startProgress()
+                            case .updateTransferProgress(let progress):
+                                self.updateProgress(progress)
+                            default:
+                                break
+                        }
+                    },
+                    onError: {
+                        _ in
+                        self.stopProgress()
+                    },
+                    onCompleted: {
+                        self.stopProgress()
+                    },
+                    onDisposed: nil)
+                    .addDisposableTo(disposeBag)
             }
         }
     }
@@ -51,23 +66,13 @@ class RepositoryTableViewCell: UITableViewCell, GCRepositoryDelegate {
         if let repo = self.repository {
             mainLabel!.text = repo.name
             
-            mainLabel!.enabled = activeRepositoryStream.value != repo.url && (repo.progressStream.value == nil || repo.progressStream.value!.completed)
+            mainLabel!.enabled = activeRepositoryStream.value != repo.url
             
             if activeRepositoryStream.value == repo.url {
                 accessoryType = .Checkmark
             }
             else {
                 accessoryType = .None
-            }
-            
-            if let progressObject = repo.progressStream.value {
-                if progressObject.progress < 1 {
-                    startProgress()
-                    updateProgress(progressObject.progress)
-                }
-                else {
-                    stopProgress()
-                }
             }
         }
     }

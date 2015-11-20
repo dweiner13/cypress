@@ -14,6 +14,8 @@ private let _singletonSharedInstance = RepositoryManager()
 
 class RepositoryManager {
     
+    let disposeBag = DisposeBag()
+    
     static func defaultManager() -> RepositoryManager {
         return _singletonSharedInstance
     }
@@ -39,7 +41,7 @@ class RepositoryManager {
         createNewRepositoryAtURL(url)
     }
     
-    func cloneRepository(url: NSURL) -> (localURL: NSURL, progressStream: Variable<CloningProgress?>)? {
+    func cloneRepository(url: NSURL) -> (localURL: NSURL, cloningProgress: Observable<RepositoryCloningDelegate.CloningEvent>)? {
         do {
             if let pathComponents = url.pathComponents {
                 let gitName = pathComponents[pathComponents.count - 1] // "repo.git"
@@ -62,11 +64,22 @@ class RepositoryManager {
                                 try repository.cloneUsingRemote(remote, recursive: false)
                             }
                             catch let e as NSError {
-                                errorStream.value = e
+                                if e.code != -7 {
+                                    errorStream.value = e
+                                }
                             }
                         })
                         
-                        return (repoURL, delegate.progressStream)
+                        // On error, delete temporary directory
+                        delegate.cloningProgress
+                            .subscribeError() {
+                                _ in
+                                debugPrint("error received, deleting temporary repo at \(repoURL)")
+                                self.deleteRepositoryAtURL(repoURL)
+                            }
+                            .addDisposableTo(disposeBag)
+                        
+                        return (repoURL, delegate.cloningProgress)
                     }
                 }
                 else {
