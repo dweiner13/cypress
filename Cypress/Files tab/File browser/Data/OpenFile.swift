@@ -21,6 +21,6 @@ class OpenFile {
     
     func save() {
         try! text.writeToFile(url.path!, atomically: false, encoding: self.encoding)
-        print("saved file \(url)")
+        debugPrint("saved file \(url)")
     }
 }

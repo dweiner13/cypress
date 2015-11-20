@@ -41,7 +41,7 @@ class RepositoryTableViewCell: UITableViewCell, GCRepositoryDelegate {
         activeRepositoryStream
             .subscribeNext() {
                 _ in
-                print("calling configure view from active repo stream")
+                debugPrint("calling configure view from active repo stream")
                 self.configureView()
             }
             .addDisposableTo(disposeBag)
@@ -51,7 +51,7 @@ class RepositoryTableViewCell: UITableViewCell, GCRepositoryDelegate {
         if let repo = self.repository {
             mainLabel!.text = repo.name
             
-            mainLabel!.enabled = activeRepositoryStream.value != repo.url && (repo.progressStream.value == nil || repo.progressStream.value == 100)
+            mainLabel!.enabled = activeRepositoryStream.value != repo.url && (repo.progressStream.value == nil || repo.progressStream.value!.completed)
             
             if activeRepositoryStream.value == repo.url {
                 accessoryType = .Checkmark
@@ -60,10 +60,10 @@ class RepositoryTableViewCell: UITableViewCell, GCRepositoryDelegate {
                 accessoryType = .None
             }
             
-            if let progress = repo.progressStream.value {
-                if progress < 1 {
+            if let progressObject = repo.progressStream.value {
+                if progressObject.progress < 1 {
                     startProgress()
-                    updateProgress(progress)
+                    updateProgress(progressObject.progress)
                 }
                 else {
                     stopProgress()

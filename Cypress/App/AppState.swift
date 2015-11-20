@@ -12,8 +12,11 @@ import RxSwift
 private let _singletonSharedInstance = AppState()
 
 let errorStream = Variable<NSError?>(nil)
-
 let activeRepositoryStream: Variable<NSURL?> = Variable(nil)
+
+func debugPrint(message: String) {
+    print("⚠️ \(message)")
+}
 
 class AppState {
     static var sharedAppState: AppState {
@@ -24,6 +27,8 @@ class AppState {
         case activeRepositoryChanged = "appStateActiveRepositoryChanged"
         case fileContentsViewSettingsChanged = "fileContentsViewSettingsChanged"
     }
+    
+    let disposeBag = DisposeBag()
     
     // State variables
     
@@ -50,15 +55,17 @@ class AppState {
         
         activeRepositoryStream.subscribeNext() {
             url in
-            print("set active URL to: \(url)")
+            debugPrint("set active URL to: \(url)")
         }
+        .addDisposableTo(disposeBag)
         
         errorStream.subscribeNext() {
             error in
             if let e = error {
-                print(e)
+                print("🆘 \(e)")
             }
         }
+        .addDisposableTo(disposeBag)
     }
     
     func save() {

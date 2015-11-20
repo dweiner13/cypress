@@ -19,7 +19,7 @@ class FileBrowserNavigationController: CypressNavigationController {
         
         NSNotificationCenter.defaultCenter().addObserverForName(AppState.Notification.activeRepositoryChanged.rawValue, object: nil, queue: nil, usingBlock: {
             notification in
-            print("received notification: \(notification.name)")
+            debugPrint("received notification: \(notification.name)")
             self.popToRootViewControllerAnimated(false)
             let rootViewController = self.viewControllers[0] as! FileBrowserTableViewController
             rootViewController.directoryURL = nil

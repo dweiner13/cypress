@@ -14,7 +14,7 @@ func bindingErrorToInterface(error: ErrorType) {
     #if DEBUG
         fatalError(error)
     #else
-        print(error)
+        debugPrint(error)
     #endif
 }
     

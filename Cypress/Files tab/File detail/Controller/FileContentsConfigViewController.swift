@@ -35,7 +35,7 @@ class FileContentsConfigViewController: UITableViewController {
 
     @IBAction func WordWrapValueChanged(sender: UISwitch) {
         self.fileContentsViewSettings?.setValue(sender.on, forSetting: .wordWrap)
-        print("valuechanged")
+        debugPrint("valuechanged")
     }
     
     // MARK: - Table view data source

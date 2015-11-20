@@ -39,7 +39,7 @@ class RepositoryManager {
         createNewRepositoryAtURL(url)
     }
     
-    func cloneRepository(url: NSURL) -> (localURL: NSURL, progressStream: Variable<Float?>)? {
+    func cloneRepository(url: NSURL) -> (localURL: NSURL, progressStream: Variable<CloningProgress?>)? {
         do {
             if let pathComponents = url.pathComponents {
                 let gitName = pathComponents[pathComponents.count - 1] // "repo.git"
@@ -53,6 +53,8 @@ class RepositoryManager {
                         let repository = try GCRepository(newLocalRepository: repoURL.path!, bare: false)
                         let remote = try repository.addRemoteWithName("origin", url: url)
                         let delegate = RepositoryCloningDelegate()
+                        delegate.repository = repository
+                        delegate.remote = remote
                         
                         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                             do {

@@ -33,7 +33,7 @@ extension ObservableConvertibleType where E: SequenceType, E.Generator.Element :
                 }
                 // in case of error, print it to terminal only
                 catch let e {
-                    print(e)
+                    debugPrint(e)
                     return [Changeset.initialValue(Array(newSections))]
                 }
             }

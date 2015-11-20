@@ -103,12 +103,52 @@ class RepositoryTableViewController: UIViewController, UITableViewDelegate {
     // MARK: - UI Actions
     @IBAction func tappedAddButton(sender: UIBarButtonItem) {
         // TODO: this is just for debugging
-        let url = NSURL(string: "https://github.com/ReactiveX/RxSwift.git")!
+        let url = NSURL(string: "https://github.com/danw13335/Cypress.git")!
         if let result = RepositoryManager.defaultManager().cloneRepository(url) {
             var newRepo = RepositoryViewModel(url: result.localURL)
             newRepo.progressStream = result.progressStream
             self.repositories.value.append(newRepo)
+            newRepo.progressStream
+                .filter() {
+                    if let progressObject = $0 {
+                        return progressObject.authenticationRequired && progressObject.credentials == nil
+                    }
+                    else {
+                        return false
+                    }
+                }
+                .subscribeNext() {
+                    progressObject in
+                    self.showAuthenticationPromptForURL(url, withProgressStream: newRepo.progressStream)
+                }
+                .addDisposableTo(disposeBag)
         }
+    }
+    
+    func showAuthenticationPromptForURL(url: NSURL, withProgressStream progressStream: Variable<CloningProgress?>) {
+        debugPrint("showing auth prompt")
+        let alertController = UIAlertController(title: "Authenticate", message: "Please enter your username and password for \(url.host!)", preferredStyle: .Alert)
+        alertController.addTextFieldWithConfigurationHandler(nil)
+        alertController.addTextFieldWithConfigurationHandler() {
+            textField -> Void in
+            textField.secureTextEntry = true
+        }
+        let confirmAction = UIAlertAction(title: "Okay", style: .Default, handler: {
+            (action: UIAlertAction) -> Void in
+            debugPrint("setting credentials")
+            progressStream.value?.credentials = (username: alertController.textFields![0].text!, password: alertController.textFields![1].text!)
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+            _ in
+            debugPrint("cancelling")
+            progressStream.value?.authenticationRequired = false
+            progressStream.value?.completed = true
+        })
+        alertController.addAction(confirmAction)
+        alertController.preferredAction = confirmAction
+        alertController.addAction(cancelAction)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     func dismissSelf() {

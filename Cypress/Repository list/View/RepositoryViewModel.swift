@@ -18,7 +18,7 @@ struct RepositoryViewModel: Equatable {
     
     let name: String
     let url: NSURL
-    var progressStream: Variable<Float?> = Variable(nil)
+    var progressStream: Variable<CloningProgress?> = Variable(nil)
     
     init(url: NSURL) {
         self.url = url
