@@ -9,13 +9,16 @@
 import UIKit
 import GitUpKit
 
+import RxSwift
+import RxCocoa
+
 class RepositoryTableViewCell: UITableViewCell, GCRepositoryDelegate {
     
     @IBOutlet weak var mainLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var progressView: UIProgressView!
     
-    var repository: Repository! {
+    var repository: RepositoryViewModel? {
         didSet {
             configureView()
         }
@@ -23,32 +26,45 @@ class RepositoryTableViewCell: UITableViewCell, GCRepositoryDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        
         // Hide progress bar
         progressView.hidden = true
+        
+        activeRepositoryStream
+            .subscribeNext() {
+                _ in
+                self.configureView()
+            }
     }
     
     func configureView() {
-        mainLabel!.text = repository.name
-        if repository == AppState.sharedAppState.activeRepository {
-            accessoryType = .Checkmark
-            mainLabel!.enabled = false
+        if let repo = self.repository {
+            mainLabel!.text = repo.name
+            
+            mainLabel!.enabled = activeRepositoryStream.value != repo.url && repo.status != .InProgress
+            
+            if repo.status == RepositoryViewModel.RepoStatus.InProgress {
+                self.startProgress()
+            }
+            else {
+                self.stopProgress()
+            }
+            
+            if activeRepositoryStream.value == repo.url {
+                accessoryType = .Checkmark
+            }
+            else {
+                accessoryType = .None
+            }
+            
+            if let progress = repo.statusProgress {
+                self.updateProgress(progress)
+            }
         }
     }
     
     func flashHighlight() {
         setHighlighted(true, animated: false)
         setHighlighted(false, animated: true)
-    }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-        if selected {
-            accessoryType = .Checkmark
-        }
     }
     
     func startProgress() {

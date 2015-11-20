@@ -7,8 +7,13 @@
 //
 
 import UIKit
+import RxSwift
 
 private let _singletonSharedInstance = AppState()
+
+let errorStream = Variable<NSError?>(nil)
+
+let activeRepositoryStream: Variable<NSURL?> = Variable(nil)
 
 class AppState {
     static var sharedAppState: AppState {
@@ -23,7 +28,7 @@ class AppState {
     // State variables
     
     // SAVED
-    var activeRepository: Repository? {
+    var activeRepository: RepositoryViewModel? {
         didSet {
             NSNotificationCenter.defaultCenter().postNotificationName("appStateActiveRepositoryChanged", object: self)
             save()
@@ -40,7 +45,19 @@ class AppState {
     init() {
         let defaults = NSUserDefaults.standardUserDefaults()
         if let storedActiveRepoName: AnyObject = defaults.objectForKey("activeRepositoryName") {
-            self.activeRepository = RepositoryList.sharedRepositoryList.repositoryWithName(storedActiveRepoName as! String)?.repo
+            self.activeRepository = nil
+        }
+        
+        activeRepositoryStream.subscribeNext() {
+            url in
+            print("set active URL to: \(url)")
+        }
+        
+        errorStream.subscribeNext() {
+            error in
+            if let e = error {
+                print(e)
+            }
         }
     }
     

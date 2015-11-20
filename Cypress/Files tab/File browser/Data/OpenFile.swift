@@ -12,7 +12,7 @@ class OpenFile {
     
     let url: NSURL
     var text: String
-    let encoding = NSStringEncoding()
+    var encoding = NSStringEncoding()
     
     init(url: NSURL) {
         self.url = url

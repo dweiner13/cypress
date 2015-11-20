@@ -5,6 +5,7 @@
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "42D149A6CCE3544DED096FBD47AEBD5ABE05E462" : 0,
+    "8B123162C394A0A0A138779108E4C59DD771865A" : 0,
     "23FA20E70D0528EA0774E7AEF649B9012F8A36AC" : 0,
     "BE225267DC3B2D4E20DDA5A69C0155B71425F8BE" : 0,
     "70783EE7218D87FCBAABD7787F6E3A25EFFAFB2F" : 0
@@ -12,6 +13,7 @@
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "6438BF46-F783-4AED-B648-74E0113BF04E",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "42D149A6CCE3544DED096FBD47AEBD5ABE05E462" : "Cypress\/",
+    "8B123162C394A0A0A138779108E4C59DD771865A" : "Cypress\/RxSwift\/",
     "23FA20E70D0528EA0774E7AEF649B9012F8A36AC" : "Cypress\/GitUp\/",
     "BE225267DC3B2D4E20DDA5A69C0155B71425F8BE" : "Cypress\/GitUp\/GitUpKit\/Third-Party\/XLFacility\/",
     "70783EE7218D87FCBAABD7787F6E3A25EFFAFB2F" : "Cypress\/GitUp\/GitUpKit\/Third-Party\/libgit2\/"
@@ -34,6 +36,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/git-up\/libgit2.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "70783EE7218D87FCBAABD7787F6E3A25EFFAFB2F"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ReactiveX\/RxSwift.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8B123162C394A0A0A138779108E4C59DD771865A"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/swisspol\/XLFacility.git",
