@@ -40,7 +40,10 @@ class RepositoryTableViewController: UIViewController, UITableViewDelegate {
         
         dataSource.cellFactory = {
             (tableView, indexPath, repository: RepositoryViewModel) in
-            let cell = tableView.dequeueReusableCellWithIdentifier(repositoryListCellIdentifier)! as! RepositoryTableViewCell
+            guard let cell = tableView.dequeueReusableCellWithIdentifier(repositoryListCellIdentifier) as? RepositoryTableViewCell else {
+                errorStream.value = NSError(domain: "Could not deuqueue cell with identifier \(repositoryListCellIdentifier)", code: 0, userInfo: nil)
+                return UITableViewCell()
+            }
             cell.repository = repository
             cell.configureView()
             return cell
@@ -61,10 +64,17 @@ class RepositoryTableViewController: UIViewController, UITableViewDelegate {
         var repositories: [RepositoryViewModel] = []
         let fileManager = NSFileManager.defaultManager()
         let directoryURL = Cypress.getRepositoriesDirectoryURL()
-        let contents = try! fileManager.contentsOfDirectoryAtURL(directoryURL, includingPropertiesForKeys: nil, options: .SkipsHiddenFiles)
+        guard let contents = try? fileManager.contentsOfDirectoryAtURL(directoryURL, includingPropertiesForKeys: nil, options: .SkipsHiddenFiles) else {
+            errorStream.value = NSError(domain: "could not get contents of repositories directory", code: 0, userInfo: nil)
+            return
+        }
         for item: NSURL in contents {
             var isDirectory: ObjCBool = ObjCBool(false)
-            NSFileManager.defaultManager().fileExistsAtPath(item.path!, isDirectory: &isDirectory)
+            guard let path = item.path else {
+                errorStream.value = NSError(domain: "could not get path for url \(item)", code: 0, userInfo: nil)
+                break
+            }
+            NSFileManager.defaultManager().fileExistsAtPath(path, isDirectory: &isDirectory)
             if isDirectory {
                 repositories.append(RepositoryViewModel(url: item))
             }
@@ -183,14 +193,18 @@ class RepositoryTableViewController: UIViewController, UITableViewDelegate {
                     .addDisposableTo(disposeBag)
             }
         }
-        catch let e as ErrorType {
+        catch let e {
             showErrorAlertWithMessage(String(reflecting: e))
         }
     }
     
     func showAuthenticationPromptForURL(url: NSURL, withDelegate delegate: RepositoryCloningDelegate) {
         debugLog("showing auth prompt")
-        let alertController = UIAlertController(title: "Authenticate", message: "Please enter your username and password for \(url.host!)", preferredStyle: .Alert)
+        guard let urlHost = url.host else {
+            errorStream.value = NSError(domain: "Could not get host from url \(url)", code: 0, userInfo: nil)
+            return
+        }
+        let alertController = UIAlertController(title: "Authenticate", message: "Please enter your username and password for \(urlHost)", preferredStyle: .Alert)
         alertController.addTextFieldWithConfigurationHandler(nil)
         alertController.addTextFieldWithConfigurationHandler() {
             textField -> Void in
@@ -200,7 +214,11 @@ class RepositoryTableViewController: UIViewController, UITableViewDelegate {
         let confirmAction = UIAlertAction(title: "Okay", style: .Default, handler: {
             (action: UIAlertAction) -> Void in
             debugLog("setting credentials")
-            delegate.credentials.value = (username: alertController.textFields![0].text!, password: alertController.textFields![1].text!)
+            guard let usernameFieldText = alertController.textFields?[0].text, passwordFieldText = alertController.textFields?[1].text else {
+                errorStream.value = NSError(domain: "Could not get value of text fields from authentication alert view", code: 0, userInfo: nil)
+                return
+            }
+            delegate.credentials.value = (username: usernameFieldText, password: passwordFieldText)
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
             _ in

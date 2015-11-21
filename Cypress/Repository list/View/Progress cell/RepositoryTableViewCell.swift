@@ -64,9 +64,9 @@ class RepositoryTableViewCell: UITableViewCell, GCRepositoryDelegate {
     
     func configureView() {
         if let repo = self.repository {
-            mainLabel!.text = repo.name
+            mainLabel.text = repo.name
             
-            mainLabel!.enabled = activeRepositoryStream.value != repo.url
+            mainLabel.enabled = activeRepositoryStream.value != repo.url
             
             if activeRepositoryStream.value == repo.url {
                 accessoryType = .Checkmark

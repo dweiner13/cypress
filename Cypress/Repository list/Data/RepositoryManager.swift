@@ -60,7 +60,10 @@ class RepositoryManager {
                     throw NSError(domain: "could not clone repository from \(url): already exists at \(localPath)", code: 0, userInfo: nil)
                 }
                 else {
-                    let repository = try GCRepository(newLocalRepository: repoURL.path!, bare: false)
+                    guard let path = repoURL.path else {
+                        throw NSError(domain: "could not clone repositroy from \(url): could not get path of URL", code: 0, userInfo: nil)
+                    }
+                    let repository = try GCRepository(newLocalRepository: path, bare: false)
                     let remote = try repository.addRemoteWithName("origin", url: url)
                     let delegate = RepositoryCloningDelegate()
                     delegate.repository = repository
@@ -72,6 +75,10 @@ class RepositoryManager {
                             try repository.cloneUsingRemote(remote, recursive: false)
                         }
                         catch let e as NSError {
+                            // if e.code is -7, then it was an authorization
+                            // error, which we threw that ourselves before
+                            // re-trying the download now that we know we need
+                            // authentication
                             if e.code != -7 {
                                 errorStream.value = e
                             }
@@ -79,7 +86,11 @@ class RepositoryManager {
                     })
                     
                     // On error, delete temporary directory
-                    delegate.cloningProgress
+                    guard let cloningProgress = delegate.cloningProgress else {
+                        errorStream.value = NSError(domain: "Cloning progress stream not set yet in delegate", code: 0, userInfo: nil)
+                        return nil
+                    }
+                    cloningProgress
                         .subscribeError() {
                             _ in
                             debugLog("error received, deleting temporary repo at \(repoURL)")
@@ -87,7 +98,7 @@ class RepositoryManager {
                         }
                         .addDisposableTo(disposeBag)
                     
-                    return (repoURL, delegate.cloningProgress)
+                    return (repoURL, cloningProgress)
                 }
             }
             else {
