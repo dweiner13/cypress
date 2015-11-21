@@ -84,6 +84,7 @@
 		E0F815F21C00CD7A00EFAEC7 /* UITextViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F815D61C00CD7A00EFAEC7 /* UITextViewExtensions.swift */; };
 		E0F815F31C00CD7A00EFAEC7 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F815D71C00CD7A00EFAEC7 /* UIViewControllerExtensions.swift */; };
 		E0F815F41C00CD7A00EFAEC7 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F815D81C00CD7A00EFAEC7 /* UIViewExtensions.swift */; };
+		E0F816071C00D47E00EFAEC7 /* FileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F816061C00D47E00EFAEC7 /* FileViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -332,6 +333,7 @@
 		E0F815D61C00CD7A00EFAEC7 /* UITextViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextViewExtensions.swift; sourceTree = "<group>"; };
 		E0F815D71C00CD7A00EFAEC7 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		E0F815D81C00CD7A00EFAEC7 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		E0F816061C00D47E00EFAEC7 /* FileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -435,8 +437,9 @@
 		E0A920D81BF954E1009C0552 /* File browser */ = {
 			isa = PBXGroup;
 			children = (
-				E0A920DB1BF954FB009C0552 /* Controller */,
-				E0D2078F1BF86165000B54D1 /* Data */,
+				E0A920DB1BF954FB009C0552 /* View */,
+				E0F815FA1C00D46B00EFAEC7 /* ViewModel */,
+				E0D2078F1BF86165000B54D1 /* Model */,
 			);
 			path = "File browser";
 			sourceTree = "<group>";
@@ -459,13 +462,14 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		E0A920DB1BF954FB009C0552 /* Controller */ = {
+		E0A920DB1BF954FB009C0552 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				E0363E641BEE5BBB00C8584F /* FileBrowserNavigationController.swift */,
 				E0E5D8261BEFAD220010A976 /* FileBrowserTableViewController.swift */,
 				E0E5D82A1BEFE76F0010A976 /* NavigationHistoryTableViewController.swift */,
 			);
+			name = View;
 			path = Controller;
 			sourceTree = "<group>";
 		};
@@ -488,11 +492,12 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		E0D2078F1BF86165000B54D1 /* Data */ = {
+		E0D2078F1BF86165000B54D1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				E0D2078B1BF85A3A000B54D1 /* DirectoryContents.swift */,
 			);
+			name = Model;
 			path = Data;
 			sourceTree = "<group>";
 		};
@@ -646,6 +651,14 @@
 				E0F815D81C00CD7A00EFAEC7 /* UIViewExtensions.swift */,
 			);
 			name = EZSwiftExtensions;
+			sourceTree = "<group>";
+		};
+		E0F815FA1C00D46B00EFAEC7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E0F816061C00D47E00EFAEC7 /* FileViewModel.swift */,
+			);
+			name = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -935,6 +948,7 @@
 				E0F815EB1C00CD7A00EFAEC7 /* UIColoredView.swift in Sources */,
 				E06EB6BD1BF7DBA30035D2E6 /* FileContentsViewSettings.swift in Sources */,
 				E0DCEDFE1BFE43D1000F7164 /* SectionModel.swift in Sources */,
+				E0F816071C00D47E00EFAEC7 /* FileViewModel.swift in Sources */,
 				E06EB6C31BF7EEF20035D2E6 /* OpenFile.swift in Sources */,
 				E06EB6B71BF7D6F70035D2E6 /* SwitchTableViewCell.swift in Sources */,
 				E06EB6B21BF7D5500035D2E6 /* FileContentsConfigViewController.swift in Sources */,

@@ -3,23 +3,25 @@
 import UIKit
 import RxSwift
 
-let files = ["a", "b", "c", "d"]
+let xObservable = Variable<String>("x")
+let yObservable = Variable<String>("y")
 
-var a: Observable<String> = create() {
-    observer in
-    for file in files {
-        observer.onNext(file)
-    }
-    observer.onError(NSError(domain: "beep boop error", code: 0, userInfo: nil))
-    return NopDisposable.instance
+let a = combineLatest(xObservable, yObservable) {
+    x, y in
+    return [
+        x,
+        y
+    ]
 }
 
-class observer<String>: ObserverType {
-    typealias E = String
-    
-    func on(event: Event<E>) {
-        print(event)
+let b = combineLatest(xObservable, yObservable) {
+    (x: String, y: String) throws -> [String] in
+    var ret = [String]()
+    if !x.isEmpty {
+        ret.append(x)
     }
+    if !y.isEmpty {
+        ret.append(y)
+    }
+    return [String]()
 }
-
-a.subscribe(observer())

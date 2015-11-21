@@ -9,25 +9,29 @@
 import UIKit
 import GitUpKit
 
+import RxSwift
+
 class FileBrowserNavigationController: CypressNavigationController {
     
     var progressView: UIProgressView? = nil
     var toolbarLabel: UILabel? = nil
+    
+    let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserverForName(AppState.Notification.activeRepositoryChanged.rawValue, object: nil, queue: nil, usingBlock: {
-            notification in
-            debugPrint("received notification: \(notification.name)")
-            self.popToRootViewControllerAnimated(false)
-            let rootViewController = self.viewControllers[0] as! FileBrowserTableViewController
-            rootViewController.directoryURL = nil
-            rootViewController.tableView.reloadData()
-        })
+        activeRepositoryStream
+            .subscribeNext() {
+                debugLog("FileBrowserNavigationController saw active repo change")
+                self.popToRootViewControllerAnimated(false)
+                let rootViewController = self.viewControllers[0] as! FileBrowserTableViewController
+                rootViewController.directory.value = $0
+            }
+            .addDisposableTo(disposeBag)
         
         if let root = topViewController as? FileBrowserTableViewController {
-            root.directoryURL = nil
+            root.directory.value = activeRepositoryStream.value
         }
     }
 

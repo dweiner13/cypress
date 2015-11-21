@@ -39,7 +39,7 @@ class RepositoryTableViewController: UIViewController, UITableViewDelegate {
             }
         
         dataSource.cellFactory = {
-            (tableView, indexPath, repository: RepositoryViewModel) in
+            (tableView, indexPath, repository) in
             guard let cell = tableView.dequeueReusableCellWithIdentifier(repositoryListCellIdentifier) as? RepositoryTableViewCell else {
                 errorStream.value = NSError(domain: "Could not deuqueue cell with identifier \(repositoryListCellIdentifier)", code: 0, userInfo: nil)
                 return UITableViewCell()

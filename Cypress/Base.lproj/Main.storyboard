@@ -24,6 +24,50 @@
             </objects>
             <point key="canvasLocation" x="1556" y="158"/>
         </scene>
+        <!--File Browser Table View Controller-->
+        <scene sceneID="p9W-Pz-qcm">
+            <objects>
+                <viewController storyboardIdentifier="fileBrowser" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pI2-UE-YnI" customClass="FileBrowserTableViewController" customModule="Cypress" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="6wT-VK-IG3">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="basicCell" textLabel="sDJ-Ls-fjm" style="IBUITableViewCellStyleDefault" id="q1A-kS-hFf">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="q1A-kS-hFf" id="glO-4o-1vW">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sDJ-Ls-fjm">
+                                            <rect key="frame" x="15" y="0.0" width="570" height="43"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="d8Z-qo-7yv">
+                        <barButtonItem key="rightBarButtonItem" title="Repositories" id="aGr-hj-ZfL">
+                            <connections>
+                                <segue destination="2of-i2-o20" kind="presentation" identifier="showRepositoryListSegue" modalPresentationStyle="formSheet" id="5ad-CL-2Aa"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="6wT-VK-IG3" id="j7X-5p-lwq"/>
+                        <segue destination="Mzv-ox-OfI" kind="showDetail" identifier="showFileContents" id="QCi-N2-uXe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p2g-pN-xjZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="822" y="872"/>
+        </scene>
         <!--Repositories-->
         <scene sceneID="ZEY-bb-EoL">
             <objects>
@@ -52,54 +96,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nMX-K6-Yee" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2031" y="158"/>
-        </scene>
-        <!--Title-->
-        <scene sceneID="Met-ii-CbE">
-            <objects>
-                <tableViewController storyboardIdentifier="fileBrowser" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lIP-rW-KyW" customClass="FileBrowserTableViewController" customModule="Cypress" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="G7i-4P-7XK">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="basicCell" textLabel="uE2-3T-iwI" style="IBUITableViewCellStyleDefault" id="wfj-yA-4Ct">
-                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wfj-yA-4Ct" id="vOh-f1-Xrk">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uE2-3T-iwI">
-                                            <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="lIP-rW-KyW" id="oAy-hc-gwB"/>
-                            <outlet property="delegate" destination="lIP-rW-KyW" id="4D0-Vu-O46"/>
-                        </connections>
-                    </tableView>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Title" id="c5d-5x-sQs">
-                        <barButtonItem key="rightBarButtonItem" title="Repositories" id="RtV-Xa-JWH">
-                            <connections>
-                                <segue destination="2of-i2-o20" kind="presentation" identifier="showRepositoryListSegue" modalPresentationStyle="formSheet" id="D70-86-F9w"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <segue destination="Mzv-ox-OfI" kind="showDetail" identifier="showFileContents" id="hbC-IC-cuA"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="som-uK-TRE" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="691" y="872"/>
         </scene>
         <!--Cypress Navigation Controller-->
         <scene sceneID="9kh-4k-1Yr">
@@ -203,10 +199,10 @@
                                         <rect key="frame" x="0.0" y="64" width="400" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="K9N-Ss-qb3" id="opO-Ep-sTD">
-                                            <rect key="frame" x="0.0" y="0.0" width="400" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="400" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wan-CD-7oI">
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wan-CD-7oI">
                                                     <rect key="frame" x="343" y="7" width="51" height="31"/>
                                                     <connections>
                                                         <action selector="WordWrapValueChanged:" destination="Gxf-Og-YGG" eventType="valueChanged" id="Wiy-wM-Iht"/>
@@ -296,7 +292,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="lIP-rW-KyW" kind="relationship" relationship="rootViewController" id="idh-9h-mXJ"/>
+                        <segue destination="pI2-UE-YnI" kind="relationship" relationship="rootViewController" id="szk-wT-O8x"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FUe-iH-aP3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -316,11 +312,11 @@
                                 <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QPl-5F-jnW" id="muw-5Q-hBH">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ou6-Wz-Mis">
-                                            <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
+                                            <rect key="frame" x="15" y="0.0" width="570" height="43"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -345,6 +341,6 @@
         <image name="files" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hbC-IC-cuA"/>
+        <segue reference="QCi-N2-uXe"/>
     </inferredMetricsTieBreakers>
 </document>
