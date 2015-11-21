@@ -114,7 +114,7 @@ class RepositoryTableViewController: UIViewController, UITableViewDelegate {
             newRepo.cloningProgress?
                 .subscribe(onNext: {
                     event in
-                    debugPrint(event)
+                    debugLog(event)
                     switch event {
                         case .requiresPlainTextAuthentication(let url, let delegate):
                             self.showAuthenticationPromptForURL(url, withDelegate: delegate)
@@ -136,7 +136,7 @@ class RepositoryTableViewController: UIViewController, UITableViewDelegate {
     }
     
     func showAuthenticationPromptForURL(url: NSURL, withDelegate delegate: RepositoryCloningDelegate) {
-        debugPrint("showing auth prompt")
+        debugLog("showing auth prompt")
         let alertController = UIAlertController(title: "Authenticate", message: "Please enter your username and password for \(url.host!)", preferredStyle: .Alert)
         alertController.addTextFieldWithConfigurationHandler(nil)
         alertController.addTextFieldWithConfigurationHandler() {
@@ -146,12 +146,12 @@ class RepositoryTableViewController: UIViewController, UITableViewDelegate {
         
         let confirmAction = UIAlertAction(title: "Okay", style: .Default, handler: {
             (action: UIAlertAction) -> Void in
-            debugPrint("setting credentials")
+            debugLog("setting credentials")
             delegate.credentials.value = (username: alertController.textFields![0].text!, password: alertController.textFields![1].text!)
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
             _ in
-            debugPrint("cancelling")
+            debugLog("cancelling")
             delegate.cancelTransfer()
         })
         

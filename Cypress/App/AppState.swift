@@ -14,8 +14,12 @@ private let _singletonSharedInstance = AppState()
 let errorStream = Variable<NSError?>(nil)
 let activeRepositoryStream: Variable<NSURL?> = Variable(nil)
 
-func debugPrint(message: String) {
+func debugLog(message: String) {
     print("⚠️ \(message)")
+}
+
+func debugLog(item: Any) {
+    debugLog(String(reflecting: item))
 }
 
 class AppState {
@@ -55,7 +59,7 @@ class AppState {
         
         activeRepositoryStream.subscribeNext() {
             url in
-            debugPrint("set active URL to: \(url)")
+            debugLog("set active URL to: \(url)")
         }
         .addDisposableTo(disposeBag)
         

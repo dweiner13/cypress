@@ -53,7 +53,7 @@ class RepositoryCloningDelegate: NSObject, GCRepositoryDelegate {
         // that shows an alert), retry cloning with credentials
         credentials
             .subscribeNext() {
-                debugPrint("credentials have been set to \($0)")
+                debugLog("credentials have been set to \($0)")
                 if $0 != nil {
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                         do {
@@ -76,18 +76,18 @@ class RepositoryCloningDelegate: NSObject, GCRepositoryDelegate {
     }
     
     func repository(repository: GCRepository!, requiresPlainTextAuthenticationForURL url: NSURL!, user: String?, username: AutoreleasingUnsafeMutablePointer<NSString?>, password: AutoreleasingUnsafeMutablePointer<NSString?>) -> Bool {
-        debugPrint("requiresPlainTextAuthentication")
+        debugLog("requiresPlainTextAuthentication")
         if let creds = credentials.value {
-            debugPrint("credentials exist: \(creds)")
+            debugLog("credentials exist: \(creds)")
             username.memory = creds.username
             password.memory = creds.password
             credentials.value = nil
             return true
         }
         else {
-            debugPrint("credentials do not exist")
+            debugLog("credentials do not exist")
             
-            debugPrint("putting out call for authentication required")
+            debugLog("putting out call for authentication required")
             
             _cloningProgress.value = .requiresPlainTextAuthentication(url: url, delegate: self)
             
@@ -97,11 +97,11 @@ class RepositoryCloningDelegate: NSObject, GCRepositoryDelegate {
     
     func repository(repository: GCRepository!, didFinishTransferWithURL url: NSURL!, success: Bool) {
         if success {
-            debugPrint("didFinishTransfer successfully")
+            debugLog("didFinishTransfer successfully")
             _cloningProgress.value = .didFinishTransfer
         }
         else {
-            debugPrint("didFinishTransfer with error")
+            debugLog("didFinishTransfer with error")
         }
     }
     
@@ -110,6 +110,6 @@ class RepositoryCloningDelegate: NSObject, GCRepositoryDelegate {
     }
     
     deinit {
-        debugPrint("RepositoryCloningDelegate deinit")
+        debugLog("RepositoryCloningDelegate deinit")
     }
 }
