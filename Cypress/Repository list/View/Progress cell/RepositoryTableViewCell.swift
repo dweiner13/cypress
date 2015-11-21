@@ -56,7 +56,6 @@ class RepositoryTableViewCell: UITableViewCell, GCRepositoryDelegate {
         activeRepositoryStream
             .subscribeNext() {
                 _ in
-                debugLog("calling configure view from active repo stream")
                 self.configureView()
             }
             .addDisposableTo(disposeBag)

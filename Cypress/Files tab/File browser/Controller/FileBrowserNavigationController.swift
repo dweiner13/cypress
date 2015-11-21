@@ -25,7 +25,11 @@ class FileBrowserNavigationController: CypressNavigationController {
             .subscribeNext() {
                 debugLog("FileBrowserNavigationController saw active repo change")
                 self.popToRootViewControllerAnimated(false)
-                let rootViewController = self.viewControllers[0] as! FileBrowserTableViewController
+                guard let rootViewController = self.viewControllers[0] as? FileBrowserTableViewController else {
+                    errorStream.value = NSError(domain: "Root view controller of FileBrowserNavigationController was not a FileBrowserTableViewController", code: 0, userInfo: nil)
+                    return
+                }
+                debugLog("resetting rootViewController directory value to \($0)")
                 rootViewController.directory.value = $0
             }
             .addDisposableTo(disposeBag)

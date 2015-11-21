@@ -28,15 +28,23 @@ class FileBrowserTableViewController: UIViewController, UITableViewDelegate {
     
     typealias Section = SectionModel<String, FileViewModel>
     
-    var longPressBackButtonGestureRecognizer: UILongPressGestureRecognizer!
+    var longPressBackButtonGestureRecognizer: UILongPressGestureRecognizer?
     var fileContentsViewController: FileContentsViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if activeRepositoryStream.value == nil {
+            performSegueWithIdentifier("showRepositoryListSegue", sender: nil)
+        }
+        
         if let split = self.splitViewController {
             let controllers = split.viewControllers
-            self.fileContentsViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? FileContentsViewController
+            guard let navController = controllers[controllers.count-1] as? UINavigationController, fileContentsViewController = navController.topViewController as? FileContentsViewController else {
+                errorStream.value = NSError(domain: "Could not get file contents view controller for file browser", code: 0, userInfo: nil)
+                return
+            }
+            self.fileContentsViewController = fileContentsViewController
         }
         
         let allFiles = combineLatest(files, directories) {
@@ -62,6 +70,9 @@ class FileBrowserTableViewController: UIViewController, UITableViewDelegate {
                 return UITableViewCell()
             }
             textLabel.text = file.name
+            if file.isDirectory {
+                cell.accessoryType = .DisclosureIndicator
+            }
             return cell
         }
         
@@ -78,8 +89,9 @@ class FileBrowserTableViewController: UIViewController, UITableViewDelegate {
         
         self.directory
             .subscribeNext() {
-                _ in
-                self.loadFiles()
+                if let dir = $0 {
+                    self.loadFilesForDirectory(dir)
+                }
             }
             .addDisposableTo(disposeBag)
         
@@ -94,9 +106,16 @@ class FileBrowserTableViewController: UIViewController, UITableViewDelegate {
             .subscribeNext() {
                 item in
                 if item.isDirectory { //tapped directory
-                    let newFileBrowser = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("fileBrowser") as! FileBrowserTableViewController
+                    guard let newFileBrowser = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("fileBrowser") as? FileBrowserTableViewController else {
+                        errorStream.value = NSError(domain: "Could not get file browser controller from storyboard", code: 0, userInfo: nil)
+                        return
+                    }
                     newFileBrowser.directory.value = item.url
-                    self.navigationController!.pushViewController(newFileBrowser, animated: true)
+                    guard let navController = self.navigationController else {
+                        errorStream.value = NSError(domain: "navController does not exist for FileBrowserTableViewController", code: 0, userInfo: nil)
+                        return
+                    }
+                    navController.pushViewController(newFileBrowser, animated: true)
                 }
                 else { // tapped file
                     self.performSegueWithIdentifier("showFileContents", sender: self)
@@ -105,38 +124,54 @@ class FileBrowserTableViewController: UIViewController, UITableViewDelegate {
             .addDisposableTo(disposeBag)
     }
     
-    func loadFiles() {
+    func loadFilesForDirectory(dir: NSURL) {
         // load files
-        guard let dir = directory.value else {
-            errorStream.value = NSError(domain: "directory not set for file browser table view controller", code: 0, userInfo: nil)
+        guard let contents = try? NSFileManager.defaultManager().contentsOfDirectoryAtURL(dir, includingPropertiesForKeys: nil, options: .SkipsHiddenFiles) else {
+            errorStream.value = NSError(domain: "could not read contents of directory at URL \(dir)", code: 0, userInfo: nil)
             return
         }
-        let contents = try! NSFileManager.defaultManager().contentsOfDirectoryAtURL(dir, includingPropertiesForKeys: nil, options: .SkipsHiddenFiles)
+        var directoryItems = [FileViewModel]()
+        var fileItems = [FileViewModel]()
         for item: NSURL in contents {
             var isDirectory: ObjCBool = ObjCBool(false)
-            NSFileManager.defaultManager().fileExistsAtPath(item.path!, isDirectory: &isDirectory)
+            guard let path = item.path else {
+                errorStream.value = NSError(domain: "could not get path for item url \(item)", code: 0, userInfo: nil)
+                return
+            }
+            NSFileManager.defaultManager().fileExistsAtPath(path, isDirectory: &isDirectory)
             if isDirectory {
-                directories.value.append(FileViewModel(url: item))
+                directoryItems.append(FileViewModel(url: item))
             }
             else {
-                files.value.append(FileViewModel(url: item))
+                fileItems.append(FileViewModel(url: item))
             }
         }
+        directories.value = directoryItems
+        files.value = fileItems
         navigationItem.title = dir.lastPathComponent
     }
     
     override func viewWillAppear(animated: Bool) {
         // clear selection on viewWillAppear
-        if self.splitViewController!.collapsed {
+        guard let split = self.splitViewController else {
+            errorStream.value = NSError(domain: "could not get split view controller in file browser table view controller", code: 0, userInfo: nil)
+            return
+        }
+        guard let navigation = self.navigationController else {
+            errorStream.value = NSError(domain: "could not get navigation controller in file browser table view controller", code: 1, userInfo: nil)
+            return
+        }
+        if split.collapsed {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
             }
         }
         
         // Create long-press view and gesture recognizer
-        longPressBackButtonGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "longPressedNavigationBar:")
-        self.navigationController!.navigationBar.addGestureRecognizer(longPressBackButtonGestureRecognizer)
-        longPressBackButtonGestureRecognizer.enabled = true
+        let recognizer = UILongPressGestureRecognizer(target: self, action: "longPressedNavigationBar:")
+        navigation.navigationBar.addGestureRecognizer(recognizer)
+        recognizer.enabled = true
+        longPressBackButtonGestureRecognizer = recognizer
         
         super.viewWillAppear(animated)
     }
@@ -148,16 +183,20 @@ class FileBrowserTableViewController: UIViewController, UITableViewDelegate {
         // set default rectangle in case we can't find back button
         var rect = CGRect(x: 0, y: 0, width: 100, height: 40)
         
+        guard let navigation = self.navigationController else {
+            errorStream.value = NSError(domain: "could not get navigation controller in file browser table view controller", code: 2, userInfo: nil)
+            return
+        }
         //iterate through subviews looking for something where the back button should be
-        for subview in self.navigationController!.navigationBar.subviews {
-            if subview.frame.origin.x < 30 && subview.frame.width < self.navigationController!.navigationBar.frame.width/2 {
+        for subview in navigation.navigationBar.subviews {
+            if subview.frame.origin.x < 30 && subview.frame.width < navigation.navigationBar.frame.width/2 {
                 rect = subview.frame
                 break
             }
         }
         
         // get long press location
-        let longPressPoint = sender.locationInView(self.navigationController!.navigationBar)
+        let longPressPoint = sender.locationInView(navigation.navigationBar)
         
         if rect.contains(longPressPoint) {
             self.longPressedBackButton(rect)
@@ -166,16 +205,28 @@ class FileBrowserTableViewController: UIViewController, UITableViewDelegate {
     
     func longPressedBackButton(backButtonRect: CGRect) {
         let navigationHistoryViewController = NavigationHistoryTableViewController()
-        navigationHistoryViewController.sourceNavigationController = self.navigationController!
+        guard let navigation = self.navigationController as? CypressNavigationController else {
+            errorStream.value = NSError(domain: "could not get navigation controller in file browser table view controller", code: 3, userInfo: nil)
+            return
+        }
+        navigationHistoryViewController.sourceNavigationController = navigation
         navigationHistoryViewController.modalPresentationStyle = .Popover
-        navigationHistoryViewController.popoverPresentationController!.sourceRect = backButtonRect
-        navigationHistoryViewController.popoverPresentationController!.sourceView = self.navigationController!.navigationBar
-        navigationHistoryViewController.popoverPresentationController!.delegate = self.navigationController! as! CypressNavigationController
-        self.navigationController?.presentViewController(navigationHistoryViewController, animated: true, completion: nil)
+        guard let popover = navigationHistoryViewController.popoverPresentationController else {
+            errorStream.value = NSError(domain: "Could not get popover presentation controller for navigation history controller in file browser view controller", code: 0, userInfo: nil)
+            return
+        }
+        popover.sourceRect = backButtonRect
+        popover.sourceView = navigation.navigationBar
+        popover.delegate = navigation
+        navigation.presentViewController(navigationHistoryViewController, animated: true, completion: nil)
     }
     
     override func viewWillDisappear(animated: Bool) {
-        longPressBackButtonGestureRecognizer.enabled = false
+        guard let recognizer = longPressBackButtonGestureRecognizer else {
+            errorStream.value = NSError(domain: "could not get long press gesture recognizer in FileBrowserTableViewController", code: 0, userInfo: nil)
+            return
+        }
+        recognizer.enabled = false
         super.viewWillDisappear(animated)
     }
 
@@ -194,11 +245,14 @@ class FileBrowserTableViewController: UIViewController, UITableViewDelegate {
                 // because this segue will only be performed if selected row is in files section
                 url = dataSource.itemAtIndexPath(indexPath).url
                 
-                let controller = (segue.destinationViewController as! UINavigationController).topViewController as! FileContentsViewController
-                controller.detailItem = url
-                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-                controller.navigationItem.leftItemsSupplementBackButton = true
-                controller.fileContentsViewSettings = FileContentsViewSettings.sharedFileContentsViewSettings
+                guard let navController = segue.destinationViewController as? UINavigationController, fileContentsViewController = navController.topViewController as? FileContentsViewController else {
+                    errorStream.value = NSError(domain: "Could not get file contents view controller for file browser", code: 1, userInfo: nil)
+                    return
+                }
+                fileContentsViewController.detailItem = url
+                fileContentsViewController.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+                fileContentsViewController.navigationItem.leftItemsSupplementBackButton = true
+                fileContentsViewController.fileContentsViewSettings = FileContentsViewSettings.sharedFileContentsViewSettings
             }
         }
     }
