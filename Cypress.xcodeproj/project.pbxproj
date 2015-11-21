@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		E00FE2791BF014CC00BBC45A /* CypressTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00FE2781BF014CC00BBC45A /* CypressTabBarViewController.swift */; };
 		E00FE27B1BF0223400BBC45A /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00FE27A1BF0223400BBC45A /* AppState.swift */; };
+		E010E84F1C01187B0027E6CD /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = E010E84C1C01187B0027E6CD /* Enum.swift */; };
+		E010E8501C01187B0027E6CD /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = E010E84D1C01187B0027E6CD /* FontAwesome.otf */; };
+		E010E8511C01187B0027E6CD /* FontAwesome.swift in Sources */ = {isa = PBXBuildFile; fileRef = E010E84E1C01187B0027E6CD /* FontAwesome.swift */; };
+		E010E8591C011D090027E6CD /* CommitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E010E8581C011D090027E6CD /* CommitViewController.swift */; };
 		E0363E601BEDA1F800C8584F /* FileContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */; };
 		E0363E651BEE5BBB00C8584F /* FileBrowserNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0363E641BEE5BBB00C8584F /* FileBrowserNavigationController.swift */; };
 		E04F43A71BFD50D300AEAE40 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E04F43901BFD50D300AEAE40 /* RxSwift.framework */; };
@@ -257,6 +261,10 @@
 /* Begin PBXFileReference section */
 		E00FE2781BF014CC00BBC45A /* CypressTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CypressTabBarViewController.swift; sourceTree = "<group>"; };
 		E00FE27A1BF0223400BBC45A /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		E010E84C1C01187B0027E6CD /* Enum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
+		E010E84D1C01187B0027E6CD /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.otf; sourceTree = "<group>"; };
+		E010E84E1C01187B0027E6CD /* FontAwesome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontAwesome.swift; sourceTree = "<group>"; };
+		E010E8581C011D090027E6CD /* CommitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommitViewController.swift; sourceTree = "<group>"; };
 		E02D95EA1BFD4DB2004CCC78 /* Rx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Rx.xcodeproj; path = RxSwift/Rx.xcodeproj; sourceTree = "<group>"; };
 		E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileContentsViewController.swift; sourceTree = "<group>"; };
 		E0363E641BEE5BBB00C8584F /* FileBrowserNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowserNavigationController.swift; sourceTree = "<group>"; };
@@ -365,6 +373,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E010E84B1C0118740027E6CD /* FontAwesome */ = {
+			isa = PBXGroup;
+			children = (
+				E010E84C1C01187B0027E6CD /* Enum.swift */,
+				E010E84D1C01187B0027E6CD /* FontAwesome.otf */,
+				E010E84E1C01187B0027E6CD /* FontAwesome.swift */,
+			);
+			name = FontAwesome;
+			sourceTree = "<group>";
+		};
+		E010E8541C0118EF0027E6CD /* Commit tab */ = {
+			isa = PBXGroup;
+			children = (
+				E010E8581C011D090027E6CD /* CommitViewController.swift */,
+			);
+			name = "Commit tab";
+			sourceTree = "<group>";
+		};
 		E020529D1BF7C997003BD3A0 /* Files tab */ = {
 			isa = PBXGroup;
 			children = (
@@ -563,6 +589,7 @@
 		E0DEAF491BE685840018EA8B = {
 			isa = PBXGroup;
 			children = (
+				E010E84B1C0118740027E6CD /* FontAwesome */,
 				E04F43B51BFD516900AEAE40 /* cypressPlayground.playground */,
 				E0DEAF541BE685840018EA8B /* Cypress */,
 				E0DEAF691BE685840018EA8B /* CypressTests */,
@@ -586,6 +613,7 @@
 		E0DEAF541BE685840018EA8B /* Cypress */ = {
 			isa = PBXGroup;
 			children = (
+				E010E8541C0118EF0027E6CD /* Commit tab */,
 				E0F815B11C00CD6F00EFAEC7 /* EZSwiftExtensions */,
 				E0954D251BED8A2E00649A5E /* App */,
 				E0D207911BF861C9000B54D1 /* Repository list */,
@@ -891,6 +919,7 @@
 			files = (
 				E0DEAF601BE685840018EA8B /* LaunchScreen.storyboard in Resources */,
 				E0DEAF5D1BE685840018EA8B /* Assets.xcassets in Resources */,
+				E010E8501C01187B0027E6CD /* FontAwesome.otf in Resources */,
 				E0DEAF5B1BE685840018EA8B /* Main.storyboard in Resources */,
 				E0C713171BEEC8CD008595B9 /* RepositoryTableViewCell.xib in Resources */,
 				E06EB6B81BF7D6F70035D2E6 /* SwitchTableViewCell.xib in Resources */,
@@ -935,6 +964,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0C713161BEEC8CD008595B9 /* RepositoryTableViewCell.swift in Sources */,
+				E010E8591C011D090027E6CD /* CommitViewController.swift in Sources */,
 				E0DCEDF91BFE43D1000F7164 /* Differentiator.swift in Sources */,
 				E0954D1B1BED713F00649A5E /* RepositoryTableViewController.swift in Sources */,
 				E0F815E51C00CD7A00EFAEC7 /* EZSwiftExtensions.swift in Sources */,
@@ -959,6 +989,7 @@
 				E0DCEDFF1BFE43D1000F7164 /* SectionModelType.swift in Sources */,
 				E0F815EF1C00CD7A00EFAEC7 /* UIImageExtensions.swift in Sources */,
 				E0F815D91C00CD7A00EFAEC7 /* ArrayExtensions.swift in Sources */,
+				E010E8511C01187B0027E6CD /* FontAwesome.swift in Sources */,
 				E00FE27B1BF0223400BBC45A /* AppState.swift in Sources */,
 				E0F815F01C00CD7A00EFAEC7 /* UIImageViewExtensions.swift in Sources */,
 				E0F815F41C00CD7A00EFAEC7 /* UIViewExtensions.swift in Sources */,
@@ -992,6 +1023,7 @@
 				E0F815F11C00CD7A00EFAEC7 /* UILabelExtensions.swift in Sources */,
 				E0954D231BED74D200649A5E /* CypressFunctions.swift in Sources */,
 				E0DCEDFC1BFE43D1000F7164 /* RxDataSourceStarterKit.swift in Sources */,
+				E010E84F1C01187B0027E6CD /* Enum.swift in Sources */,
 				E0363E651BEE5BBB00C8584F /* FileBrowserNavigationController.swift in Sources */,
 				E0363E601BEDA1F800C8584F /* FileContentsViewController.swift in Sources */,
 				E0F815E21C00CD7A00EFAEC7 /* CGFloatExtensions.swift in Sources */,

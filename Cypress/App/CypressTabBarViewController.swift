@@ -13,10 +13,18 @@ class CypressTabBarViewController: UITabBarController, UISplitViewControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let splitViewController = self.viewControllers![0] as! UISplitViewController
-        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-        navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
-        splitViewController.delegate = self
+        for viewController in self.viewControllers! {
+            if let splitViewController = viewController as? UISplitViewController {
+                debugLog(splitViewController)
+                debugLog(splitViewController.viewControllers[splitViewController.viewControllers.count-1])
+                let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
+                navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
+                splitViewController.delegate = self
+            }
+        }
+        
+        viewControllers![0].tabBarItem.image = UIImage.fontAwesomeIconWithName(.FilesO, textColor: UIColor.blackColor(), size: CGSizeMake(30, 30))
+        viewControllers![1].tabBarItem.image = UIImage.fontAwesomeIconWithName(.List, textColor: UIColor.blackColor(), size: CGSizeMake(30, 30))
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,7 +48,6 @@ class CypressTabBarViewController: UITabBarController, UISplitViewControllerDele
     func splitViewController(svc: UISplitViewController, shouldHideViewController vc: UIViewController, inOrientation orientation: UIInterfaceOrientation) -> Bool {
         return false
     }
-    
 
     /*
     // MARK: - Navigation

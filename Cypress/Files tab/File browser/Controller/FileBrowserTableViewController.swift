@@ -34,6 +34,10 @@ class FileBrowserTableViewController: UIViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let attributes = [NSFontAttributeName: UIFont.fontAwesomeOfSize(20)] as Dictionary!
+        navigationItem.rightBarButtonItem!.setTitleTextAttributes(attributes, forState: .Normal)
+        navigationItem.rightBarButtonItem!.title = String.fontAwesomeIconWithName(.CodeFork)
+        
         if activeRepositoryStream.value == nil {
             performSegueWithIdentifier("showRepositoryListSegue", sender: nil)
         }
