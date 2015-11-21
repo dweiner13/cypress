@@ -14,7 +14,19 @@ class Cypress {
     }
     
     static func getRepositoriesDirectoryURL() -> NSURL {
-        return NSURL(fileURLWithPath: getDocumentsDirectoryPath() + "/repositories", isDirectory: true)
+        let directory = NSURL(fileURLWithPath: getDocumentsDirectoryPath() + "/repositories", isDirectory: true)
+        
+        // create directory if it doesn't already exist
+        let fileManager = NSFileManager.defaultManager()
+        if !fileManager.fileExistsAtPath(directory.path!) {
+            do {
+                try fileManager.createDirectoryAtURL(directory, withIntermediateDirectories: false, attributes: nil)
+            }
+            catch let e as NSError {
+                errorStream.value = e
+            }
+        }
+        return directory
     }
 }
 

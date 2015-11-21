@@ -102,36 +102,89 @@ class RepositoryTableViewController: UIViewController, UITableViewDelegate {
 
     // MARK: - UI Actions
     @IBAction func tappedAddButton(sender: UIBarButtonItem) {
-        // TODO: this is just for debugging
-        let url = NSURL(string: "https://github.com/danw13335/Cypress.git")!
-//        let url = NSURL(string: "https://github.com/ReactiveX/RxSwift.git")!
-        if let result = RepositoryManager.defaultManager().cloneRepository(url) {
-            var newRepo = RepositoryViewModel(url: result.localURL)
-            newRepo.cloningProgress = result.cloningProgress
-            self.repositories.value.append(newRepo)
-            
-            // bind actions to observable that emits status of cloning
-            newRepo.cloningProgress?
-                .subscribe(onNext: {
-                    event in
-                    debugLog(event)
-                    switch event {
-                        case .requiresPlainTextAuthentication(let url, let delegate):
-                            self.showAuthenticationPromptForURL(url, withDelegate: delegate)
-                        default:
-                            break
-                    }
-                }, onError: {
-                    error in
-                    if let repoIndex = self.repositories.value.indexOf(newRepo) {
-                        self.repositories.value.removeAtIndex(repoIndex)
-                    }
-                    let err = error as NSError
-                    if err.domain != "User canceled transfer" {
-                        self.showErrorAlertWithMessage("\(err)")
-                    }
-                }, onCompleted: nil, onDisposed: nil)
-                .addDisposableTo(disposeBag)
+        let alertController = UIAlertController(title: "Add a repository", message: "", preferredStyle: .ActionSheet)
+        
+        let createNewAction = UIAlertAction(title: "Create new repository", style: .Default, handler: {
+            (action: UIAlertAction) -> Void in
+            self.tappedAddNewRepositoryAction()
+        })
+        let cloneAction = UIAlertAction(title: "Clone from a URL", style: .Default, handler: {
+            (action: UIAlertAction) -> Void in
+            self.tappedCloneRepositoryAction()
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        
+        alertController.addAction(createNewAction)
+        alertController.addAction(cloneAction)
+        alertController.addAction(cancelAction)
+        
+        alertController.popoverPresentationController?.barButtonItem = sender
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func tappedAddNewRepositoryAction() {
+        showTextInputPrompt("New Repository", message: "Enter the name for the new repository", handler: {
+            self.confirmedAddNewRepositoryWithName($0)
+        })
+    }
+    
+    func confirmedAddNewRepositoryWithName(name: String) {
+        do {
+            let url = try RepositoryManager.defaultManager().createNewRepositoryAtDefaultPathWithName(name)
+            self.repositories.value.append(RepositoryViewModel(url: url))
+        }
+        catch let e as NSError {
+            self.showErrorAlertWithMessage(String(reflecting: e))
+            errorStream.value = e
+        }
+    }
+
+    func tappedCloneRepositoryAction() {
+        showTextInputPrompt("Clone Repository", message: "Enter the URL to clone from", handler: {
+            if let url = NSURL(string: $0) {
+                self.confirmedCloneRepositoryWithURL(url)
+            }
+            else {
+                self.showErrorAlertWithMessage("Not a valid URL")
+            }
+        })
+    }
+    
+    func confirmedCloneRepositoryWithURL(url: NSURL) {
+        do {
+            if let result = try RepositoryManager.defaultManager().cloneRepository(url) {
+                var newRepo = RepositoryViewModel(url: result.localURL)
+                newRepo.cloningProgress = result.cloningProgress
+                self.repositories.value.append(newRepo)
+                
+                // bind actions to observable that emits status of cloning
+                newRepo.cloningProgress?
+                    .subscribe(onNext: {
+                        event in
+                        debugLog(event)
+                        switch event {
+                            case .requiresPlainTextAuthentication(let url, let delegate):
+                                self.showAuthenticationPromptForURL(url, withDelegate: delegate)
+                            default:
+                                break
+                            }
+                    }, onError: {
+                        error in
+                        if let repoIndex = self.repositories.value.indexOf(newRepo) {
+                            self.repositories.value.removeAtIndex(repoIndex)
+                        }
+                        let err = error as NSError
+                        if err.domain != "User canceled transfer" {
+                            self.showErrorAlertWithMessage("\(err)")
+                        }
+                        errorStream.value = err
+                    }, onCompleted: nil, onDisposed: nil)
+                    .addDisposableTo(disposeBag)
+            }
+        }
+        catch let e as ErrorType {
+            showErrorAlertWithMessage(String(reflecting: e))
         }
     }
     
