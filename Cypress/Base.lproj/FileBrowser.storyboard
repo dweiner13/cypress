@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="SjF-Dg-HOd">
+            <objects>
+                <navigationController storyboardIdentifier="RepositoryListNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2of-i2-o20" sceneMemberID="viewController">
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="400" height="400"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gH4-xH-rig">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="ybM-La-sN1" kind="relationship" relationship="rootViewController" id="q1s-Gy-r13"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yJr-j6-8YK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1556" y="158"/>
+        </scene>
+        <!--File Browser Table View Controller-->
+        <scene sceneID="p9W-Pz-qcm">
+            <objects>
+                <viewController storyboardIdentifier="fileBrowserTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pI2-UE-YnI" customClass="FileBrowserTableViewController" customModule="Cypress" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="6wT-VK-IG3" customClass="AdaptiveTableView" customModule="Cypress" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="basicCell" textLabel="sDJ-Ls-fjm" style="IBUITableViewCellStyleDefault" id="q1A-kS-hFf">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="q1A-kS-hFf" id="glO-4o-1vW">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sDJ-Ls-fjm">
+                                            <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="d8Z-qo-7yv">
+                        <barButtonItem key="rightBarButtonItem" title="Repositories" id="aGr-hj-ZfL">
+                            <connections>
+                                <segue destination="2of-i2-o20" kind="presentation" identifier="showRepositoryListSegue" modalPresentationStyle="formSheet" id="5ad-CL-2Aa"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="6wT-VK-IG3" id="j7X-5p-lwq"/>
+                        <segue destination="Mzv-ox-OfI" kind="showDetail" identifier="showFileContents" id="QCi-N2-uXe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p2g-pN-xjZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="822" y="872"/>
+        </scene>
+        <!--Repositories-->
+        <scene sceneID="ZEY-bb-EoL">
+            <objects>
+                <viewController storyboardIdentifier="repositoryListTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ybM-La-sN1" customClass="RepositoryTableViewController" customModule="Cypress" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="nsZ-M3-34I" customClass="AdaptiveTableView" customModule="Cypress" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Repositories" prompt="Select a Git repository to open, or create a new one" id="1IQ-jE-cfl">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="7hK-98-fCQ">
+                            <connections>
+                                <action selector="tappedAddButton:" destination="ybM-La-sN1" id="lfF-52-B0p"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="2X5-TV-IUj">
+                            <connections>
+                                <action selector="tappedCancelButton:" destination="ybM-La-sN1" id="i1p-qj-vMs"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="nsZ-M3-34I" id="wwN-p8-4x7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nMX-K6-Yee" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2031" y="158"/>
+        </scene>
+        <!--Cypress Navigation Controller-->
+        <scene sceneID="9kh-4k-1Yr">
+            <objects>
+                <navigationController storyboardIdentifier="fileDetailNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Mzv-ox-OfI" customClass="CypressNavigationController" customModule="Cypress" customModuleProvider="target" sceneMemberID="viewController">
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VjL-am-xHR">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="dwv-3o-o1U" kind="relationship" relationship="rootViewController" id="LgF-VQ-hUn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lJK-ug-vxr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-67" y="1649"/>
+        </scene>
+        <!--File Contents View Controller-->
+        <scene sceneID="5k2-5Y-Vw4">
+            <objects>
+                <viewController storyboardIdentifier="fileDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dwv-3o-o1U" customClass="FileContentsViewController" customModule="Cypress" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SZr-tf-AfK"/>
+                        <viewControllerLayoutGuide type="bottom" id="v3E-wJ-fzc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7lM-hi-8Nn">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q2B-gw-kFQ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="q2B-gw-kFQ" firstAttribute="top" secondItem="SZr-tf-AfK" secondAttribute="bottom" constant="-64" id="6PR-xC-dYE"/>
+                            <constraint firstAttribute="trailing" secondItem="q2B-gw-kFQ" secondAttribute="trailing" id="OIQ-ol-GbB"/>
+                            <constraint firstItem="v3E-wJ-fzc" firstAttribute="top" secondItem="q2B-gw-kFQ" secondAttribute="bottom" id="Tff-gZ-VJ4"/>
+                            <constraint firstItem="v3E-wJ-fzc" firstAttribute="top" secondItem="q2B-gw-kFQ" secondAttribute="bottom" id="U41-AD-xqh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="q2B-gw-kFQ" secondAttribute="trailing" id="dmD-VN-Bla"/>
+                            <constraint firstItem="q2B-gw-kFQ" firstAttribute="top" secondItem="7lM-hi-8Nn" secondAttribute="top" id="gMO-R9-cfB"/>
+                            <constraint firstItem="v3E-wJ-fzc" firstAttribute="top" secondItem="q2B-gw-kFQ" secondAttribute="bottom" id="jzW-bu-rBH"/>
+                            <constraint firstItem="q2B-gw-kFQ" firstAttribute="bottom" secondItem="7lM-hi-8Nn" secondAttribute="bottomMargin" id="uSx-eF-F37"/>
+                            <constraint firstItem="q2B-gw-kFQ" firstAttribute="leading" secondItem="7lM-hi-8Nn" secondAttribute="leadingMargin" id="ucm-nl-syN"/>
+                            <constraint firstItem="q2B-gw-kFQ" firstAttribute="leading" secondItem="7lM-hi-8Nn" secondAttribute="leading" id="wl5-RB-nwo"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="6PR-xC-dYE"/>
+                                <exclude reference="dmD-VN-Bla"/>
+                                <exclude reference="ucm-nl-syN"/>
+                                <exclude reference="Tff-gZ-VJ4"/>
+                                <exclude reference="U41-AD-xqh"/>
+                                <exclude reference="jzW-bu-rBH"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" id="XFI-wQ-Xep"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="contentsTextView" destination="q2B-gw-kFQ" id="NyB-Cm-nzG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uci-Us-dPN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="685" y="1643"/>
+        </scene>
+        <!--Files-->
+        <scene sceneID="59N-Ny-Lj3">
+            <objects>
+                <splitViewController storyboardIdentifier="fileBrowserSplitViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="T2G-aI-YzB" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Files" id="6L8-9v-gVS"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="kHZ-Oe-Qen" kind="relationship" relationship="masterViewController" id="KQo-Ka-mHE"/>
+                        <segue destination="Mzv-ox-OfI" kind="relationship" relationship="detailViewController" id="uav-xy-ZDa"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CbD-W6-EUz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-995" y="1282"/>
+        </scene>
+        <!--File Browser Navigation Controller-->
+        <scene sceneID="OPB-ny-2A0">
+            <objects>
+                <navigationController storyboardIdentifier="fileBrowserNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kHZ-Oe-Qen" customClass="FileBrowserNavigationController" customModule="Cypress" customModuleProvider="target" sceneMemberID="viewController">
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Hb-EH-EGP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="MPb-W1-Ad0">
+                        <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="pI2-UE-YnI" kind="relationship" relationship="rootViewController" id="szk-wT-O8x"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FUe-iH-aP3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-67" y="872"/>
+        </scene>
+        <!--History-->
+        <scene sceneID="CGg-a3-wv7">
+            <objects>
+                <tableViewController storyboardIdentifier="navigationHistoryTableViewController" title="History" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rVQ-e6-Qe3" customClass="NavigationHistoryTableViewController" customModule="Cypress" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="iku-f5-l7e" customClass="AdaptiveTableView" customModule="Cypress" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="basicCell" textLabel="ou6-Wz-Mis" style="IBUITableViewCellStyleDefault" id="QPl-5F-jnW">
+                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QPl-5F-jnW" id="muw-5Q-hBH">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ou6-Wz-Mis">
+                                            <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="rVQ-e6-Qe3" id="jvB-yn-ofl"/>
+                            <outlet property="delegate" destination="rVQ-e6-Qe3" id="zD0-qQ-7HO"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NmR-wX-U5b" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="685" y="124"/>
+        </scene>
+    </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="uav-xy-ZDa"/>
+    </inferredMetricsTieBreakers>
+</document>

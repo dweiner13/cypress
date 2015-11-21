@@ -25,9 +25,10 @@ class FileContentsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let defaultInsets = self.contentsTextView.textContainerInset
-        self.contentsTextView.textContainerInset = UIEdgeInsets(top: defaultInsets.top, left: 8.0, bottom: defaultInsets.bottom, right: defaultInsets.right)
-        self.configureTextDisplay()
+//        self.contentsTextView.textContainerInset = UIEdgeInsets(top: defaultInsets.top + 44.0 + UIApplication.sharedApplication().statusBarFrame.height, left: 8.0, bottom: defaultInsets.bottom, right: defaultInsets.right)
+        debugLog(self.contentsTextView.textContainerInset)
+        debugLog(self.contentsTextView.scrollIndicatorInsets)
+        debugLog(self.contentsTextView.contentInset)
         
         detailItem
             .subscribeNext() {
@@ -72,13 +73,6 @@ class FileContentsViewController: UIViewController {
         }
         
         textView.text = file.text.value
-    }
-    
-    func configureTextDisplay() {
-        if let wordWrap = fileContentsViewSettings?.getValueForSetting(.wordWrap) as? Bool {
-            self.contentsTextView.textContainer.lineBreakMode = wordWrap ? NSLineBreakMode.ByWordWrapping :
-                NSLineBreakMode.ByClipping
-        }
     }
 
     // MARK: - Navigation

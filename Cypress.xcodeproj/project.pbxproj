@@ -35,7 +35,8 @@
 		E0AAF3A21BFD863A00320EA2 /* RepositoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0AAF3A11BFD863A00320EA2 /* RepositoryViewModel.swift */; };
 		E0C713161BEEC8CD008595B9 /* RepositoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C713141BEEC8CD008595B9 /* RepositoryTableViewCell.swift */; };
 		E0C713171BEEC8CD008595B9 /* RepositoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E0C713151BEEC8CD008595B9 /* RepositoryTableViewCell.xib */; };
-		E0D2078C1BF85A3A000B54D1 /* DirectoryContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D2078B1BF85A3A000B54D1 /* DirectoryContents.swift */; };
+		E0D0DE581C0A2F380003D497 /* FileBrowser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0D0DE561C0A2F380003D497 /* FileBrowser.storyboard */; };
+		E0D0DE5A1C0A2F720003D497 /* CommitView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0D0DE591C0A2F720003D497 /* CommitView.storyboard */; };
 		E0DCEDCA1BFD9490000F7164 /* RepositoryCloningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DCEDC91BFD9490000F7164 /* RepositoryCloningDelegate.swift */; };
 		E0DCEDF21BFE43D1000F7164 /* Changeset.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DCEDE21BFE43D1000F7164 /* Changeset.swift */; };
 		E0DCEDF31BFE43D1000F7164 /* RxCollectionViewSectionedAnimatedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DCEDE41BFE43D1000F7164 /* RxCollectionViewSectionedAnimatedDataSource.swift */; };
@@ -276,13 +277,15 @@
 		E06EB6BC1BF7DBA30035D2E6 /* FileContentsViewSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileContentsViewSettings.swift; path = "../../File browser/Data/FileContentsViewSettings.swift"; sourceTree = "<group>"; };
 		E06EB6C01BF7E3990035D2E6 /* CypressNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CypressNavigationController.swift; sourceTree = "<group>"; };
 		E06EB6C21BF7EEF20035D2E6 /* OpenFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OpenFile.swift; path = "../../File browser/Data/OpenFile.swift"; sourceTree = "<group>"; };
+		E0839A5E1C012FD500792ADE /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		E0954D1A1BED713F00649A5E /* RepositoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryTableViewController.swift; sourceTree = "<group>"; };
 		E0954D221BED74D200649A5E /* CypressFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CypressFunctions.swift; sourceTree = "<group>"; };
 		E0A775091BE68FB20021EE34 /* GitUpKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GitUpKit.xcodeproj; path = GitUp/GitUpKit/GitUpKit.xcodeproj; sourceTree = "<group>"; };
 		E0AAF3A11BFD863A00320EA2 /* RepositoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryViewModel.swift; sourceTree = "<group>"; };
 		E0C713141BEEC8CD008595B9 /* RepositoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryTableViewCell.swift; sourceTree = "<group>"; };
 		E0C713151BEEC8CD008595B9 /* RepositoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepositoryTableViewCell.xib; sourceTree = "<group>"; };
-		E0D2078B1BF85A3A000B54D1 /* DirectoryContents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DirectoryContents.swift; path = "../../File detail/Data/DirectoryContents.swift"; sourceTree = "<group>"; };
+		E0D0DE571C0A2F380003D497 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/FileBrowser.storyboard; sourceTree = "<group>"; };
+		E0D0DE591C0A2F720003D497 /* CommitView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CommitView.storyboard; sourceTree = "<group>"; };
 		E0DCEDC91BFD9490000F7164 /* RepositoryCloningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryCloningDelegate.swift; sourceTree = "<group>"; };
 		E0DCEDE21BFE43D1000F7164 /* Changeset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Changeset.swift; sourceTree = "<group>"; };
 		E0DCEDE41BFE43D1000F7164 /* RxCollectionViewSectionedAnimatedDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxCollectionViewSectionedAnimatedDataSource.swift; sourceTree = "<group>"; };
@@ -465,7 +468,6 @@
 			children = (
 				E0A920DB1BF954FB009C0552 /* View */,
 				E0F815FA1C00D46B00EFAEC7 /* ViewModel */,
-				E0D2078F1BF86165000B54D1 /* Model */,
 			);
 			path = "File browser";
 			sourceTree = "<group>";
@@ -473,18 +475,19 @@
 		E0A920D91BF954E7009C0552 /* File detail */ = {
 			isa = PBXGroup;
 			children = (
-				E0A920DA1BF954F8009C0552 /* Controller */,
-				E0A920DC1BF95501009C0552 /* Data */,
+				E0A920DA1BF954F8009C0552 /* View */,
+				E0A920DC1BF95501009C0552 /* ViewModel */,
 			);
 			path = "File detail";
 			sourceTree = "<group>";
 		};
-		E0A920DA1BF954F8009C0552 /* Controller */ = {
+		E0A920DA1BF954F8009C0552 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */,
 				E06EB6B11BF7D5500035D2E6 /* FileContentsConfigViewController.swift */,
 			);
+			name = View;
 			path = Controller;
 			sourceTree = "<group>";
 		};
@@ -499,12 +502,13 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		E0A920DC1BF95501009C0552 /* Data */ = {
+		E0A920DC1BF95501009C0552 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				E06EB6C21BF7EEF20035D2E6 /* OpenFile.swift */,
 				E06EB6BC1BF7DBA30035D2E6 /* FileContentsViewSettings.swift */,
 			);
+			name = ViewModel;
 			path = Data;
 			sourceTree = "<group>";
 		};
@@ -516,15 +520,6 @@
 			);
 			name = View;
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		E0D2078F1BF86165000B54D1 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				E0D2078B1BF85A3A000B54D1 /* DirectoryContents.swift */,
-			);
-			name = Model;
-			path = Data;
 			sourceTree = "<group>";
 		};
 		E0D207911BF861C9000B54D1 /* Repository list */ = {
@@ -589,6 +584,7 @@
 		E0DEAF491BE685840018EA8B = {
 			isa = PBXGroup;
 			children = (
+				E0839A5E1C012FD500792ADE /* Reveal.framework */,
 				E010E84B1C0118740027E6CD /* FontAwesome */,
 				E04F43B51BFD516900AEAE40 /* cypressPlayground.playground */,
 				E0DEAF541BE685840018EA8B /* Cypress */,
@@ -613,17 +609,18 @@
 		E0DEAF541BE685840018EA8B /* Cypress */ = {
 			isa = PBXGroup;
 			children = (
-				E010E8541C0118EF0027E6CD /* Commit tab */,
-				E0F815B11C00CD6F00EFAEC7 /* EZSwiftExtensions */,
 				E0954D251BED8A2E00649A5E /* App */,
+				E0F815B11C00CD6F00EFAEC7 /* EZSwiftExtensions */,
 				E0D207911BF861C9000B54D1 /* Repository list */,
+				E010E8541C0118EF0027E6CD /* Commit tab */,
 				E020529D1BF7C997003BD3A0 /* Files tab */,
 				E06EB6BB1BF7D7110035D2E6 /* Switch cell */,
 				E0DEAF5C1BE685840018EA8B /* Assets.xcassets */,
-				E0DCEDE11BFE43D1000F7164 /* RxDataSourceStarterKit */,
 				E0DEAF611BE685840018EA8B /* Info.plist */,
 				E0DEAF5E1BE685840018EA8B /* LaunchScreen.storyboard */,
 				E0DEAF591BE685840018EA8B /* Main.storyboard */,
+				E0D0DE591C0A2F720003D497 /* CommitView.storyboard */,
+				E0D0DE561C0A2F380003D497 /* FileBrowser.storyboard */,
 			);
 			path = Cypress;
 			sourceTree = "<group>";
@@ -649,6 +646,7 @@
 		E0F815B11C00CD6F00EFAEC7 /* EZSwiftExtensions */ = {
 			isa = PBXGroup;
 			children = (
+				E0DCEDE11BFE43D1000F7164 /* RxDataSourceStarterKit */,
 				E0F815BD1C00CD7A00EFAEC7 /* ArrayExtensions.swift */,
 				E0F815BE1C00CD7A00EFAEC7 /* BlockButton.swift */,
 				E0F815BF1C00CD7A00EFAEC7 /* BlockLongPress.swift */,
@@ -917,9 +915,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0D0DE5A1C0A2F720003D497 /* CommitView.storyboard in Resources */,
 				E0DEAF601BE685840018EA8B /* LaunchScreen.storyboard in Resources */,
 				E0DEAF5D1BE685840018EA8B /* Assets.xcassets in Resources */,
 				E010E8501C01187B0027E6CD /* FontAwesome.otf in Resources */,
+				E0D0DE581C0A2F380003D497 /* FileBrowser.storyboard in Resources */,
 				E0DEAF5B1BE685840018EA8B /* Main.storyboard in Resources */,
 				E0C713171BEEC8CD008595B9 /* RepositoryTableViewCell.xib in Resources */,
 				E06EB6B81BF7D6F70035D2E6 /* SwitchTableViewCell.xib in Resources */,
@@ -993,7 +993,6 @@
 				E00FE27B1BF0223400BBC45A /* AppState.swift in Sources */,
 				E0F815F01C00CD7A00EFAEC7 /* UIImageViewExtensions.swift in Sources */,
 				E0F815F41C00CD7A00EFAEC7 /* UIViewExtensions.swift in Sources */,
-				E0D2078C1BF85A3A000B54D1 /* DirectoryContents.swift in Sources */,
 				E0F815E31C00CD7A00EFAEC7 /* CGRectExtensions.swift in Sources */,
 				E053FC4C1BFBADAE00B09411 /* RepositoryManager.swift in Sources */,
 				E0AAF3A21BFD863A00320EA2 /* RepositoryViewModel.swift in Sources */,
@@ -1084,6 +1083,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		E0D0DE561C0A2F380003D497 /* FileBrowser.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E0D0DE571C0A2F380003D497 /* Base */,
+			);
+			name = FileBrowser.storyboard;
+			sourceTree = "<group>";
+		};
 		E0DEAF591BE685840018EA8B /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1193,6 +1200,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(SYSTEM_APPS_DIR)/Reveal.app/Contents/SharedSupport/iOS-Libraries",
+				);
 				INFOPLIST_FILE = Cypress/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -1207,6 +1219,12 @@
 					"$(PROJECT_DIR)/GitUpKit/Third-Party/Libraries/libssl/iPhoneSimulator/lib",
 					"$(PROJECT_DIR)/GitUpKit/Third-Party/Libraries/libssl/MacOSX/lib",
 				);
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-ObjC",
+					"-lz",
+					"-framework",
+					Reveal,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.danielweiner.Cypress;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1218,6 +1236,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(SYSTEM_APPS_DIR)/Reveal.app/Contents/SharedSupport/iOS-Libraries",
+				);
 				INFOPLIST_FILE = Cypress/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
