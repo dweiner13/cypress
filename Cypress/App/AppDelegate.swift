@@ -8,13 +8,27 @@
 
 import UIKit
 
+import RxSwift
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    var disposeBag = DisposeBag()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        print("test")
+        
+        errorStream
+            .subscribeNext() {
+                error in
+                if let e = error {
+                    print("🆘 \(e)")
+                }
+            }
+            .addDisposableTo(disposeBag)
+        
         return true
     }
 

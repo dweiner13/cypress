@@ -44,7 +44,7 @@ class DirectoryContents: NSObject, UITableViewDataSource {
             self.loadContents()
         }
         else { // If no URL is passed, we are at repo root dir or no repo is active
-            if let activeRepo = AppState.sharedAppState.activeRepository {
+            if AppState.sharedAppState.activeRepository != nil {
                 self.loadContents()
             }
             else {

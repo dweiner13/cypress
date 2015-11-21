@@ -17,7 +17,7 @@ class FileBrowserTableViewController: UIViewController, UITableViewDelegate {
     
     @IBOutlet var tableView: UITableView!
     
-    var directory: Variable<NSURL?> = Variable(nil)
+    var directory = Variable<NSURL?>(nil)
     
     let disposeBag = DisposeBag()
     
@@ -40,11 +40,12 @@ class FileBrowserTableViewController: UIViewController, UITableViewDelegate {
         
         if let split = self.splitViewController {
             let controllers = split.viewControllers
-            guard let navController = controllers[controllers.count-1] as? UINavigationController, fileContentsViewController = navController.topViewController as? FileContentsViewController else {
+            debugLog((controllers[controllers.count-1] as? UINavigationController)!.topViewController as? FileContentsViewController)
+            guard let navController = controllers[controllers.count-1] as? UINavigationController else {
                 errorStream.value = NSError(domain: "Could not get file contents view controller for file browser", code: 0, userInfo: nil)
                 return
             }
-            self.fileContentsViewController = fileContentsViewController
+            self.fileContentsViewController = navController.topViewController as? FileContentsViewController
         }
         
         let allFiles = combineLatest(files, directories) {
@@ -249,7 +250,7 @@ class FileBrowserTableViewController: UIViewController, UITableViewDelegate {
                     errorStream.value = NSError(domain: "Could not get file contents view controller for file browser", code: 1, userInfo: nil)
                     return
                 }
-                fileContentsViewController.detailItem = url
+                fileContentsViewController.detailItem.value = url
                 fileContentsViewController.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 fileContentsViewController.navigationItem.leftItemsSupplementBackButton = true
                 fileContentsViewController.fileContentsViewSettings = FileContentsViewSettings.sharedFileContentsViewSettings

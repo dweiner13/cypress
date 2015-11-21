@@ -10,12 +10,6 @@ import UIKit
 
 class NavigationHistoryTableViewController: UITableViewController {
     
-    // 0 Repositories       2 (indented 0)
-    // 1 PsiTurk            1 (indented 1)
-    // 2 psiTurk            0 (indented 2)
-    // 3 psiTurk_js (---)
-    // count: 4
-    
     weak var sourceNavigationController: UINavigationController!
         
     override func viewDidLoad() {

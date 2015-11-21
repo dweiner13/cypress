@@ -7,19 +7,17 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
-class FileContentsViewController: UIViewController, UITextViewDelegate {
+class FileContentsViewController: UIViewController {
+    
+    var disposeBag = DisposeBag()
     
     // The URL of the file being shown
-    var detailItem: NSURL? {
-        didSet {
-            self.openFile = OpenFile(url: self.detailItem!)
-            AppState.sharedAppState.currentOpenFile = self.openFile
-            configureView()
-        }
-    }
+    var detailItem = Variable<NSURL?>(nil)
     
-    var openFile: OpenFile? = nil
+    weak var openFile: OpenFile? = nil
     
     var fileContentsViewSettings: FileContentsViewSettings? = nil
     
@@ -27,17 +25,34 @@ class FileContentsViewController: UIViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureView()
         let defaultInsets = self.contentsTextView.textContainerInset
         self.contentsTextView.textContainerInset = UIEdgeInsets(top: defaultInsets.top, left: 8.0, bottom: defaultInsets.bottom, right: defaultInsets.right)
         self.configureTextDisplay()
         
-        contentsTextView.delegate = self
+        detailItem
+            .subscribeNext() {
+                if let url = $0 {
+                    self.openFile = OpenFile(url: url)
+                    self.configureViewForURL(url)
+                }
+            }
+            .addDisposableTo(disposeBag)
         
-        NSNotificationCenter.defaultCenter().addObserverForName(FileContentsViewSettings.Notification.fileContentsViewSettingsChanged.rawValue, object: nil, queue: nil, usingBlock: {
-            _ in
-            self.configureTextDisplay()
-        })
+        guard let textView = contentsTextView else {
+            errorStream.value = NSError(domain: "could not configure contents view because no textView", code: 0, userInfo: nil)
+            return
+        }
+        
+        textView.rx_text
+            .subscribeNext() {
+                self.openFile?.text.value = $0
+            }
+            .addDisposableTo(disposeBag)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        openFile?.save()
+        super.viewWillDisappear(animated)
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,13 +60,18 @@ class FileContentsViewController: UIViewController, UITextViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func configureView() {
+    func configureViewForURL(url: NSURL) {
         // Update the user interface for the detail item.
-        if let file = self.openFile {
-            if let textView = contentsTextView {
-                textView.text = file.text
-            }
+        guard let file = openFile else {
+            errorStream.value = NSError(domain: "could not configure contents view because no open file", code: 0, userInfo: nil)
+            return
         }
+        guard let textView = contentsTextView else {
+            errorStream.value = NSError(domain: "could not configure contents view because no textView", code: 1, userInfo: nil)
+            return
+        }
+        
+        textView.text = file.text.value
     }
     
     func configureTextDisplay() {
@@ -78,15 +98,8 @@ class FileContentsViewController: UIViewController, UITextViewDelegate {
         }
     }
     
-    // MARK: UITextViewDelegate
-    
-    func textViewDidChange(textView: UITextView) {
-        openFile?.text = textView.text
-    }
-    
-    func textViewDidEndEditing(textView: UITextView) {
-        openFile?.text = textView.text
-        openFile?.save()
+    deinit {
+        debugLog("deinit filecontents")
     }
 
 }

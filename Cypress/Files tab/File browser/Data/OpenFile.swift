@@ -7,20 +7,49 @@
 //
 
 import Foundation
+import RxSwift
 
 class OpenFile {
     
     let url: NSURL
-    var text: String
+    let text = Variable<String>("")
     var encoding = NSStringEncoding()
     
+    var disposeBag = DisposeBag()
+    
     init(url: NSURL) {
+        debugLog("new OpenFile init at \(url.lastPathComponent!)")
+        
         self.url = url
-        self.text = try! String(contentsOfURL: url, usedEncoding: &self.encoding)
+        
+        do {
+            text.value = try String(contentsOfURL: url, usedEncoding: &self.encoding)
+        }
+        catch let e as NSError {
+            errorStream.value = e
+            text.value = ""
+        }
+        
+        text
+            .debounce(2.00, MainScheduler.sharedInstance)
+            .subscribeNext() {
+                self.saveText($0)
+            }
+            .addDisposableTo(disposeBag)
     }
     
     func save() {
-        try! text.writeToFile(url.path!, atomically: false, encoding: self.encoding)
-        debugPrint("saved file \(url)")
+        saveText(text.value)
+    }
+    
+    func saveText(text: String) {
+        do {
+            try text.writeToFile(url.path!, atomically: false, encoding: self.encoding)
+            debugLog("saved file \(url.lastPathComponent!)")
+        }
+        catch let e as NSError {
+            debugLog("could not save file \(url.lastPathComponent!)")
+            errorStream.value = e
+        }
     }
 }

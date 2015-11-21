@@ -456,8 +456,8 @@
 		E0A920DA1BF954F8009C0552 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				E06EB6B11BF7D5500035D2E6 /* FileContentsConfigViewController.swift */,
 				E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */,
+				E06EB6B11BF7D5500035D2E6 /* FileContentsConfigViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -476,8 +476,8 @@
 		E0A920DC1BF95501009C0552 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				E06EB6BC1BF7DBA30035D2E6 /* FileContentsViewSettings.swift */,
 				E06EB6C21BF7EEF20035D2E6 /* OpenFile.swift */,
+				E06EB6BC1BF7DBA30035D2E6 /* FileContentsViewSettings.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
