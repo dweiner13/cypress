@@ -73,11 +73,7 @@ class FileContentsViewController: UIViewController {
     }
 
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
         if segue.identifier == "showFileContentsConfig" {
             let destinationNav = segue.destinationViewController as! UINavigationController
             if let popover = destinationNav.popoverPresentationController {
@@ -87,10 +83,6 @@ class FileContentsViewController: UIViewController {
                 config.fileContentsViewSettings = self.fileContentsViewSettings
             }
         }
-    }
-    
-    deinit {
-        debugLog("deinit filecontents")
     }
 
 }
