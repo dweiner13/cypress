@@ -86,11 +86,11 @@ class RepositoryTableViewController: UIViewController, UITableViewDelegate {
         
         tableView.rx_itemSelected
             .map() {
-                indexPath in
+                [unowned self] indexPath in
                 return self.repositories.value[indexPath.row]
             }
             .subscribeNext() {
-                repo in
+                [unowned self] repo in
                 activeRepositoryStream.value = repo.url
                 self.dismissSelf()
             }
@@ -98,7 +98,7 @@ class RepositoryTableViewController: UIViewController, UITableViewDelegate {
         
         tableView.rx_itemDeleted
             .subscribeNext() {
-                indexPath in
+                [unowned self] indexPath in
                 self.removeItemAtPath(indexPath)
             }
             .addDisposableTo(disposeBag)
@@ -171,7 +171,7 @@ class RepositoryTableViewController: UIViewController, UITableViewDelegate {
                 // bind actions to observable that emits status of cloning
                 newRepo.cloningProgress?
                     .subscribe(onNext: {
-                        event in
+                        [unowned self] event in
                         debugLog(event)
                         switch event {
                             case .requiresPlainTextAuthentication(let url, let delegate):
@@ -180,7 +180,7 @@ class RepositoryTableViewController: UIViewController, UITableViewDelegate {
                                 break
                             }
                     }, onError: {
-                        error in
+                        [unowned self] error in
                         if let repoIndex = self.repositories.value.indexOf(newRepo) {
                             self.repositories.value.removeAtIndex(repoIndex)
                         }

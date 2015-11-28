@@ -33,6 +33,7 @@ class OpenFile {
         text
             .debounce(2.00, MainScheduler.sharedInstance)
             .subscribeNext() {
+                [unowned self] in
                 self.saveText($0)
             }
             .addDisposableTo(disposeBag)
@@ -51,5 +52,9 @@ class OpenFile {
             debugLog("could not save file \(url.lastPathComponent!)")
             errorStream.value = e
         }
+    }
+    
+    deinit {
+        debugLog("openFile deinit")
     }
 }

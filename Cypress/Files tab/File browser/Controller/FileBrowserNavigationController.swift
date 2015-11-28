@@ -23,6 +23,7 @@ class FileBrowserNavigationController: CypressNavigationController {
         
         activeRepositoryStream
             .subscribeNext() {
+                [unowned self] in
                 debugLog("FileBrowserNavigationController saw active repo change")
                 self.popToRootViewControllerAnimated(false)
                 guard let rootViewController = self.viewControllers[0] as? FileBrowserTableViewController else {

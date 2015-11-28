@@ -17,7 +17,7 @@ class FileContentsViewController: UIViewController {
     // The URL of the file being shown
     var detailItem = Variable<NSURL?>(nil)
     
-    weak var openFile: OpenFile? = nil
+    var openFile: OpenFile? = nil
     
     var fileContentsViewSettings: FileContentsViewSettings? = nil
     
@@ -25,13 +25,10 @@ class FileContentsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.contentsTextView.textContainerInset = UIEdgeInsets(top: defaultInsets.top + 44.0 + UIApplication.sharedApplication().statusBarFrame.height, left: 8.0, bottom: defaultInsets.bottom, right: defaultInsets.right)
-        debugLog(self.contentsTextView.textContainerInset)
-        debugLog(self.contentsTextView.scrollIndicatorInsets)
-        debugLog(self.contentsTextView.contentInset)
         
         detailItem
             .subscribeNext() {
+                [unowned self] in
                 if let url = $0 {
                     self.openFile = OpenFile(url: url)
                     self.configureViewForURL(url)
@@ -46,6 +43,7 @@ class FileContentsViewController: UIViewController {
         
         textView.rx_text
             .subscribeNext() {
+                [unowned self] in
                 self.openFile?.text.value = $0
             }
             .addDisposableTo(disposeBag)
@@ -62,7 +60,6 @@ class FileContentsViewController: UIViewController {
     }
     
     func configureViewForURL(url: NSURL) {
-        // Update the user interface for the detail item.
         guard let file = openFile else {
             errorStream.value = NSError(domain: "could not configure contents view because no open file", code: 0, userInfo: nil)
             return

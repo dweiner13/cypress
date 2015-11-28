@@ -94,6 +94,7 @@ class FileBrowserTableViewController: UIViewController, UITableViewDelegate {
         
         self.directory
             .subscribeNext() {
+                [unowned self] in
                 if let dir = $0 {
                     self.loadFilesForDirectory(dir)
                 }
@@ -105,13 +106,13 @@ class FileBrowserTableViewController: UIViewController, UITableViewDelegate {
         
         tableView.rx_itemSelected
             .map() {
-                indexPath in
+                [unowned self] indexPath in
                 return self.dataSource.itemAtIndexPath(indexPath)
             }
             .subscribeNext() {
-                item in
+                [unowned self] item in
                 if item.isDirectory { //tapped directory
-                    guard let newFileBrowser = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("fileBrowser") as? FileBrowserTableViewController else {
+                    guard let newFileBrowser = UIStoryboard(name: "FileBrowser", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("fileBrowserTableViewController") as? FileBrowserTableViewController else {
                         errorStream.value = NSError(domain: "Could not get file browser controller from storyboard", code: 0, userInfo: nil)
                         return
                     }

@@ -53,6 +53,7 @@ class RepositoryCloningDelegate: NSObject, GCRepositoryDelegate {
         // that shows an alert), retry cloning with credentials
         credentials
             .subscribeNext() {
+                [unowned self] in
                 debugLog("credentials have been set to \($0)")
                 if $0 != nil {
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {

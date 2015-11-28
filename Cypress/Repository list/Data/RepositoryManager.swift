@@ -92,7 +92,7 @@ class RepositoryManager {
                     }
                     cloningProgress
                         .subscribeError() {
-                            _ in
+                            [unowned self] _ in
                             debugLog("error received, deleting temporary repo at \(repoURL)")
                             self.deleteRepositoryAtURL(repoURL)
                         }
