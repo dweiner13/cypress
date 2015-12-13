@@ -13,7 +13,7 @@ import RxCocoa
 
 private let basicCellIdentifier = "basicCell"
 
-class FileBrowserTableViewController: UIViewController, UITableViewDelegate {
+class FileBrowserTableViewController: CypressMasterViewController, UITableViewDelegate {
     
     @IBOutlet var tableView: UITableView!
     
@@ -33,10 +33,6 @@ class FileBrowserTableViewController: UIViewController, UITableViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let attributes = [NSFontAttributeName: UIFont.fontAwesomeOfSize(20)] as Dictionary!
-        navigationItem.rightBarButtonItem!.setTitleTextAttributes(attributes, forState: .Normal)
-        navigationItem.rightBarButtonItem!.title = String.fontAwesomeIconWithName(.Clone)
         
         if activeRepositoryStream.value == nil {
             performSegueWithIdentifier("showRepositoryListSegue", sender: nil)

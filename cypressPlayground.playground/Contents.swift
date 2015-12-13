@@ -3,25 +3,16 @@
 import UIKit
 import RxSwift
 
-let xObservable = Variable<String>("x")
-let yObservable = Variable<String>("y")
+let x = Variable<Int>(5)
 
-let a = combineLatest(xObservable, yObservable) {
-    x, y in
-    return [
-        x,
-        y
-    ]
+func square(int: Int) -> Int {
+    return int*int
 }
 
-let b = combineLatest(xObservable, yObservable) {
-    (x: String, y: String) throws -> [String] in
-    var ret = [String]()
-    if !x.isEmpty {
-        ret.append(x)
-    }
-    if !y.isEmpty {
-        ret.append(y)
-    }
-    return [String]()
-}
+let y = x.map(square)
+
+x.subscribeNext({ print("x: \($0)") })
+y.subscribeNext({ print("y: \($0)") })
+
+x.value = 6
+x.value = 7

@@ -6,24 +6,6 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
-        <scene sceneID="SjF-Dg-HOd">
-            <objects>
-                <navigationController storyboardIdentifier="RepositoryListNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2of-i2-o20" sceneMemberID="viewController">
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="400" height="400"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gH4-xH-rig">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="ybM-La-sN1" kind="relationship" relationship="rootViewController" id="q1s-Gy-r13"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yJr-j6-8YK" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1556" y="158"/>
-        </scene>
         <!--File Browser Table View Controller-->
         <scene sceneID="p9W-Pz-qcm">
             <objects>
@@ -55,7 +37,7 @@
                     <navigationItem key="navigationItem" id="d8Z-qo-7yv">
                         <barButtonItem key="rightBarButtonItem" title="Repositories" id="aGr-hj-ZfL">
                             <connections>
-                                <segue destination="2of-i2-o20" kind="presentation" identifier="showRepositoryListSegue" modalPresentationStyle="formSheet" id="5ad-CL-2Aa"/>
+                                <segue destination="x28-VM-R9M" kind="presentation" identifier="showRepositoryListSegue" modalPresentationStyle="formSheet" id="5ad-CL-2Aa"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -67,35 +49,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p2g-pN-xjZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="822" y="872"/>
-        </scene>
-        <!--Repositories-->
-        <scene sceneID="ZEY-bb-EoL">
-            <objects>
-                <viewController storyboardIdentifier="repositoryListTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ybM-La-sN1" customClass="RepositoryTableViewController" customModule="Cypress" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="nsZ-M3-34I" customClass="AdaptiveTableView" customModule="Cypress" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Repositories" prompt="Select a Git repository to open, or create a new one" id="1IQ-jE-cfl">
-                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="7hK-98-fCQ">
-                            <connections>
-                                <action selector="tappedAddButton:" destination="ybM-La-sN1" id="lfF-52-B0p"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="2X5-TV-IUj">
-                            <connections>
-                                <action selector="tappedCancelButton:" destination="ybM-La-sN1" id="i1p-qj-vMs"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="tableView" destination="nsZ-M3-34I" id="wwN-p8-4x7"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nMX-K6-Yee" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2031" y="158"/>
         </scene>
         <!--Cypress Navigation Controller-->
         <scene sceneID="9kh-4k-1Yr">
@@ -240,6 +193,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NmR-wX-U5b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="685" y="124"/>
+        </scene>
+        <!--RepositoryListNavigationController-->
+        <scene sceneID="38w-OI-7De">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="RepositoryListNavigationController" storyboardName="RepositoryList" referencedIdentifier="RepositoryListNavigationController" id="x28-VM-R9M" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qvU-2L-GsZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1556" y="158"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

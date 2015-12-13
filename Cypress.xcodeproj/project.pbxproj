@@ -40,6 +40,10 @@
 		E0D0DE5C1C0A3AC40003D497 /* AdaptiveScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D0DE5B1C0A3AC40003D497 /* AdaptiveScrollView.swift */; };
 		E0D0DE5E1C0A3C8C0003D497 /* AdaptiveTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D0DE5D1C0A3C8C0003D497 /* AdaptiveTextView.swift */; };
 		E0D0DE601C0A3D3A0003D497 /* AdaptiveTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D0DE5F1C0A3D3A0003D497 /* AdaptiveTableView.swift */; };
+		E0D0DE651C0A461A0003D497 /* ChangedFileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D0DE641C0A461A0003D497 /* ChangedFileViewModel.swift */; };
+		E0D0DE681C0A46AC0003D497 /* IndexViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D0DE671C0A46AC0003D497 /* IndexViewModel.swift */; };
+		E0D0DE6B1C0A57710003D497 /* RepositoryList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0D0DE691C0A57710003D497 /* RepositoryList.storyboard */; };
+		E0D0DE6D1C0A592D0003D497 /* CypressMasterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D0DE6C1C0A592D0003D497 /* CypressMasterTableViewController.swift */; };
 		E0DCEDCA1BFD9490000F7164 /* RepositoryCloningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DCEDC91BFD9490000F7164 /* RepositoryCloningDelegate.swift */; };
 		E0DCEDF21BFE43D1000F7164 /* Changeset.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DCEDE21BFE43D1000F7164 /* Changeset.swift */; };
 		E0DCEDF31BFE43D1000F7164 /* RxCollectionViewSectionedAnimatedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DCEDE41BFE43D1000F7164 /* RxCollectionViewSectionedAnimatedDataSource.swift */; };
@@ -292,6 +296,10 @@
 		E0D0DE5B1C0A3AC40003D497 /* AdaptiveScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdaptiveScrollView.swift; sourceTree = "<group>"; };
 		E0D0DE5D1C0A3C8C0003D497 /* AdaptiveTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdaptiveTextView.swift; sourceTree = "<group>"; };
 		E0D0DE5F1C0A3D3A0003D497 /* AdaptiveTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdaptiveTableView.swift; sourceTree = "<group>"; };
+		E0D0DE641C0A461A0003D497 /* ChangedFileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangedFileViewModel.swift; sourceTree = "<group>"; };
+		E0D0DE671C0A46AC0003D497 /* IndexViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexViewModel.swift; sourceTree = "<group>"; };
+		E0D0DE6A1C0A57710003D497 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RepositoryList.storyboard; sourceTree = "<group>"; };
+		E0D0DE6C1C0A592D0003D497 /* CypressMasterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CypressMasterTableViewController.swift; sourceTree = "<group>"; };
 		E0DCEDC91BFD9490000F7164 /* RepositoryCloningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryCloningDelegate.swift; sourceTree = "<group>"; };
 		E0DCEDE21BFE43D1000F7164 /* Changeset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Changeset.swift; sourceTree = "<group>"; };
 		E0DCEDE41BFE43D1000F7164 /* RxCollectionViewSectionedAnimatedDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxCollectionViewSectionedAnimatedDataSource.swift; sourceTree = "<group>"; };
@@ -395,7 +403,9 @@
 		E010E8541C0118EF0027E6CD /* Commit tab */ = {
 			isa = PBXGroup;
 			children = (
-				E010E8581C011D090027E6CD /* CommitViewController.swift */,
+				E0D0DE611C0A45D70003D497 /* View */,
+				E0D0DE631C0A45EB0003D497 /* ViewModel */,
+				E0D0DE661C0A46660003D497 /* Model */,
 			);
 			name = "Commit tab";
 			sourceTree = "<group>";
@@ -447,7 +457,7 @@
 			path = "Switch cell";
 			sourceTree = "<group>";
 		};
-		E0954D251BED8A2E00649A5E /* App */ = {
+		E0954D251BED8A2E00649A5E /* Global */ = {
 			isa = PBXGroup;
 			children = (
 				E0DEAF551BE685840018EA8B /* AppDelegate.swift */,
@@ -458,7 +468,9 @@
 				E0D0DE5B1C0A3AC40003D497 /* AdaptiveScrollView.swift */,
 				E0D0DE5F1C0A3D3A0003D497 /* AdaptiveTableView.swift */,
 				E0D0DE5D1C0A3C8C0003D497 /* AdaptiveTextView.swift */,
+				E0D0DE6C1C0A592D0003D497 /* CypressMasterTableViewController.swift */,
 			);
+			name = Global;
 			path = App;
 			sourceTree = "<group>";
 		};
@@ -529,6 +541,30 @@
 			);
 			name = View;
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		E0D0DE611C0A45D70003D497 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E010E8581C011D090027E6CD /* CommitViewController.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		E0D0DE631C0A45EB0003D497 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E0D0DE641C0A461A0003D497 /* ChangedFileViewModel.swift */,
+				E0D0DE671C0A46AC0003D497 /* IndexViewModel.swift */,
+			);
+			name = ViewModel;
+			sourceTree = "<group>";
+		};
+		E0D0DE661C0A46660003D497 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		E0D207911BF861C9000B54D1 /* Repository list */ = {
@@ -618,11 +654,11 @@
 		E0DEAF541BE685840018EA8B /* Cypress */ = {
 			isa = PBXGroup;
 			children = (
-				E0954D251BED8A2E00649A5E /* App */,
+				E0954D251BED8A2E00649A5E /* Global */,
 				E0F815B11C00CD6F00EFAEC7 /* EZSwiftExtensions */,
 				E0D207911BF861C9000B54D1 /* Repository list */,
-				E010E8541C0118EF0027E6CD /* Commit tab */,
 				E020529D1BF7C997003BD3A0 /* Files tab */,
+				E010E8541C0118EF0027E6CD /* Commit tab */,
 				E06EB6BB1BF7D7110035D2E6 /* Switch cell */,
 				E0DEAF5C1BE685840018EA8B /* Assets.xcassets */,
 				E0DEAF611BE685840018EA8B /* Info.plist */,
@@ -630,6 +666,7 @@
 				E0DEAF591BE685840018EA8B /* Main.storyboard */,
 				E0D0DE591C0A2F720003D497 /* CommitView.storyboard */,
 				E0D0DE561C0A2F380003D497 /* FileBrowser.storyboard */,
+				E0D0DE691C0A57710003D497 /* RepositoryList.storyboard */,
 			);
 			path = Cypress;
 			sourceTree = "<group>";
@@ -924,6 +961,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0D0DE6B1C0A57710003D497 /* RepositoryList.storyboard in Resources */,
 				E0D0DE5A1C0A2F720003D497 /* CommitView.storyboard in Resources */,
 				E0DEAF601BE685840018EA8B /* LaunchScreen.storyboard in Resources */,
 				E0DEAF5D1BE685840018EA8B /* Assets.xcassets in Resources */,
@@ -1020,6 +1058,7 @@
 				E0F815E01C00CD7A00EFAEC7 /* BlockWebView.swift in Sources */,
 				E0F815EA1C00CD7A00EFAEC7 /* UIButtonExtensions.swift in Sources */,
 				E0F815E91C00CD7A00EFAEC7 /* StringExtensions.swift in Sources */,
+				E0D0DE651C0A461A0003D497 /* ChangedFileViewModel.swift in Sources */,
 				E0DCEDFA1BFE43D1000F7164 /* ObservableConvertibleType+Differentiator.swift in Sources */,
 				E0DCEDF61BFE43D1000F7164 /* RxTableViewSectionedAnimatedDataSource.swift in Sources */,
 				E0DCEDF81BFE43D1000F7164 /* RxTableViewSectionedReloadDataSource.swift in Sources */,
@@ -1038,8 +1077,10 @@
 				E0363E651BEE5BBB00C8584F /* FileBrowserNavigationController.swift in Sources */,
 				E0363E601BEDA1F800C8584F /* FileContentsViewController.swift in Sources */,
 				E0F815E21C00CD7A00EFAEC7 /* CGFloatExtensions.swift in Sources */,
+				E0D0DE6D1C0A592D0003D497 /* CypressMasterTableViewController.swift in Sources */,
 				E0F815DC1C00CD7A00EFAEC7 /* BlockPan.swift in Sources */,
 				E0F815F21C00CD7A00EFAEC7 /* UITextViewExtensions.swift in Sources */,
+				E0D0DE681C0A46AC0003D497 /* IndexViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1101,6 +1142,14 @@
 				E0D0DE571C0A2F380003D497 /* Base */,
 			);
 			name = FileBrowser.storyboard;
+			sourceTree = "<group>";
+		};
+		E0D0DE691C0A57710003D497 /* RepositoryList.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E0D0DE6A1C0A57710003D497 /* Base */,
+			);
+			name = RepositoryList.storyboard;
 			sourceTree = "<group>";
 		};
 		E0DEAF591BE685840018EA8B /* Main.storyboard */ = {
