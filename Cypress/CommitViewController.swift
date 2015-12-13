@@ -83,6 +83,13 @@ class CommitViewController: CypressMasterViewController, UITableViewDelegate {
             .bindTo(tableView.rx_itemsWithDataSource(dataSource))
             .addDisposableTo(disposeBag)
         
+        self.tableView.rx_itemSelected
+            .subscribeNext() {
+                [unowned dataSource] in
+                let file = dataSource.itemAtIndexPath($0)
+                file.getChanges()
+        }
+        
     }
     
     override func viewWillAppear(animated: Bool) {

@@ -21,6 +21,16 @@ struct ChangedFileViewModel {
         }
     }
     
+    func getChanges() {
+        self.patch.enumerateUsingBeginHunkHandler({
+            oldLineNumber, oldLineCount, newLineNumber, newLineCount in
+            print("oldLineNumber: \(oldLineNumber), oldLineCount: \(oldLineCount), newLineNumber: \(newLineNumber), newLineCount: \(newLineCount)")
+        }, lineHandler: {
+            change, oldLineNumber, newLineNumber, contentBytes, contentLength in
+            print("\tchange: \(change.rawValue), oldLineNumber: \(oldLineNumber), newLineNumber: \(newLineNumber), contentBytes: \(String.fromCString(contentBytes)), contentLength: \(contentLength)")
+            }, endHunkHandler: { return })
+    }
+    
     init(patch: GCDiffPatch, fileURL: NSURL) {
         self.patch = patch
         self.fileURL = fileURL
