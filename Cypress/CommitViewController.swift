@@ -60,23 +60,24 @@ class CommitViewController: CypressMasterViewController, UITableViewDelegate {
         }
         
         // Update changed files when repository stream changes
-        activeRepositoryStream.subscribeNext() {
-            [unowned self] in
-            do {
-                guard let repoURLPath = $0?.path else {
-                    return
+        activeRepositoryStream
+            .subscribeNext() {
+                [unowned self] in
+                do {
+                    guard let repoURLPath = $0?.path else {
+                        return
+                    }
+                    let repo = try GCRepository(existingLocalRepository: repoURLPath)
+                    guard let files = self.loadChangedFiles(repo) else {
+                        return
+                    }
+                    (self.unstagedFiles.value, self.stagedFiles.value) = files
                 }
-                let repo = try GCRepository(existingLocalRepository: repoURLPath)
-                guard let files = self.loadChangedFiles(repo) else {
-                    return
+                catch let e as NSError {
+                    errorStream.value = e
                 }
-                (self.unstagedFiles.value, self.stagedFiles.value) = files
             }
-            catch let e as NSError {
-                errorStream.value = e
-            }
-        }
-        .addDisposableTo(disposeBag)
+            .addDisposableTo(disposeBag)
         
         // reactive data source
         allFiles
@@ -84,12 +85,15 @@ class CommitViewController: CypressMasterViewController, UITableViewDelegate {
             .addDisposableTo(disposeBag)
         
         self.tableView.rx_itemSelected
+            .map() {
+                [unowned self] indexPath in
+                return self.dataSource.itemAtIndexPath(indexPath)
+            }
             .subscribeNext() {
-                [unowned dataSource] in
-                let file = dataSource.itemAtIndexPath($0)
-                file.getChanges()
-        }
-        
+                [unowned self] file in
+                self.performSegueWithIdentifier("showFileChanges", sender: self)
+            }
+            .addDisposableTo(disposeBag)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -133,14 +137,21 @@ class CommitViewController: CypressMasterViewController, UITableViewDelegate {
     }
     
 
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "showFileChanges" {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
+                let file = dataSource.itemAtIndexPath(indexPath)
+                
+                guard let navController = segue.destinationViewController as? UINavigationController, diffViewController = navController.topViewController as? FileDiffViewController else {
+                    errorStream.value = NSError(domain: "Could not get diff view controller in commit view controller", code: 1, userInfo: nil)
+                    return
+                }
+                
+                diffViewController.detailItem.value = file
+            }
+        }
     }
-    */
 
 }

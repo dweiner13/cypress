@@ -21,6 +21,7 @@
 		E04F43AE1BFD50EF00AEAE40 /* RxCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E04F43981BFD50D300AEAE40 /* RxCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E04F43B11BFD50F000AEAE40 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E04F43A01BFD50D300AEAE40 /* RxBlocking.framework */; };
 		E04F43B21BFD50F000AEAE40 /* RxBlocking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E04F43A01BFD50D300AEAE40 /* RxBlocking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E05290AF1C1F600E00B93FA5 /* FileDiffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E05290AE1C1F600E00B93FA5 /* FileDiffViewController.swift */; };
 		E053FC4C1BFBADAE00B09411 /* RepositoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E053FC4B1BFBADAE00B09411 /* RepositoryManager.swift */; };
 		E06EB6B21BF7D5500035D2E6 /* FileContentsConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06EB6B11BF7D5500035D2E6 /* FileContentsConfigViewController.swift */; };
 		E06EB6B71BF7D6F70035D2E6 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06EB6B51BF7D6F70035D2E6 /* SwitchTableViewCell.swift */; };
@@ -277,6 +278,7 @@
 		E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileContentsViewController.swift; sourceTree = "<group>"; };
 		E0363E641BEE5BBB00C8584F /* FileBrowserNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowserNavigationController.swift; sourceTree = "<group>"; };
 		E04F43B51BFD516900AEAE40 /* cypressPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = cypressPlayground.playground; sourceTree = "<group>"; };
+		E05290AE1C1F600E00B93FA5 /* FileDiffViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileDiffViewController.swift; path = ../FileDiffViewController.swift; sourceTree = "<group>"; };
 		E053FC4B1BFBADAE00B09411 /* RepositoryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryManager.swift; sourceTree = "<group>"; };
 		E06EB6B11BF7D5500035D2E6 /* FileContentsConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileContentsConfigViewController.swift; sourceTree = "<group>"; };
 		E06EB6B51BF7D6F70035D2E6 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
@@ -547,6 +549,7 @@
 			isa = PBXGroup;
 			children = (
 				E010E8581C011D090027E6CD /* CommitViewController.swift */,
+				E05290AE1C1F600E00B93FA5 /* FileDiffViewController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1049,6 +1052,7 @@
 				E0F815E61C00CD7A00EFAEC7 /* IntExtentions.swift in Sources */,
 				E0F815E41C00CD7A00EFAEC7 /* DictionaryExtensions.swift in Sources */,
 				E0F815EE1C00CD7A00EFAEC7 /* UIFontExtensions.swift in Sources */,
+				E05290AF1C1F600E00B93FA5 /* FileDiffViewController.swift in Sources */,
 				E0D0DE601C0A3D3A0003D497 /* AdaptiveTableView.swift in Sources */,
 				E0DEAF561BE685840018EA8B /* AppDelegate.swift in Sources */,
 				E0F815E71C00CD7A00EFAEC7 /* NSDateExtensions.swift in Sources */,
