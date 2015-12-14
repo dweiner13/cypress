@@ -26,6 +26,8 @@ class FileDiffViewController: UIViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tableView.registerNib(UINib(nibName: "lineDiffCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "lineDiffCell")
+        
         let allLines = self.detailItem.map() {
             (changedFile: ChangedFileViewModel?) throws -> [Section] in
             var sections: [Section] = []
@@ -40,14 +42,11 @@ class FileDiffViewController: UIViewController, UITableViewDelegate {
         
         dataSource.cellFactory = {
             (tableView, indexPath, line) in
-            guard let cell = tableView.dequeueReusableCellWithIdentifier("lineDiffCell") else {
+            guard let cell = tableView.dequeueReusableCellWithIdentifier("lineDiffCell") as? lineDiffCell else {
                 errorStream.value = NSError(domain: "Could not deuqueue cell with identifier lineDiffCell", code: 0, userInfo: nil)
                 return UITableViewCell()
             }
-            guard let label = cell.textLabel else {
-                return UITableViewCell()
-            }
-            label.text = "\(line.newLineNumber): \(line.content)"
+            cell.configureForLine(line)
             return cell
         }
         

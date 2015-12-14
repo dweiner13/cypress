@@ -22,6 +22,7 @@
 		E04F43B11BFD50F000AEAE40 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E04F43A01BFD50D300AEAE40 /* RxBlocking.framework */; };
 		E04F43B21BFD50F000AEAE40 /* RxBlocking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E04F43A01BFD50D300AEAE40 /* RxBlocking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E05290AF1C1F600E00B93FA5 /* FileDiffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E05290AE1C1F600E00B93FA5 /* FileDiffViewController.swift */; };
+		E05290B11C1F722900B93FA5 /* lineDiffCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E05290B01C1F722900B93FA5 /* lineDiffCell.xib */; };
 		E053FC4C1BFBADAE00B09411 /* RepositoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E053FC4B1BFBADAE00B09411 /* RepositoryManager.swift */; };
 		E06EB6B21BF7D5500035D2E6 /* FileContentsConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06EB6B11BF7D5500035D2E6 /* FileContentsConfigViewController.swift */; };
 		E06EB6B71BF7D6F70035D2E6 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06EB6B51BF7D6F70035D2E6 /* SwitchTableViewCell.swift */; };
@@ -31,6 +32,7 @@
 		E06EB6C31BF7EEF20035D2E6 /* OpenFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06EB6C21BF7EEF20035D2E6 /* OpenFile.swift */; };
 		E0954D1B1BED713F00649A5E /* RepositoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0954D1A1BED713F00649A5E /* RepositoryTableViewController.swift */; };
 		E0954D231BED74D200649A5E /* CypressFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0954D221BED74D200649A5E /* CypressFunctions.swift */; };
+		E09B06DC1C1F82CA00E529E5 /* lineDiffCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09B06DB1C1F82CA00E529E5 /* lineDiffCell.swift */; };
 		E0A7751D1BE691EF0021EE34 /* GitUpKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0A775131BE68FB20021EE34 /* GitUpKit.framework */; };
 		E0A7751E1BE691EF0021EE34 /* GitUpKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E0A775131BE68FB20021EE34 /* GitUpKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E0AAF3A21BFD863A00320EA2 /* RepositoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0AAF3A11BFD863A00320EA2 /* RepositoryViewModel.swift */; };
@@ -279,6 +281,7 @@
 		E0363E641BEE5BBB00C8584F /* FileBrowserNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowserNavigationController.swift; sourceTree = "<group>"; };
 		E04F43B51BFD516900AEAE40 /* cypressPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = cypressPlayground.playground; sourceTree = "<group>"; };
 		E05290AE1C1F600E00B93FA5 /* FileDiffViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileDiffViewController.swift; path = ../FileDiffViewController.swift; sourceTree = "<group>"; };
+		E05290B01C1F722900B93FA5 /* lineDiffCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = lineDiffCell.xib; sourceTree = "<group>"; };
 		E053FC4B1BFBADAE00B09411 /* RepositoryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryManager.swift; sourceTree = "<group>"; };
 		E06EB6B11BF7D5500035D2E6 /* FileContentsConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileContentsConfigViewController.swift; sourceTree = "<group>"; };
 		E06EB6B51BF7D6F70035D2E6 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
@@ -289,6 +292,7 @@
 		E0839A5E1C012FD500792ADE /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		E0954D1A1BED713F00649A5E /* RepositoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryTableViewController.swift; sourceTree = "<group>"; };
 		E0954D221BED74D200649A5E /* CypressFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CypressFunctions.swift; sourceTree = "<group>"; };
+		E09B06DB1C1F82CA00E529E5 /* lineDiffCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = lineDiffCell.swift; sourceTree = "<group>"; };
 		E0A775091BE68FB20021EE34 /* GitUpKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GitUpKit.xcodeproj; path = GitUp/GitUpKit/GitUpKit.xcodeproj; sourceTree = "<group>"; };
 		E0AAF3A11BFD863A00320EA2 /* RepositoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryViewModel.swift; sourceTree = "<group>"; };
 		E0C713141BEEC8CD008595B9 /* RepositoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -550,6 +554,8 @@
 			children = (
 				E010E8581C011D090027E6CD /* CommitViewController.swift */,
 				E05290AE1C1F600E00B93FA5 /* FileDiffViewController.swift */,
+				E05290B01C1F722900B93FA5 /* lineDiffCell.xib */,
+				E09B06DB1C1F82CA00E529E5 /* lineDiffCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -968,6 +974,7 @@
 				E0D0DE5A1C0A2F720003D497 /* CommitView.storyboard in Resources */,
 				E0DEAF601BE685840018EA8B /* LaunchScreen.storyboard in Resources */,
 				E0DEAF5D1BE685840018EA8B /* Assets.xcassets in Resources */,
+				E05290B11C1F722900B93FA5 /* lineDiffCell.xib in Resources */,
 				E010E8501C01187B0027E6CD /* FontAwesome.otf in Resources */,
 				E0D0DE581C0A2F380003D497 /* FileBrowser.storyboard in Resources */,
 				E0DEAF5B1BE685840018EA8B /* Main.storyboard in Resources */,
@@ -1014,6 +1021,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0C713161BEEC8CD008595B9 /* RepositoryTableViewCell.swift in Sources */,
+				E09B06DC1C1F82CA00E529E5 /* lineDiffCell.swift in Sources */,
 				E010E8591C011D090027E6CD /* CommitViewController.swift in Sources */,
 				E0DCEDF91BFE43D1000F7164 /* Differentiator.swift in Sources */,
 				E0954D1B1BED713F00649A5E /* RepositoryTableViewController.swift in Sources */,
