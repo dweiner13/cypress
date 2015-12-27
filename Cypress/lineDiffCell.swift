@@ -55,6 +55,7 @@ class lineDiffCell: UITableViewCell {
                 break
             default:
                 changeSymbolLabel.text = ""
+                self.backgroundColor = UIColor.clearColor()
         }
         
         contentLabel.text = line.content

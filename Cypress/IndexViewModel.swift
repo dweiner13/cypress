@@ -36,7 +36,7 @@ struct IndexViewModel {
             for delta in diff.deltas as! [GCDiffDelta]  {
                 var isBinary = ObjCBool(false)
                 let patch = try repository.makePatchForDiffDelta(delta, isBinary: &isBinary)
-                let file = ChangedFileViewModel(patch: patch, fileURL: NSURL(fileURLWithPath: delta.oldFile.path))
+                let file = ChangedFileViewModel(patch: patch, fileURL: NSURL(fileURLWithPath: delta.oldFile.path), staged: false)
                 unstagedFiles.append(file)
             }
         }

@@ -112,17 +112,33 @@ class CommitViewController: CypressMasterViewController, UITableViewDelegate {
         }
         do {
             let repo = try GCRepository(existingLocalRepository: activeRepoPath)
-            let diff = try repo.diffWorkingDirectoryWithHEAD(nil, options: GCDiffOptions.IncludeUntracked, maxInterHunkLines: 0, maxContextLines: 3)
             
-            guard let deltas = diff.deltas as? [GCDiffDelta] else {
+            // unstaged changes
+            let unstagedDiff = try repo.diffWorkingDirectoryWithRepositoryIndex(nil, options: .IncludeUntracked, maxInterHunkLines: 0, maxContextLines: 3)
+            
+            guard let unstagedDeltas = unstagedDiff.deltas as? [GCDiffDelta] else {
                 throw NSError(domain: "could not get list of deltas", code: 0, userInfo: nil)
             }
             
-            for delta in deltas {
+            for delta in unstagedDeltas {
                 var isBinary = ObjCBool(false)
                 let patch = try repo.makePatchForDiffDelta(delta, isBinary: &isBinary)
                 let file = delta.oldFile.path
-                unstaged.append(ChangedFileViewModel(patch: patch, fileURL: NSURL(fileURLWithPath: file)))
+                unstaged.append(ChangedFileViewModel(patch: patch, fileURL: NSURL(fileURLWithPath: file), staged: false))
+            }
+            
+            // staged changes
+            let stagedDiff = try repo.diffRepositoryIndexWithHEAD(nil, options: .IncludeUntracked, maxInterHunkLines: 0, maxContextLines: 3)
+            
+            guard let stagedDeltas = stagedDiff.deltas as? [GCDiffDelta] else {
+                throw NSError(domain: "Could not get list of deltas", code: 0, userInfo: nil)
+            }
+            
+            for delta in stagedDeltas {
+                var isBinary = ObjCBool(false)
+                let patch = try repo.makePatchForDiffDelta(delta, isBinary: &isBinary)
+                let file = delta.oldFile.path
+                staged.append(ChangedFileViewModel(patch: patch, fileURL: NSURL(fileURLWithPath: file), staged: true))
             }
         }
         catch let e as NSError {

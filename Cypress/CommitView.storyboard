@@ -25,7 +25,7 @@
                                             <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -62,14 +62,63 @@
         <scene sceneID="Qag-tc-uTh">
             <objects>
                 <viewController id="cfC-Uy-Adw" customClass="FileDiffViewController" customModule="Cypress" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="16" sectionHeaderHeight="28" sectionFooterHeight="28" id="Cgb-WF-SzE">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="umT-bH-d2o"/>
+                        <viewControllerLayoutGuide type="bottom" id="Q6B-MC-Jan"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3aJ-zd-dR6">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsMultipleSelection="YES" rowHeight="16" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tYI-aY-5cW">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cJF-7f-aep">
+                                <rect key="frame" x="0.0" y="507" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem title="Left action button" id="mfL-9Z-JcD">
+                                        <connections>
+                                            <action selector="tappedLeftActionButton:" destination="cfC-Uy-Adw" id="AWa-kZ-nwW"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="5c3-gI-rQL"/>
+                                    <barButtonItem title="Right action button" id="5Ab-GH-izG">
+                                        <connections>
+                                            <action selector="tappedRightActionButton:" destination="cfC-Uy-Adw" id="dIx-Yt-sZ7"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </tableView>
+                        <constraints>
+                            <constraint firstItem="cJF-7f-aep" firstAttribute="top" secondItem="tYI-aY-5cW" secondAttribute="bottom" id="5Ny-pc-pCz"/>
+                            <constraint firstItem="tYI-aY-5cW" firstAttribute="top" secondItem="umT-bH-d2o" secondAttribute="bottom" id="7GM-sr-jth"/>
+                            <constraint firstItem="Q6B-MC-Jan" firstAttribute="top" secondItem="cJF-7f-aep" secondAttribute="bottom" id="ElT-Hy-L8P"/>
+                            <constraint firstItem="tYI-aY-5cW" firstAttribute="top" secondItem="umT-bH-d2o" secondAttribute="bottom" id="RZn-m9-RKW"/>
+                            <constraint firstItem="tYI-aY-5cW" firstAttribute="top" secondItem="umT-bH-d2o" secondAttribute="bottom" constant="-64" id="XDS-cL-PLc"/>
+                            <constraint firstAttribute="trailing" secondItem="tYI-aY-5cW" secondAttribute="trailing" id="cBd-Kb-Khz"/>
+                            <constraint firstItem="tYI-aY-5cW" firstAttribute="leading" secondItem="3aJ-zd-dR6" secondAttribute="leading" id="deu-l5-rJo"/>
+                            <constraint firstItem="Q6B-MC-Jan" firstAttribute="top" secondItem="tYI-aY-5cW" secondAttribute="bottom" id="gCG-kS-cA4"/>
+                            <constraint firstAttribute="trailing" secondItem="cJF-7f-aep" secondAttribute="trailing" id="ilL-Gd-fUi"/>
+                            <constraint firstItem="tYI-aY-5cW" firstAttribute="top" secondItem="umT-bH-d2o" secondAttribute="bottom" id="oey-bs-ut0"/>
+                            <constraint firstItem="cJF-7f-aep" firstAttribute="leading" secondItem="3aJ-zd-dR6" secondAttribute="leading" id="vlE-dN-Vd8"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="7GM-sr-jth"/>
+                                <exclude reference="RZn-m9-RKW"/>
+                                <exclude reference="oey-bs-ut0"/>
+                                <exclude reference="5Ny-pc-pCz"/>
+                            </mask>
+                        </variation>
+                    </view>
                     <navigationItem key="navigationItem" id="sqf-Th-ZgB"/>
                     <connections>
-                        <outlet property="tableView" destination="Cgb-WF-SzE" id="JsL-Oj-3iY"/>
+                        <outlet property="leftActionButton" destination="mfL-9Z-JcD" id="5sE-Rz-qwT"/>
+                        <outlet property="rightActionButton" destination="5Ab-GH-izG" id="D49-bv-Pwx"/>
+                        <outlet property="tableView" destination="tYI-aY-5cW" id="Kxc-Ha-eLT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cOl-nU-UV3" userLabel="First Responder" sceneMemberID="firstResponder"/>

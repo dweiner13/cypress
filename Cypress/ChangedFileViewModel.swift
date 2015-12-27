@@ -20,8 +20,15 @@ struct ChangedFileViewModel {
             return name
         }
     }
-    
+    let staged: Bool
     let hunks: [Hunk]
+    
+    // getting path from URL will have initial "/", which we don't want
+    var relativeFilePath: String {
+        get {
+            return self.fileURL.path![1..<self.fileURL.path!.length]
+        }
+    }
     
     private func getChanges(patch: GCDiffPatch) -> [Hunk] {
         var hunks: [Hunk] = []
@@ -47,10 +54,10 @@ struct ChangedFileViewModel {
         return hunks
     }
     
-    init(patch: GCDiffPatch, fileURL: NSURL) {
+    init(patch: GCDiffPatch, fileURL: NSURL, staged: Bool) {
         self.patch = patch
         self.fileURL = fileURL
-        
+        self.staged = staged
         
         var changedHunks: [Hunk] = []
         var hunk: Hunk? = nil
@@ -74,6 +81,128 @@ struct ChangedFileViewModel {
         
         self.hunks = changedHunks
     }
+    
+    private func lineNumberSets(lines: [Line]) -> (newLines: Set<UInt>, oldLines: Set<UInt>) {
+        var newLines = Set<UInt>()
+        var oldLines = Set<UInt>()
+        for line in lines {
+            if line.change == .Added {
+                newLines.insert(line.newLineNumber!)
+            }
+            else if line.change == .Deleted {
+                oldLines.insert(line.oldLineNumber!)
+            }
+        }
+        return (newLines, oldLines)
+    }
+    
+    func stageLines(lines: [Line]) -> ChangedFileViewModel? {
+        guard let repoPath = activeRepositoryStream.value?.path, repo = try? GCRepository(existingLocalRepository: repoPath) else {
+            return nil
+        }
+        
+        let (newLines, oldLines) = lineNumberSets(lines)
+        
+        do {
+            try repo.addLinesFromFileToIndex(relativeFilePath) {
+                (change, oldLineNumber, newLineNumber) -> Bool in
+                print("\(change) \(oldLineNumber) \(newLineNumber)")
+                if (change == .Added) {
+                    return newLines.contains(newLineNumber)
+                }
+                if (change == .Deleted) {
+                    return oldLines.contains(oldLineNumber)
+                }
+                return true
+            }
+            
+            return getNewChangedFile()
+        }
+        catch let e as NSError {
+            errorStream.value = e
+            return nil
+        }
+    }
+    
+    func unstageLines(lines: [Line]) -> ChangedFileViewModel? {
+        guard let repoPath = activeRepositoryStream.value?.path, repo = try? GCRepository(existingLocalRepository: repoPath) else {
+            return nil
+        }
+        
+        let (newLines, oldLines) = lineNumberSets(lines)
+        
+        do {
+            try repo.resetLinesFromFileInIndexToHEAD(relativeFilePath, usingFilter: {
+                (change, oldLineNumber, newLineNumber) -> Bool in
+                if change == .Added {
+                    return newLines.contains(newLineNumber)
+                }
+                if change == .Deleted {
+                    return oldLines.contains(oldLineNumber)
+                }
+                return true
+            })
+            
+            return getNewChangedFile()
+        }
+        catch let e as NSError {
+            errorStream.value = e
+            return nil
+        }
+    }
+    
+    func discardLines(lines: [Line]) -> ChangedFileViewModel? {
+        guard let repoPath = activeRepositoryStream.value?.path, repo = try? GCRepository(existingLocalRepository: repoPath) else {
+            return nil
+        }
+        
+        let (newLines, oldLines) = lineNumberSets(lines)
+        
+        do {
+            try repo.checkoutLinesFromFileFromIndex(relativeFilePath, usingFilter: {
+                (change, oldLineNumber, newLineNumber) -> Bool in
+                if change == .Added {
+                    return newLines.contains(newLineNumber)
+                }
+                if change == .Deleted {
+                    return oldLines.contains(oldLineNumber)
+                }
+                return true
+            })
+            
+            return getNewChangedFile()
+        }
+        catch let e as NSError {
+            errorStream.value = e
+            return nil
+        }
+    }
+    
+    private func getNewChangedFile() -> ChangedFileViewModel? {
+        guard let repoPath = activeRepositoryStream.value?.path, repo = try? GCRepository(existingLocalRepository: repoPath) else {
+            return nil
+        }
+        
+        do {
+            let diff: GCDiff
+            if self.staged {
+                diff = try repo.diffRepositoryIndexWithHEAD(relativeFilePath, options: .IncludeUntracked, maxInterHunkLines: 0, maxContextLines: 3)
+            }
+            else {
+                diff = try repo.diffWorkingDirectoryWithRepositoryIndex(relativeFilePath, options: .IncludeUntracked, maxInterHunkLines: 0, maxContextLines: 3)
+            }
+            if diff.deltas.count != 1 {
+                throw NSError(domain: "delta count when recalculating changed file != 1", code: 0, userInfo: nil)
+            }
+            let patch = try repo.makePatchForDiffDelta(diff.deltas[0] as! GCDiffDelta, isBinary: nil)
+            let newChangedFile = ChangedFileViewModel(patch: patch, fileURL: self.fileURL, staged: self.staged)
+            return newChangedFile
+        }
+        catch let e as NSError {
+            errorStream.value = e
+            return nil
+        }
+    }
 }
 
 struct Hunk {
@@ -95,7 +224,7 @@ struct Hunk {
     }
 }
 
-struct Line {
+struct Line: Equatable {
     let change: GCLineDiffChange
     let oldLineNumber: UInt?
     let newLineNumber: UInt?
@@ -121,4 +250,9 @@ struct Line {
         }
         content = str[0..<contentLength.toInt]
     }
+}
+
+func ==(lhs: Line, rhs: Line) -> Bool {
+    print("comparing \(lhs) to \(rhs)")
+    return lhs.change == rhs.change && lhs.oldLineNumber == rhs.oldLineNumber && lhs.newLineNumber == rhs.newLineNumber && lhs.content == rhs.content
 }
