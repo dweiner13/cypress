@@ -33,6 +33,10 @@ class FileDiffViewController: UIViewController, UITableViewDelegate {
         super.viewDidLoad()
         
         self.navigationItem.title = detailItem.value?.fileName
+        if let split = splitViewController {
+            navigationItem.leftBarButtonItem = split.displayModeButtonItem();
+            navigationItem.leftItemsSupplementBackButton = true;
+        }
         
         self.tableView.registerNib(UINib(nibName: "lineDiffCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "lineDiffCell")
         

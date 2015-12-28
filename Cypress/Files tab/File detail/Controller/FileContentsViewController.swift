@@ -27,6 +27,13 @@ class FileContentsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.title = detailItem.value?.lastPathComponent
+        
+        if let split = splitViewController {
+            navigationItem.leftBarButtonItem = split.displayModeButtonItem();
+            navigationItem.leftItemsSupplementBackButton = true;
+        }
+        
         self.detailItem.subscribeNext() {
             [weak self] in
             guard let s = self else {
