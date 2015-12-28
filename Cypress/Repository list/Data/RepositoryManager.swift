@@ -92,9 +92,9 @@ class RepositoryManager {
                     }
                     cloningProgress
                         .subscribeError() {
-                            [unowned self] _ in
+                            [weak self] _ in
                             debugLog("error received, deleting temporary repo at \(repoURL)")
-                            self.deleteRepositoryAtURL(repoURL)
+                            self?.deleteRepositoryAtURL(repoURL)
                         }
                         .addDisposableTo(disposeBag)
                     

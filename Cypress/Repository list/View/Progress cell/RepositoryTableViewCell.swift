@@ -23,23 +23,23 @@ class RepositoryTableViewCell: UITableViewCell, GCRepositoryDelegate {
             if let progressStream = repository?.cloningProgress {
                 progressStream
                     .subscribe(onNext: {
-                        [unowned self] event in
+                        [weak self] event in
                         switch event {
                             case .willStartTransfer:
-                                self.startProgress()
+                                self?.startProgress()
                             case .updateTransferProgress(let progress):
-                                self.updateProgress(progress)
+                                self?.updateProgress(progress)
                             default:
                                 break
                         }
                     },
                     onError: {
-                        [unowned self] _ in
-                        self.stopProgress()
+                        [weak self] _ in
+                        self?.stopProgress()
                     },
                     onCompleted: {
-                        [unowned self] in
-                        self.stopProgress()
+                        [weak self] in
+                        self?.stopProgress()
                     },
                     onDisposed: nil)
                     .addDisposableTo(disposeBag)
@@ -56,8 +56,8 @@ class RepositoryTableViewCell: UITableViewCell, GCRepositoryDelegate {
         
         activeRepositoryStream
             .subscribeNext() {
-                [unowned self] _ in
-                self.configureView()
+                [weak self] _ in
+                self?.configureView()
             }
             .addDisposableTo(disposeBag)
     }

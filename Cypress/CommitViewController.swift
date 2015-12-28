@@ -92,12 +92,12 @@ class CommitViewController: CypressMasterViewController, UITableViewDelegate {
         
         self.tableView.rx_itemSelected
             .map() {
-                [unowned self] indexPath in
-                return self.dataSource.itemAtIndexPath(indexPath)
+                [weak self] indexPath in
+                return self?.dataSource.itemAtIndexPath(indexPath)
             }
             .subscribeNext() {
-                [unowned self] file in
-                self.performSegueWithIdentifier("showFileChanges", sender: self)
+                [weak self] file in
+                self?.performSegueWithIdentifier("showFileChanges", sender: self)
             }
             .addDisposableTo(disposeBag)
     }

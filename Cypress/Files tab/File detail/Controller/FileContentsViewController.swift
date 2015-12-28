@@ -38,10 +38,10 @@ class FileContentsViewController: UIViewController {
         
         detailItem
             .subscribeNext() {
-                [unowned self] in
+                [weak self] in
                 if let url = $0 {
-                    self.openFile = OpenFile(url: url)
-                    self.configureViewForURL(url)
+                    self?.openFile = OpenFile(url: url)
+                    self?.configureViewForURL(url)
                 }
             }
             .addDisposableTo(disposeBag)
@@ -53,8 +53,8 @@ class FileContentsViewController: UIViewController {
         
         textView.rx_text
             .subscribeNext() {
-                [unowned self] in
-                self.openFile?.text.value = $0
+                [weak self] in
+                self?.openFile?.text.value = $0
             }
             .addDisposableTo(disposeBag)
     }

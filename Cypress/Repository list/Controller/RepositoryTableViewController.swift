@@ -86,20 +86,20 @@ class RepositoryTableViewController: UIViewController, UITableViewDelegate {
         
         tableView.rx_itemSelected
             .map() {
-                [unowned self] indexPath in
-                return self.repositories.value[indexPath.row]
+                [weak self] indexPath in
+                return self?.repositories.value[indexPath.row]
             }
             .subscribeNext() {
-                [unowned self] repo in
-                activeRepositoryStream.value = repo.url
-                self.dismissSelf()
+                [weak self] repo in
+                activeRepositoryStream.value = repo?.url
+                self?.dismissSelf()
             }
             .addDisposableTo(disposeBag)
         
         tableView.rx_itemDeleted
             .subscribeNext() {
-                [unowned self] indexPath in
-                self.removeItemAtPath(indexPath)
+                [weak self] indexPath in
+                self?.removeItemAtPath(indexPath)
             }
             .addDisposableTo(disposeBag)
     }
@@ -171,22 +171,22 @@ class RepositoryTableViewController: UIViewController, UITableViewDelegate {
                 // bind actions to observable that emits status of cloning
                 newRepo.cloningProgress?
                     .subscribe(onNext: {
-                        [unowned self] event in
+                        [weak self] event in
                         debugLog(event)
                         switch event {
                             case .requiresPlainTextAuthentication(let url, let delegate):
-                                self.showAuthenticationPromptForURL(url, withDelegate: delegate)
+                                self?.showAuthenticationPromptForURL(url, withDelegate: delegate)
                             default:
                                 break
                             }
                     }, onError: {
-                        [unowned self] error in
-                        if let repoIndex = self.repositories.value.indexOf(newRepo) {
-                            self.repositories.value.removeAtIndex(repoIndex)
+                        [weak self] error in
+                        if let repoIndex = self?.repositories.value.indexOf(newRepo) {
+                            self?.repositories.value.removeAtIndex(repoIndex)
                         }
                         let err = error as NSError
                         if err.domain != "User canceled transfer" {
-                            self.showErrorAlertWithMessage("\(err)")
+                            self?.showErrorAlertWithMessage("\(err)")
                         }
                         errorStream.value = err
                     }, onCompleted: nil, onDisposed: nil)

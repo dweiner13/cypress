@@ -90,9 +90,9 @@ class FileBrowserTableViewController: CypressMasterViewController, UITableViewDe
         
         self.directory
             .subscribeNext() {
-                [unowned self] in
+                [weak self] in
                 if let dir = $0 {
-                    self.loadFilesForDirectory(dir)
+                    self?.loadFilesForDirectory(dir)
                 }
             }
             .addDisposableTo(disposeBag)
@@ -102,25 +102,28 @@ class FileBrowserTableViewController: CypressMasterViewController, UITableViewDe
         
         tableView.rx_itemSelected
             .map() {
-                [unowned self] indexPath in
-                return self.dataSource.itemAtIndexPath(indexPath)
+                [weak self] indexPath in
+                return self?.dataSource.itemAtIndexPath(indexPath)
             }
             .subscribeNext() {
-                [unowned self] item in
-                if item.isDirectory { //tapped directory
+                [weak self] item in
+                guard let file = item else {
+                    return
+                }
+                if file.isDirectory { //tapped directory
                     guard let newFileBrowser = UIStoryboard(name: "FileBrowser", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("fileBrowserTableViewController") as? FileBrowserTableViewController else {
                         errorStream.value = NSError(domain: "Could not get file browser controller from storyboard", code: 0, userInfo: nil)
                         return
                     }
-                    newFileBrowser.directory.value = item.url
-                    guard let navController = self.navigationController else {
+                    newFileBrowser.directory.value = file.url
+                    guard let navController = self?.navigationController else {
                         errorStream.value = NSError(domain: "navController does not exist for FileBrowserTableViewController", code: 0, userInfo: nil)
                         return
                     }
                     navController.pushViewController(newFileBrowser, animated: true)
                 }
                 else { // tapped file
-                    self.performSegueWithIdentifier("showFileContents", sender: self)
+                    self?.performSegueWithIdentifier("showFileContents", sender: self)
                 }
             }
             .addDisposableTo(disposeBag)

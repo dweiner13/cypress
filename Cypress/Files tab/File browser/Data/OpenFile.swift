@@ -33,8 +33,8 @@ class OpenFile {
         text
             .debounce(2.00, MainScheduler.sharedInstance)
             .subscribeNext() {
-                [unowned self] in
-                self.saveText($0)
+                [weak self] in
+                self?.saveText($0)
             }
             .addDisposableTo(disposeBag)
     }

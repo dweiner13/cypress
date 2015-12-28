@@ -53,19 +53,20 @@ class RepositoryCloningDelegate: NSObject, GCRepositoryDelegate {
         // that shows an alert), retry cloning with credentials
         credentials
             .subscribeNext() {
-                [unowned self] in
+                [weak self] in
                 debugLog("credentials have been set to \($0)")
                 if $0 != nil {
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                         do {
-                            try self.repository?.cloneUsingRemote(self.remote, recursive: false)
+                            try self?.repository?.cloneUsingRemote(self?.remote, recursive: false)
                         }
                         catch let e as NSError {
                             errorStream.value = e
                         }
                     })
                 }
-        }
+            }
+            .addDisposableTo(disposeBag)
     }
     
     func repository(repository: GCRepository!, willStartTransferWithURL url: NSURL!) {
