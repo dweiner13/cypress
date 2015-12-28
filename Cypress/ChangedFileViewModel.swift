@@ -13,26 +13,12 @@ import RxSwift
 
 struct ChangedFileViewModel {
     let patch: GCDiffPatch
-    let fileURL: NSURL
-    var fileName: String {
-        get {
-            guard let name = fileURL.lastPathComponent else {
-                return ""
-            }
-            return name
-        }
-    }
+    var canonicalPath: String
     let staged: Bool
     let hunks: [Hunk]
+    let delta: GCDiffDelta
     
     var indexChangeStream: Variable<String>
-    
-    // getting path from URL will have initial "/", which we don't want
-    var relativeFilePath: String {
-        get {
-            return self.fileURL.path![1..<self.fileURL.path!.length]
-        }
-    }
     
     private func getChanges(patch: GCDiffPatch) -> [Hunk] {
         var hunks: [Hunk] = []
@@ -58,11 +44,12 @@ struct ChangedFileViewModel {
         return hunks
     }
     
-    init(patch: GCDiffPatch, fileURL: NSURL, staged: Bool, indexChangeStream: Variable<String>) {
+    init(patch: GCDiffPatch, delta: GCDiffDelta, staged: Bool, indexChangeStream: Variable<String>) {
         self.patch = patch
-        self.fileURL = fileURL
         self.staged = staged
         self.indexChangeStream = indexChangeStream
+        self.canonicalPath = delta.canonicalPath
+        self.delta = delta
         
         var changedHunks: [Hunk] = []
         var hunk: Hunk? = nil
@@ -109,7 +96,7 @@ struct ChangedFileViewModel {
         let (newLines, oldLines) = lineNumberSets(lines)
         
         do {
-            try repo.addLinesFromFileToIndex(relativeFilePath) {
+            try repo.addLinesFromFileToIndex(canonicalPath) {
                 (change, oldLineNumber, newLineNumber) -> Bool in
                 print("\(change) \(oldLineNumber) \(newLineNumber)")
                 if (change == .Added) {
@@ -139,7 +126,7 @@ struct ChangedFileViewModel {
         let (newLines, oldLines) = lineNumberSets(lines)
         
         do {
-            try repo.resetLinesFromFileInIndexToHEAD(relativeFilePath, usingFilter: {
+            try repo.resetLinesFromFileInIndexToHEAD(canonicalPath, usingFilter: {
                 (change, oldLineNumber, newLineNumber) -> Bool in
                 if change == .Added {
                     return newLines.contains(newLineNumber)
@@ -167,7 +154,7 @@ struct ChangedFileViewModel {
         let (newLines, oldLines) = lineNumberSets(lines)
         
         do {
-            try repo.checkoutLinesFromFileFromIndex(relativeFilePath, usingFilter: {
+            try repo.checkoutLinesFromFileFromIndex(canonicalPath, usingFilter: {
                 (change, oldLineNumber, newLineNumber) -> Bool in
                 if change == .Added {
                     return newLines.contains(newLineNumber)
@@ -196,16 +183,16 @@ struct ChangedFileViewModel {
         do {
             let diff: GCDiff
             if self.staged {
-                diff = try repo.diffRepositoryIndexWithHEAD(relativeFilePath, options: .IncludeUntracked, maxInterHunkLines: 0, maxContextLines: 3)
+                diff = try repo.diffRepositoryIndexWithHEAD(canonicalPath, options: kCypressDefaultDiffOptions, maxInterHunkLines: 0, maxContextLines: 3)
             }
             else {
-                diff = try repo.diffWorkingDirectoryWithRepositoryIndex(relativeFilePath, options: .IncludeUntracked, maxInterHunkLines: 0, maxContextLines: 3)
+                diff = try repo.diffWorkingDirectoryWithRepositoryIndex(canonicalPath, options: kCypressDefaultDiffOptions, maxInterHunkLines: 0, maxContextLines: 3)
             }
             if diff.deltas.count != 1 {
                 throw NSError(domain: "delta count when recalculating changed file != 1", code: 0, userInfo: nil)
             }
             let patch = try repo.makePatchForDiffDelta(diff.deltas[0] as! GCDiffDelta, isBinary: nil)
-            let newChangedFile = ChangedFileViewModel(patch: patch, fileURL: self.fileURL, staged: self.staged, indexChangeStream: indexChangeStream)
+            let newChangedFile = ChangedFileViewModel(patch: patch, delta: diff.deltas[0] as! GCDiffDelta, staged: self.staged, indexChangeStream: indexChangeStream)
             return newChangedFile
         }
         catch let e as NSError {

@@ -75,7 +75,13 @@ class CommitViewController: CypressMasterViewController, UITableViewDelegate {
                 errorStream.value = NSError(domain: "Could not get text label for cell in FileBrowserTableViewController", code: 0, userInfo: nil)
                 return UITableViewCell()
             }
-            textLabel.text = file.fileName
+            
+            textLabel.text = file.canonicalPath
+            
+            if file.delta.change == GCFileDiffChange.Renamed {
+                textLabel.text = "\(file.delta.oldFile.path) ▶ \(file.delta.newFile.path)"
+            }
+            
             return cell
         }
         

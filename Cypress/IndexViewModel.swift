@@ -10,7 +10,7 @@ import UIKit
 import GitUpKit
 import RxSwift
 
-let CypressDefaultDiffOptions = GCDiffOptions.IncludeUntracked
+let kCypressDefaultDiffOptions = GCDiffOptions.IncludeUntracked.union(.FindRenames)
 
 struct IndexViewModel {
     
@@ -35,7 +35,7 @@ struct IndexViewModel {
         var stagedFiles = [ChangedFileViewModel]()
 
         // unstaged changes
-        let unstagedDiff = try repository.diffWorkingDirectoryWithRepositoryIndex(nil, options: .IncludeUntracked, maxInterHunkLines: 0, maxContextLines: 3)
+        let unstagedDiff = try repository.diffWorkingDirectoryWithRepositoryIndex(nil, options: kCypressDefaultDiffOptions, maxInterHunkLines: 0, maxContextLines: 3)
         
         guard let unstagedDeltas = unstagedDiff.deltas as? [GCDiffDelta] else {
             throw NSError(domain: "could not get list of deltas", code: 0, userInfo: nil)
@@ -44,12 +44,12 @@ struct IndexViewModel {
         for delta in unstagedDeltas {
             var isBinary = ObjCBool(false)
             let patch = try repository.makePatchForDiffDelta(delta, isBinary: &isBinary)
-            let file = delta.oldFile.path
-            unstagedFiles.append(ChangedFileViewModel(patch: patch, fileURL: NSURL(fileURLWithPath: file), staged: false, indexChangeStream: indexChangeStream))
+            let file = delta.canonicalPath
+            unstagedFiles.append(ChangedFileViewModel(patch: patch, delta: delta, staged: false, indexChangeStream: indexChangeStream))
         }
         
         // staged changes
-        let stagedDiff = try repository.diffRepositoryIndexWithHEAD(nil, options: .IncludeUntracked, maxInterHunkLines: 0, maxContextLines: 3)
+        let stagedDiff = try repository.diffRepositoryIndexWithHEAD(nil, options: kCypressDefaultDiffOptions, maxInterHunkLines: 0, maxContextLines: 3)
         
         guard let stagedDeltas = stagedDiff.deltas as? [GCDiffDelta] else {
             throw NSError(domain: "Could not get list of deltas", code: 0, userInfo: nil)
@@ -58,8 +58,8 @@ struct IndexViewModel {
         for delta in stagedDeltas {
             var isBinary = ObjCBool(false)
             let patch = try repository.makePatchForDiffDelta(delta, isBinary: &isBinary)
-            let file = delta.oldFile.path
-            stagedFiles.append(ChangedFileViewModel(patch: patch, fileURL: NSURL(fileURLWithPath: file), staged: true, indexChangeStream: indexChangeStream))
+            let file = delta.canonicalPath
+            stagedFiles.append(ChangedFileViewModel(patch: patch, delta: delta, staged: true, indexChangeStream: indexChangeStream))
         }
         
         return (unstagedFiles, stagedFiles)

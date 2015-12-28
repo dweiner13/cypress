@@ -32,7 +32,7 @@ class FileDiffViewController: UIViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = detailItem.value?.fileName
+        self.navigationItem.title = detailItem.value?.canonicalPath
         if let split = splitViewController {
             navigationItem.leftBarButtonItem = split.displayModeButtonItem();
             navigationItem.leftItemsSupplementBackButton = true;
