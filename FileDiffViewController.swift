@@ -38,6 +38,10 @@ class FileDiffViewController: UIViewController, UITableViewDelegate {
             navigationItem.leftItemsSupplementBackButton = true;
         }
         
+        if activeRepositoryStream.value == nil {
+            performSegueWithIdentifier("showRepositoryListSegue", sender: nil)
+        }
+        
         self.tableView.registerNib(UINib(nibName: "lineDiffCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "lineDiffCell")
         
         self.detailItem.subscribeNext() {

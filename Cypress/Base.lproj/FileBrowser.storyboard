@@ -136,11 +136,12 @@
                     <connections>
                         <outlet property="contentsTextView" destination="q2B-gw-kFQ" id="NyB-Cm-nzG"/>
                         <outlet property="defaultView" destination="zoR-dn-6og" id="3DN-FX-kAK"/>
+                        <segue destination="x28-VM-R9M" kind="presentation" identifier="showRepositoryListSegue" modalPresentationStyle="formSheet" id="H6Q-IL-YZT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uci-Us-dPN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="685" y="1643"/>
+            <point key="canvasLocation" x="822" y="1649"/>
         </scene>
         <!--Files-->
         <scene sceneID="59N-Ny-Lj3">
@@ -226,5 +227,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="QCi-N2-uXe"/>
+        <segue reference="H6Q-IL-YZT"/>
     </inferredMetricsTieBreakers>
 </document>

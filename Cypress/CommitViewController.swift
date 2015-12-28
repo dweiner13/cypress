@@ -31,9 +31,8 @@ class CommitViewController: CypressMasterViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let repoURL = activeRepositoryStream.value else {
+        if activeRepositoryStream.value == nil {
             performSegueWithIdentifier("showRepositoryListSegue", sender: nil)
-            return
         }
 
         index = combineLatest(activeRepositoryStream, rx_viewDidAppear, indexChangeStream, resultSelector: {

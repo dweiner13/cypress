@@ -27,6 +27,10 @@ class FileContentsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if activeRepositoryStream.value == nil {
+            performSegueWithIdentifier("showRepositoryListSegue", sender: nil)
+        }
+        
         self.navigationItem.title = detailItem.value?.lastPathComponent
         
         if let split = splitViewController {
