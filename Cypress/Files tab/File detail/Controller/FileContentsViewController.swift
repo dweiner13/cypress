@@ -12,6 +12,7 @@ import RxCocoa
 
 class FileContentsViewController: UIViewController {
     
+    @IBOutlet weak var defaultView: UIView!
     var disposeBag = DisposeBag()
     
     // The URL of the file being shown
@@ -25,6 +26,15 @@ class FileContentsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.detailItem.subscribeNext() {
+            [weak self] in
+            guard let s = self else {
+                return
+            }
+            s.defaultView.hidden = $0 != nil
+        }
+        .addDisposableTo(disposeBag)
         
         detailItem
             .subscribeNext() {

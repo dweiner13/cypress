@@ -419,6 +419,7 @@
 		E020529D1BF7C997003BD3A0 /* Files tab */ = {
 			isa = PBXGroup;
 			children = (
+				E0D0DE561C0A2F380003D497 /* FileBrowser.storyboard */,
 				E0A920D81BF954E1009C0552 /* File browser */,
 				E0A920D91BF954E7009C0552 /* File detail */,
 			);
@@ -674,7 +675,6 @@
 				E0DEAF611BE685840018EA8B /* Info.plist */,
 				E0DEAF5E1BE685840018EA8B /* LaunchScreen.storyboard */,
 				E0DEAF591BE685840018EA8B /* Main.storyboard */,
-				E0D0DE561C0A2F380003D497 /* FileBrowser.storyboard */,
 				E0D0DE691C0A57710003D497 /* RepositoryList.storyboard */,
 			);
 			path = Cypress;
@@ -1154,6 +1154,7 @@
 				E0D0DE571C0A2F380003D497 /* Base */,
 			);
 			name = FileBrowser.storyboard;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		E0D0DE691C0A57710003D497 /* RepositoryList.storyboard */ = {

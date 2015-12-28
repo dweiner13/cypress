@@ -86,15 +86,35 @@
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zoR-dn-6og" userLabel="Default View">
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="No File Selected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zns-9q-Nod">
+                                        <rect key="frame" x="231" y="167" width="138.5" height="23"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="zns-9q-Nod" firstAttribute="centerY" secondItem="zoR-dn-6og" secondAttribute="centerY" id="iev-KQ-qNi"/>
+                                    <constraint firstItem="zns-9q-Nod" firstAttribute="centerX" secondItem="zoR-dn-6og" secondAttribute="centerX" id="sSa-no-BSt"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="zoR-dn-6og" secondAttribute="trailing" id="5rm-gk-OvF"/>
                             <constraint firstItem="q2B-gw-kFQ" firstAttribute="top" secondItem="SZr-tf-AfK" secondAttribute="bottom" constant="-64" id="6PR-xC-dYE"/>
+                            <constraint firstItem="zoR-dn-6og" firstAttribute="top" secondItem="SZr-tf-AfK" secondAttribute="bottom" id="90M-Kc-T8B"/>
                             <constraint firstAttribute="trailing" secondItem="q2B-gw-kFQ" secondAttribute="trailing" id="OIQ-ol-GbB"/>
                             <constraint firstItem="v3E-wJ-fzc" firstAttribute="top" secondItem="q2B-gw-kFQ" secondAttribute="bottom" id="Tff-gZ-VJ4"/>
                             <constraint firstItem="v3E-wJ-fzc" firstAttribute="top" secondItem="q2B-gw-kFQ" secondAttribute="bottom" id="U41-AD-xqh"/>
                             <constraint firstAttribute="trailingMargin" secondItem="q2B-gw-kFQ" secondAttribute="trailing" id="dmD-VN-Bla"/>
                             <constraint firstItem="q2B-gw-kFQ" firstAttribute="top" secondItem="7lM-hi-8Nn" secondAttribute="top" id="gMO-R9-cfB"/>
+                            <constraint firstItem="zoR-dn-6og" firstAttribute="leading" secondItem="7lM-hi-8Nn" secondAttribute="leading" id="h0S-b3-iKa"/>
+                            <constraint firstItem="v3E-wJ-fzc" firstAttribute="top" secondItem="zoR-dn-6og" secondAttribute="bottom" id="ib4-w4-i3w"/>
                             <constraint firstItem="v3E-wJ-fzc" firstAttribute="top" secondItem="q2B-gw-kFQ" secondAttribute="bottom" id="jzW-bu-rBH"/>
                             <constraint firstItem="q2B-gw-kFQ" firstAttribute="bottom" secondItem="7lM-hi-8Nn" secondAttribute="bottomMargin" id="uSx-eF-F37"/>
                             <constraint firstItem="q2B-gw-kFQ" firstAttribute="leading" secondItem="7lM-hi-8Nn" secondAttribute="leadingMargin" id="ucm-nl-syN"/>
@@ -115,6 +135,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="contentsTextView" destination="q2B-gw-kFQ" id="NyB-Cm-nzG"/>
+                        <outlet property="defaultView" destination="zoR-dn-6og" id="3DN-FX-kAK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uci-Us-dPN" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -13,6 +13,7 @@ import RxCocoa
 
 class FileDiffViewController: UIViewController, UITableViewDelegate {
     
+    @IBOutlet weak var defaultView: UIView!
     @IBOutlet var tableView: UITableView!
     @IBOutlet weak var leftActionButton: UIBarButtonItem!
     @IBOutlet weak var rightActionButton: UIBarButtonItem!
@@ -34,6 +35,14 @@ class FileDiffViewController: UIViewController, UITableViewDelegate {
         self.navigationItem.title = detailItem.value?.fileName
         
         self.tableView.registerNib(UINib(nibName: "lineDiffCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "lineDiffCell")
+        
+        self.detailItem.subscribeNext() {
+            [weak self] in
+            guard let s = self else {
+                return
+            }
+            s.defaultView.hidden = $0 != nil
+        }
         
         let allLines = self.detailItem.map() {
             (changedFile: ChangedFileViewModel?) throws -> [Section] in
