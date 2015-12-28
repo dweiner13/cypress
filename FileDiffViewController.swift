@@ -33,6 +33,10 @@ class FileDiffViewController: UIViewController, UITableViewDelegate {
         super.viewDidLoad()
         
         self.navigationItem.title = detailItem.value?.canonicalPath
+        if detailItem.value?.delta.change == .Renamed {
+            self.navigationItem.title = "\(detailItem.value!.delta.oldFile.path) ►︎ \(detailItem.value!.delta.newFile.path)"
+        }
+        
         if let split = splitViewController {
             navigationItem.leftBarButtonItem = split.displayModeButtonItem();
             navigationItem.leftItemsSupplementBackButton = true;

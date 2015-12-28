@@ -30,6 +30,8 @@ class CommitViewController: CypressMasterViewController, UITableViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        tableView.registerNib(UINib(nibName: "FileDiffCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "changedFileCell")
         
         if activeRepositoryStream.value == nil {
             performSegueWithIdentifier("showRepositoryListSegue", sender: nil)
@@ -67,21 +69,11 @@ class CommitViewController: CypressMasterViewController, UITableViewDelegate {
         
         dataSource.cellFactory = {
             (tableView, indexPath, file) in
-            guard let cell = tableView.dequeueReusableCellWithIdentifier("changedFileCell") else {
+            guard let cell = tableView.dequeueReusableCellWithIdentifier("changedFileCell") as? FileDiffCell else {
                 errorStream.value = NSError(domain: "Could not deuqueue cell with identifier \("changedFileCell")", code: 0, userInfo: nil)
                 return UITableViewCell()
             }
-            guard let textLabel = cell.textLabel else {
-                errorStream.value = NSError(domain: "Could not get text label for cell in FileBrowserTableViewController", code: 0, userInfo: nil)
-                return UITableViewCell()
-            }
-            
-            textLabel.text = file.canonicalPath
-            
-            if file.delta.change == GCFileDiffChange.Renamed {
-                textLabel.text = "\(file.delta.oldFile.path) ▶ \(file.delta.newFile.path)"
-            }
-            
+            cell.file.value = file
             return cell
         }
         
