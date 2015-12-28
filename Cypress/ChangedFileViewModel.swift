@@ -9,6 +9,8 @@
 import UIKit
 import GitUpKit
 
+import RxSwift
+
 struct ChangedFileViewModel {
     let patch: GCDiffPatch
     let fileURL: NSURL
@@ -22,6 +24,8 @@ struct ChangedFileViewModel {
     }
     let staged: Bool
     let hunks: [Hunk]
+    
+    var indexChangeStream: Variable<String>
     
     // getting path from URL will have initial "/", which we don't want
     var relativeFilePath: String {
@@ -54,10 +58,11 @@ struct ChangedFileViewModel {
         return hunks
     }
     
-    init(patch: GCDiffPatch, fileURL: NSURL, staged: Bool) {
+    init(patch: GCDiffPatch, fileURL: NSURL, staged: Bool, indexChangeStream: Variable<String>) {
         self.patch = patch
         self.fileURL = fileURL
         self.staged = staged
+        self.indexChangeStream = indexChangeStream
         
         var changedHunks: [Hunk] = []
         var hunk: Hunk? = nil
@@ -116,7 +121,9 @@ struct ChangedFileViewModel {
                 return true
             }
             
-            return getNewChangedFile()
+            indexChangeStream.value = "stagedLines"
+            var newFile = getNewChangedFile()
+            return newFile
         }
         catch let e as NSError {
             errorStream.value = e
@@ -143,6 +150,7 @@ struct ChangedFileViewModel {
                 return true
             })
             
+            indexChangeStream.value = "unstagedLines"
             return getNewChangedFile()
         }
         catch let e as NSError {
@@ -170,6 +178,8 @@ struct ChangedFileViewModel {
                 return true
             })
             
+            
+            indexChangeStream.value = "discardedLines"
             return getNewChangedFile()
         }
         catch let e as NSError {
@@ -195,7 +205,7 @@ struct ChangedFileViewModel {
                 throw NSError(domain: "delta count when recalculating changed file != 1", code: 0, userInfo: nil)
             }
             let patch = try repo.makePatchForDiffDelta(diff.deltas[0] as! GCDiffDelta, isBinary: nil)
-            let newChangedFile = ChangedFileViewModel(patch: patch, fileURL: self.fileURL, staged: self.staged)
+            let newChangedFile = ChangedFileViewModel(patch: patch, fileURL: self.fileURL, staged: self.staged, indexChangeStream: indexChangeStream)
             return newChangedFile
         }
         catch let e as NSError {

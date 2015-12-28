@@ -16,6 +16,7 @@ class FileDiffViewController: UIViewController, UITableViewDelegate {
     @IBOutlet var tableView: UITableView!
     @IBOutlet weak var leftActionButton: UIBarButtonItem!
     @IBOutlet weak var rightActionButton: UIBarButtonItem!
+    weak var masterViewController: CommitViewController?
     
     let disposeBag = DisposeBag()
     
@@ -41,7 +42,7 @@ class FileDiffViewController: UIViewController, UITableViewDelegate {
                 return sections
             }
             for hunk in file.hunks {
-                sections.append(SectionModel(model: "Hunk", items: hunk.lines))
+                sections.append(SectionModel(model: "@@ -\(hunk.oldLineNumber),\(hunk.oldLineCount) +\(hunk.newLineNumber),\(hunk.newLineCount) @@", items: hunk.lines))
             }
             return sections
         }

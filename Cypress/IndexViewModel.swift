@@ -19,30 +19,49 @@ struct IndexViewModel {
     let unstagedChangedFiles = Variable<[ChangedFileViewModel]>([])
     let stagedChangedFiles = Variable<[ChangedFileViewModel]>([])
     
-    init(repositoryURL: NSURL) throws {
+    var indexChangeStream: Variable<String>
+    
+    init(repositoryURL: NSURL, indexChangeStream: Variable<String>) throws {
         guard let path = repositoryURL.path else {
             throw NSError(domain: "indexviewmodel could not get path for repositoryURL \(repositoryURL)", code: 0, userInfo: nil)
         }
         repository = try GCRepository(existingLocalRepository: path)
-        
-        (unstagedChangedFiles.value, stagedChangedFiles.value) = readChangedFiles()
+        self.indexChangeStream = indexChangeStream
+        (unstagedChangedFiles.value, stagedChangedFiles.value) = try readChangedFiles()
     }
     
-    private func readChangedFiles() -> (unstaged: [ChangedFileViewModel], staged: [ChangedFileViewModel]) {
+    private func readChangedFiles() throws -> (unstaged: [ChangedFileViewModel], staged: [ChangedFileViewModel]) {
         var unstagedFiles = [ChangedFileViewModel]()
         var stagedFiles = [ChangedFileViewModel]()
-        do {
-            let diff = try repository.diffWorkingDirectoryWithHEAD(nil, options: CypressDefaultDiffOptions, maxInterHunkLines: 0, maxContextLines: 3)
-            for delta in diff.deltas as! [GCDiffDelta]  {
-                var isBinary = ObjCBool(false)
-                let patch = try repository.makePatchForDiffDelta(delta, isBinary: &isBinary)
-                let file = ChangedFileViewModel(patch: patch, fileURL: NSURL(fileURLWithPath: delta.oldFile.path), staged: false)
-                unstagedFiles.append(file)
-            }
+
+        // unstaged changes
+        let unstagedDiff = try repository.diffWorkingDirectoryWithRepositoryIndex(nil, options: .IncludeUntracked, maxInterHunkLines: 0, maxContextLines: 3)
+        
+        guard let unstagedDeltas = unstagedDiff.deltas as? [GCDiffDelta] else {
+            throw NSError(domain: "could not get list of deltas", code: 0, userInfo: nil)
         }
-        catch let e as NSError {
-            errorStream.value = e
+        
+        for delta in unstagedDeltas {
+            var isBinary = ObjCBool(false)
+            let patch = try repository.makePatchForDiffDelta(delta, isBinary: &isBinary)
+            let file = delta.oldFile.path
+            unstagedFiles.append(ChangedFileViewModel(patch: patch, fileURL: NSURL(fileURLWithPath: file), staged: false, indexChangeStream: indexChangeStream))
         }
+        
+        // staged changes
+        let stagedDiff = try repository.diffRepositoryIndexWithHEAD(nil, options: .IncludeUntracked, maxInterHunkLines: 0, maxContextLines: 3)
+        
+        guard let stagedDeltas = stagedDiff.deltas as? [GCDiffDelta] else {
+            throw NSError(domain: "Could not get list of deltas", code: 0, userInfo: nil)
+        }
+        
+        for delta in stagedDeltas {
+            var isBinary = ObjCBool(false)
+            let patch = try repository.makePatchForDiffDelta(delta, isBinary: &isBinary)
+            let file = delta.oldFile.path
+            stagedFiles.append(ChangedFileViewModel(patch: patch, fileURL: NSURL(fileURLWithPath: file), staged: true, indexChangeStream: indexChangeStream))
+        }
+        
         return (unstagedFiles, stagedFiles)
     }
 }
