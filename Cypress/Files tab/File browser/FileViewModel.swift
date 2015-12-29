@@ -72,7 +72,7 @@ struct FileViewModel {
         let manager = NSFileManager.defaultManager()
         guard let dir = url.URLByDeletingLastPathComponent else { throw NSError(domain: "duplicateFileError", code: 0, userInfo: nil) }
         let newFileURL = dir.URLByAppendingPathComponent(newName)
-        print(newFileURL)
+        print("newFileURL: \(newFileURL)")
         try manager.moveItemAtURL(url, toURL: newFileURL)
     }
     
