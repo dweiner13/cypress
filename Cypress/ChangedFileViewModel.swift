@@ -74,6 +74,51 @@ struct ChangedFileViewModel {
         self.hunks = changedHunks
     }
     
+    // MARK: - Operations
+    
+    func stage() {
+        guard let repoPath = activeRepositoryStream.value?.path, repo = try? GCRepository(existingLocalRepository: repoPath) else {
+            return
+        }
+        
+        do {
+            print(canonicalPath)
+            try repo.addFileToIndex(canonicalPath)
+            indexChangeStream.value = "stagedFile"
+        }
+        catch let e as NSError {
+            errorStream.value = e
+        }
+    }
+    
+    func unstage() {
+        guard let repoPath = activeRepositoryStream.value?.path, repo = try? GCRepository(existingLocalRepository: repoPath) else {
+            return
+        }
+        
+        do {
+            try repo.resetFileInIndexToHEAD(canonicalPath)
+            indexChangeStream.value = "unstagedFile"
+        }
+        catch let e as NSError {
+            errorStream.value = e
+        }
+    }
+    
+    func discard() {
+        guard let repoPath = activeRepositoryStream.value?.path, repo = try? GCRepository(existingLocalRepository: repoPath) else {
+            return
+        }
+        
+        do {
+            try repo.checkoutFileFromIndex(canonicalPath)
+            indexChangeStream.value = "discardedFile"
+        }
+        catch let e as NSError {
+            errorStream.value = e
+        }
+    }
+    
     private func lineNumberSets(lines: [Line]) -> (newLines: Set<UInt>, oldLines: Set<UInt>) {
         var newLines = Set<UInt>()
         var oldLines = Set<UInt>()

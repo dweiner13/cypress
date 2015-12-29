@@ -30,6 +30,8 @@ class FileBrowserTableViewController: CypressMasterViewController, UITableViewDe
     
     var longPressBackButtonGestureRecognizer: UILongPressGestureRecognizer?
     var fileContentsViewController: FileContentsViewController?
+    
+    let fileOperationStream = Variable<String?>("")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,6 +129,14 @@ class FileBrowserTableViewController: CypressMasterViewController, UITableViewDe
                 }
             }
             .addDisposableTo(disposeBag)
+        
+        fileOperationStream.subscribeNext() {
+            [weak self] _ in
+            if let s = self, dir = s.directory.value {
+                s.loadFilesForDirectory(dir)
+            }
+        }
+        .addDisposableTo(disposeBag)
     }
     
     func loadFilesForDirectory(dir: NSURL) {
@@ -226,6 +236,22 @@ class FileBrowserTableViewController: CypressMasterViewController, UITableViewDe
         navigation.presentViewController(navigationHistoryViewController, animated: true, completion: nil)
     }
     
+    private func fileForIndexPath(indexPath: NSIndexPath) -> FileViewModel? {
+        if indexPath.section == 0 {
+            if indexPath.row >= directories.value.count {
+                return nil
+            }
+            return directories.value[indexPath.row]
+        }
+        else if indexPath.section == 1 {
+            if indexPath.row >= files.value.count {
+                return nil
+            }
+            return files.value[indexPath.row]
+        }
+        return nil
+    }
+    
     override func viewWillDisappear(animated: Bool) {
         guard let recognizer = longPressBackButtonGestureRecognizer else {
             errorStream.value = NSError(domain: "could not get long press gesture recognizer in FileBrowserTableViewController", code: 0, userInfo: nil)
@@ -238,6 +264,83 @@ class FileBrowserTableViewController: CypressMasterViewController, UITableViewDe
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - UITableViewDelegate
+    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        guard let file = fileForIndexPath(indexPath) else {
+            return nil
+        }
+        return [
+            UITableViewRowAction(style: UITableViewRowActionStyle.Destructive, title: "Delete", handler: {
+                _ in
+                do {
+                    try file.deleteFile()
+                    self.fileOperationStream.value = "Delete"
+                }
+                catch let e as NSError {
+                    self.showErrorAlertWithMessage("Could not delete file:\n\(e.localizedDescription)")
+                }
+            }),
+            UITableViewRowAction(style: .Normal, title: "More", handler: {
+                _ in
+                let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+                alert.addAction(UIAlertAction(title: "Rename", style: .Default, handler: {
+                    _ in
+                    self.showTextInputPrompt("New file name", message: "Enter the new name for \"\(file.name)\"", handler: {
+                        (newName) -> Void in
+                        do {
+                            try file.renameFile(newName)
+                            self.fileOperationStream.value = "Rename"
+                        }
+                        catch let e as NSError {
+                            self.showErrorAlertWithMessage("Could not rename file:\n\(e.localizedDescription)")
+                        }
+                    })
+                }))
+                alert.addAction(UIAlertAction(title: "Duplicate", style: .Default, handler: {
+                    _ in
+                    do {
+                        try file.duplicateFile()
+                        self.fileOperationStream.value = "Duplicate"
+                    }
+                    catch let e as NSError {
+                        self.showErrorAlertWithMessage("Could not rename file:\n\(e.localizedDescription)")
+                    }
+                }))
+                
+                if let popover = alert.popoverPresentationController {
+                    popover.sourceView = self.tableView
+                    popover.sourceRect = self.tableView.rectForRowAtIndexPath(indexPath)
+                }
+                
+                self.presentViewController(alert, animated: true, completion: nil)
+            })
+//            UITableViewRowAction(style: .Normal, title: "Rename", handler: {
+//                _ in
+//                self.showTextInputPrompt("New file name", message: "Enter the new name for \"\(file.name)\"", handler: {
+//                    (newName) -> Void in
+//                    do {
+//                        try file.renameFile(newName)
+//                        self.fileOperationStream.value = "Rename"
+//                    }
+//                    catch let e as NSError {
+//                        self.showErrorAlertWithMessage("Could not rename file:\n\(e.localizedDescription)")
+//                    }
+//                })
+//            }),
+//            UITableViewRowAction(style: .Normal, title: "Duplicate", handler: {
+//                _ in
+//                do {
+//                    try file.duplicateFile()
+//                    self.fileOperationStream.value = "Duplicate"
+//                }
+//                catch let e as NSError {
+//                    self.showErrorAlertWithMessage("Could not rename file:\n\(e.localizedDescription)")
+//                }
+//            }),
+        ]
     }
     
     // MARK: - Navigation

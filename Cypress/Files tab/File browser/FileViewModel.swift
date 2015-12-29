@@ -51,4 +51,33 @@ struct FileViewModel {
         NSFileManager.defaultManager().fileExistsAtPath(path, isDirectory: &isDir)
         isDirectory = isDir.boolValue
     }
+    
+    // MARK: - File operations
+    
+    func duplicateFile() throws {
+        let manager = NSFileManager.defaultManager()
+        guard let dir = url.URLByDeletingLastPathComponent else { throw NSError(domain: "duplicateFileError", code: 0, userInfo: nil) }
+        guard let ext = url.pathExtension else { throw NSError(domain: "duplicateFileError", code: 0, userInfo: nil) }
+        guard let nameWithoutExt = url.URLByDeletingPathExtension?.lastPathComponent else { throw NSError(domain: "duplicateFileError", code: 0, userInfo: nil) }
+        let newFileName = nameWithoutExt + "_copy"
+        var newFileURL = dir.URLByAppendingPathComponent(newFileName)
+        if ext != "" {
+            newFileURL = newFileURL.URLByAppendingPathExtension(ext)
+        }
+        print(newFileURL)
+        try manager.copyItemAtURL(url, toURL: newFileURL)
+    }
+    
+    func renameFile(newName: String) throws {
+        let manager = NSFileManager.defaultManager()
+        guard let dir = url.URLByDeletingLastPathComponent else { throw NSError(domain: "duplicateFileError", code: 0, userInfo: nil) }
+        let newFileURL = dir.URLByAppendingPathComponent(newName)
+        print(newFileURL)
+        try manager.moveItemAtURL(url, toURL: newFileURL)
+    }
+    
+    func deleteFile() throws {
+        let manager = NSFileManager.defaultManager()
+        try manager.removeItemAtURL(url)
+    }
 }

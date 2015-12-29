@@ -97,6 +97,8 @@ class CommitViewController: CypressMasterViewController, UITableViewDelegate {
                 self?.performSegueWithIdentifier("showFileChanges", sender: self)
             }
             .addDisposableTo(disposeBag)
+        
+        self.tableView.rx_setDelegate(self)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -108,6 +110,44 @@ class CommitViewController: CypressMasterViewController, UITableViewDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func fileForIndexPath(indexPath: NSIndexPath) -> ChangedFileViewModel? {
+        if indexPath.section > dataSource.sectionModels.count {
+            return nil
+        }
+        if indexPath.row > dataSource.sectionModels[indexPath.section].items.count {
+            return nil
+        }
+        return dataSource.sectionModels[indexPath.section].items[indexPath.row]
+    }
+    
+    // MARK: - Operations
+    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        guard let file = fileForIndexPath(indexPath) else {
+            return nil
+        }
+        if file.staged {
+            return [
+                UITableViewRowAction(style: .Normal, title: "Unstage", handler: {
+                    _ in
+                    file.unstage()
+                })
+            ]
+        }
+        else {
+            return [
+                UITableViewRowAction(style: .Destructive, title: "Discard", handler: {
+                    _ in
+                    file.discard()
+                }),
+                UITableViewRowAction(style: .Normal, title: "Stage", handler: {
+                    _ in
+                    file.stage()
+                })
+            ]
+        }
     }
     
 

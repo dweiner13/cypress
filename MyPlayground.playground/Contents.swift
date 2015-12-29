@@ -1,14 +1,11 @@
 //: Playground - noun: a place where people can play
 
 import UIKit
-import RxSwift
-import RxCocoa
 
-class Test: NSObject {
-    var arr = [1, 2, 3, 4, 5]
-}
+let url = NSURL(string: "file:///Users/DanielW/participants.csv")!
 
-let test = Test()
-
-test.rx_observe([Int].self, options: "arr", retainSelf: true)
-
+let dir = url.URLByDeletingLastPathComponent!
+let ext = url.pathExtension!
+let nameWithoutExt = url.URLByDeletingPathExtension!.lastPathComponent!
+let newFileName = nameWithoutExt + "_copy"
+let newFileURL = dir.URLByAppendingPathComponent(newFileName).URLByAppendingPathExtension(ext)
