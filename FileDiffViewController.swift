@@ -17,7 +17,7 @@ class FileDiffViewController: UIViewController, UITableViewDelegate {
     @IBOutlet var tableView: UITableView!
     @IBOutlet weak var leftActionButton: UIBarButtonItem!
     @IBOutlet weak var rightActionButton: UIBarButtonItem!
-    weak var masterViewController: CommitViewController?
+    weak var masterViewController: CommitMasterViewController?
     
     let disposeBag = DisposeBag()
     

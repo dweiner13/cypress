@@ -1,5 +1,5 @@
 //
-//  IndexViewModel.swift
+//  ChangedFileList.swift
 //  Cypress
 //
 //  Created by Daniel A. Weiner on 11/28/15.
@@ -12,7 +12,7 @@ import RxSwift
 
 let kCypressDefaultDiffOptions = GCDiffOptions.IncludeUntracked.union(.FindRenames)
 
-struct IndexViewModel {
+struct ChangedFileList {
     
     let repository: GCRepository
     

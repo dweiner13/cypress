@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B8ED29A93166F5F330F2E1DC /* ChangedFileListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ED258568CD68508BF46882 /* ChangedFileListViewController.swift */; };
 		E00FE2791BF014CC00BBC45A /* CypressTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00FE2781BF014CC00BBC45A /* CypressTabBarViewController.swift */; };
 		E00FE27B1BF0223400BBC45A /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00FE27A1BF0223400BBC45A /* AppState.swift */; };
 		E010E84F1C01187B0027E6CD /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = E010E84C1C01187B0027E6CD /* Enum.swift */; };
 		E010E8501C01187B0027E6CD /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = E010E84D1C01187B0027E6CD /* FontAwesome.otf */; };
 		E010E8511C01187B0027E6CD /* FontAwesome.swift in Sources */ = {isa = PBXBuildFile; fileRef = E010E84E1C01187B0027E6CD /* FontAwesome.swift */; };
-		E010E8591C011D090027E6CD /* CommitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E010E8581C011D090027E6CD /* CommitViewController.swift */; };
+		E010E8591C011D090027E6CD /* CommitMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E010E8581C011D090027E6CD /* CommitMasterViewController.swift */; };
 		E0363E601BEDA1F800C8584F /* FileContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */; };
 		E0363E651BEE5BBB00C8584F /* FileBrowserNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0363E641BEE5BBB00C8584F /* FileBrowserNavigationController.swift */; };
 		E04F43A71BFD50D300AEAE40 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E04F43901BFD50D300AEAE40 /* RxSwift.framework */; };
@@ -47,7 +48,7 @@
 		E0D0DE5E1C0A3C8C0003D497 /* AdaptiveTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D0DE5D1C0A3C8C0003D497 /* AdaptiveTextView.swift */; };
 		E0D0DE601C0A3D3A0003D497 /* AdaptiveTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D0DE5F1C0A3D3A0003D497 /* AdaptiveTableView.swift */; };
 		E0D0DE651C0A461A0003D497 /* ChangedFileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D0DE641C0A461A0003D497 /* ChangedFileViewModel.swift */; };
-		E0D0DE681C0A46AC0003D497 /* IndexViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D0DE671C0A46AC0003D497 /* IndexViewModel.swift */; };
+		E0D0DE681C0A46AC0003D497 /* ChangedFileList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D0DE671C0A46AC0003D497 /* ChangedFileList.swift */; };
 		E0D0DE6B1C0A57710003D497 /* RepositoryList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0D0DE691C0A57710003D497 /* RepositoryList.storyboard */; };
 		E0D0DE6D1C0A592D0003D497 /* CypressMasterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D0DE6C1C0A592D0003D497 /* CypressMasterTableViewController.swift */; };
 		E0DCEDCA1BFD9490000F7164 /* RepositoryCloningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DCEDC91BFD9490000F7164 /* RepositoryCloningDelegate.swift */; };
@@ -273,12 +274,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B8ED258568CD68508BF46882 /* ChangedFileListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangedFileListViewController.swift; sourceTree = "<group>"; };
 		E00FE2781BF014CC00BBC45A /* CypressTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CypressTabBarViewController.swift; sourceTree = "<group>"; };
 		E00FE27A1BF0223400BBC45A /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		E010E84C1C01187B0027E6CD /* Enum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
 		E010E84D1C01187B0027E6CD /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.otf; sourceTree = "<group>"; };
 		E010E84E1C01187B0027E6CD /* FontAwesome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontAwesome.swift; sourceTree = "<group>"; };
-		E010E8581C011D090027E6CD /* CommitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CommitViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		E010E8581C011D090027E6CD /* CommitMasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CommitMasterViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E02D95EA1BFD4DB2004CCC78 /* Rx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Rx.xcodeproj; path = RxSwift/Rx.xcodeproj; sourceTree = "<group>"; };
 		E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FileContentsViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E0363E641BEE5BBB00C8584F /* FileBrowserNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FileBrowserNavigationController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -309,7 +311,7 @@
 		E0D0DE5D1C0A3C8C0003D497 /* AdaptiveTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdaptiveTextView.swift; sourceTree = "<group>"; };
 		E0D0DE5F1C0A3D3A0003D497 /* AdaptiveTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdaptiveTableView.swift; sourceTree = "<group>"; };
 		E0D0DE641C0A461A0003D497 /* ChangedFileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangedFileViewModel.swift; sourceTree = "<group>"; };
-		E0D0DE671C0A46AC0003D497 /* IndexViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexViewModel.swift; sourceTree = "<group>"; };
+		E0D0DE671C0A46AC0003D497 /* ChangedFileList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangedFileList.swift; sourceTree = "<group>"; };
 		E0D0DE6A1C0A57710003D497 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RepositoryList.storyboard; sourceTree = "<group>"; };
 		E0D0DE6C1C0A592D0003D497 /* CypressMasterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CypressMasterTableViewController.swift; sourceTree = "<group>"; };
 		E0DCEDC91BFD9490000F7164 /* RepositoryCloningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RepositoryCloningDelegate.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -560,12 +562,13 @@
 			isa = PBXGroup;
 			children = (
 				E0D0DE591C0A2F720003D497 /* CommitView.storyboard */,
-				E010E8581C011D090027E6CD /* CommitViewController.swift */,
+				E010E8581C011D090027E6CD /* CommitMasterViewController.swift */,
 				E05290AE1C1F600E00B93FA5 /* FileDiffViewController.swift */,
 				E05290B01C1F722900B93FA5 /* lineDiffCell.xib */,
 				E09B06DB1C1F82CA00E529E5 /* lineDiffCell.swift */,
 				E0AADFC41C319F8900ADD9CF /* FileDiffCell.xib */,
 				E0AADFC61C31A0EB00ADD9CF /* FileDiffCell.swift */,
+				B8ED258568CD68508BF46882 /* ChangedFileListViewController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -574,7 +577,7 @@
 			isa = PBXGroup;
 			children = (
 				E0D0DE641C0A461A0003D497 /* ChangedFileViewModel.swift */,
-				E0D0DE671C0A46AC0003D497 /* IndexViewModel.swift */,
+				E0D0DE671C0A46AC0003D497 /* ChangedFileList.swift */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -1033,7 +1036,7 @@
 			files = (
 				E0C713161BEEC8CD008595B9 /* RepositoryTableViewCell.swift in Sources */,
 				E09B06DC1C1F82CA00E529E5 /* lineDiffCell.swift in Sources */,
-				E010E8591C011D090027E6CD /* CommitViewController.swift in Sources */,
+				E010E8591C011D090027E6CD /* CommitMasterViewController.swift in Sources */,
 				E0DCEDF91BFE43D1000F7164 /* Differentiator.swift in Sources */,
 				E0954D1B1BED713F00649A5E /* RepositoryTableViewController.swift in Sources */,
 				E0F815E51C00CD7A00EFAEC7 /* EZSwiftExtensions.swift in Sources */,
@@ -1104,7 +1107,8 @@
 				E0D0DE6D1C0A592D0003D497 /* CypressMasterTableViewController.swift in Sources */,
 				E0F815DC1C00CD7A00EFAEC7 /* BlockPan.swift in Sources */,
 				E0F815F21C00CD7A00EFAEC7 /* UITextViewExtensions.swift in Sources */,
-				E0D0DE681C0A46AC0003D497 /* IndexViewModel.swift in Sources */,
+				E0D0DE681C0A46AC0003D497 /* ChangedFileList.swift in Sources */,
+				B8ED29A93166F5F330F2E1DC /* ChangedFileListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

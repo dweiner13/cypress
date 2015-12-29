@@ -317,29 +317,6 @@ class FileBrowserTableViewController: CypressMasterViewController, UITableViewDe
                 
                 self.presentViewController(alert, animated: true, completion: nil)
             })
-//            UITableViewRowAction(style: .Normal, title: "Rename", handler: {
-//                _ in
-//                self.showTextInputPrompt("New file name", message: "Enter the new name for \"\(file.name)\"", handler: {
-//                    (newName) -> Void in
-//                    do {
-//                        try file.renameFile(newName)
-//                        self.fileOperationStream.value = "Rename"
-//                    }
-//                    catch let e as NSError {
-//                        self.showErrorAlertWithMessage("Could not rename file:\n\(e.localizedDescription)")
-//                    }
-//                })
-//            }),
-//            UITableViewRowAction(style: .Normal, title: "Duplicate", handler: {
-//                _ in
-//                do {
-//                    try file.duplicateFile()
-//                    self.fileOperationStream.value = "Duplicate"
-//                }
-//                catch let e as NSError {
-//                    self.showErrorAlertWithMessage("Could not rename file:\n\(e.localizedDescription)")
-//                }
-//            }),
         ]
     }
     

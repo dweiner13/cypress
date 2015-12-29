@@ -5,15 +5,69 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
-        <!--Commit View Controller-->
+        <!--Commit Master View Controller-->
         <scene sceneID="qCq-H3-1YC">
             <objects>
-                <viewController storyboardIdentifier="commitViewMasterTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="P5e-Je-agX" customClass="CommitViewController" customModule="Cypress" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="TYp-Bo-0rO">
+                <viewController storyboardIdentifier="commitViewMasterTableViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="P5e-Je-agX" customClass="CommitMasterViewController" customModule="Cypress" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pQN-Jk-HJs"/>
+                        <viewControllerLayoutGuide type="bottom" id="SGS-8l-XNn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2EK-cb-5JH">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cHr-2j-WWN" userLabel="Staged files">
+                                <rect key="frame" x="0.0" y="300.5" width="600" height="299.5"/>
+                                <connections>
+                                    <segue destination="aO0-pL-M94" kind="embed" id="KNF-47-t2c"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z45-yL-6hG" userLabel="Unstaged files">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="299.5"/>
+                                <connections>
+                                    <segue destination="aO0-pL-M94" kind="embed" id="k50-DV-bzX"/>
+                                </connections>
+                            </containerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bED-2f-q7T">
+                                <rect key="frame" x="0.0" y="299.5" width="600" height="1"/>
+                                <color key="backgroundColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="0uI-5I-Jlr"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </tableView>
+                        <constraints>
+                            <constraint firstItem="cHr-2j-WWN" firstAttribute="leading" secondItem="2EK-cb-5JH" secondAttribute="leading" id="6JD-Hz-QT4"/>
+                            <constraint firstAttribute="bottom" secondItem="cHr-2j-WWN" secondAttribute="bottom" id="7Po-qK-O7o"/>
+                            <constraint firstItem="z45-yL-6hG" firstAttribute="top" secondItem="2EK-cb-5JH" secondAttribute="top" id="8Gf-XY-xPN"/>
+                            <constraint firstItem="cHr-2j-WWN" firstAttribute="height" secondItem="z45-yL-6hG" secondAttribute="height" id="8nd-NU-0D7"/>
+                            <constraint firstAttribute="trailing" secondItem="cHr-2j-WWN" secondAttribute="trailing" id="9tS-ky-ewe"/>
+                            <constraint firstAttribute="trailing" secondItem="cHr-2j-WWN" secondAttribute="trailing" id="AEU-Vx-vkJ"/>
+                            <constraint firstItem="bED-2f-q7T" firstAttribute="leading" secondItem="2EK-cb-5JH" secondAttribute="leading" id="AJ9-Nh-q3n"/>
+                            <constraint firstItem="cHr-2j-WWN" firstAttribute="top" secondItem="z45-yL-6hG" secondAttribute="bottom" id="B43-ts-6NV"/>
+                            <constraint firstItem="SGS-8l-XNn" firstAttribute="top" secondItem="cHr-2j-WWN" secondAttribute="bottom" id="Js2-hx-GkK"/>
+                            <constraint firstItem="bED-2f-q7T" firstAttribute="top" secondItem="z45-yL-6hG" secondAttribute="bottom" id="MPg-A4-eAt"/>
+                            <constraint firstAttribute="trailing" secondItem="bED-2f-q7T" secondAttribute="trailing" id="QgJ-kF-u9N"/>
+                            <constraint firstItem="cHr-2j-WWN" firstAttribute="top" secondItem="bED-2f-q7T" secondAttribute="bottom" id="d4t-9b-6tS"/>
+                            <constraint firstAttribute="trailing" secondItem="z45-yL-6hG" secondAttribute="trailing" id="eji-gR-lKA"/>
+                            <constraint firstItem="z45-yL-6hG" firstAttribute="leading" secondItem="2EK-cb-5JH" secondAttribute="leading" id="jWi-hd-FXI"/>
+                            <constraint firstItem="cHr-2j-WWN" firstAttribute="leading" secondItem="2EK-cb-5JH" secondAttribute="leading" id="pan-yu-xSv"/>
+                            <constraint firstItem="z45-yL-6hG" firstAttribute="top" secondItem="pQN-Jk-HJs" secondAttribute="bottom" id="thN-yZ-DhN"/>
+                            <constraint firstItem="SGS-8l-XNn" firstAttribute="top" secondItem="cHr-2j-WWN" secondAttribute="bottom" id="xqN-AX-dps"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="thN-yZ-DhN"/>
+                                <exclude reference="AEU-Vx-vkJ"/>
+                                <exclude reference="B43-ts-6NV"/>
+                                <exclude reference="pan-yu-xSv"/>
+                                <exclude reference="Js2-hx-GkK"/>
+                                <exclude reference="xqN-AX-dps"/>
+                            </mask>
+                        </variation>
+                    </view>
                     <navigationItem key="navigationItem" id="LVr-lP-tOY">
                         <barButtonItem key="rightBarButtonItem" title="Repositories" id="fMv-j0-KP9">
                             <connections>
@@ -23,7 +77,6 @@
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="tableView" destination="TYp-Bo-0rO" id="ehR-Ry-Ai7"/>
                         <segue destination="wYX-eB-Teq" kind="showDetail" identifier="showFileChanges" id="qhj-mn-ZGN"/>
                     </connections>
                 </viewController>
@@ -37,7 +90,7 @@
                 <viewControllerPlaceholder storyboardName="RepositoryList" referencedIdentifier="RepositoryListNavigationController" id="Uh1-QO-Rc4" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bXP-9e-uO2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1486.5" y="2332"/>
+            <point key="canvasLocation" x="1554" y="3040"/>
         </scene>
         <!--File Diff View Controller-->
         <scene sceneID="Qag-tc-uTh">
@@ -77,7 +130,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No File Selected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZeT-sU-dAk">
                                         <rect key="frame" x="231.5" y="232" width="138.5" height="23"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -179,9 +232,27 @@
             </objects>
             <point key="canvasLocation" x="-1007" y="2815"/>
         </scene>
+        <!--Unstaged Files-->
+        <scene sceneID="SIR-ah-yz7">
+            <objects>
+                <viewController storyboardIdentifier="stagedFiles" title="Staged Files" automaticallyAdjustsScrollViewInsets="NO" id="aO0-pL-M94" userLabel="Unstaged Files" customClass="ChangedFileListViewController" customModule="Cypress" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Uhl-nL-wth">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="299.5"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </tableView>
+                    <connections>
+                        <outlet property="tableView" destination="Uhl-nL-wth" id="DlN-WP-dt6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RbH-4u-la5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1554" y="2434.75"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="qhj-mn-ZGN"/>
         <segue reference="znS-5Q-MZK"/>
+        <segue reference="k50-DV-bzX"/>
     </inferredMetricsTieBreakers>
 </document>
