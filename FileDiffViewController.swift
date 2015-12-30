@@ -148,7 +148,7 @@ class FileDiffViewController: UIViewController, UITableViewDelegate {
         }
         
         if !file.staged {
-            askForConfirmation("Are you sure?", message: "This action cannot be undone", confirmActionTitle: "Unstage", confirmedHandler: {
+            askForConfirmation("Are you sure?", message: "This action cannot be undone", confirmActionTitle: "Discard", confirmedHandler: {
                 [weak self] () -> Void in
                 if let s = self, file = s.detailItem.value {
                     s.detailItem.value = file.discardLines(s.selectedLines)

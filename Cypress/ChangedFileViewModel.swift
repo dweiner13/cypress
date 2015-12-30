@@ -217,7 +217,7 @@ struct ChangedFileViewModel {
                 if change == .Deleted {
                     return oldLines.contains(oldLineNumber)
                 }
-                return true
+                return false
             })
             
             
@@ -242,9 +242,6 @@ struct ChangedFileViewModel {
             }
             else {
                 diff = try repo.diffWorkingDirectoryWithRepositoryIndex(canonicalPath, options: kCypressDefaultDiffOptions, maxInterHunkLines: 0, maxContextLines: 3)
-            }
-            if diff.deltas.count != 1 {
-                throw NSError(domain: "delta count when recalculating changed file != 1", code: 0, userInfo: nil)
             }
             let patch = try repo.makePatchForDiffDelta(diff.deltas[0] as! GCDiffDelta, isBinary: nil)
             let newChangedFile = ChangedFileViewModel(patch: patch, delta: diff.deltas[0] as! GCDiffDelta, staged: staged, indexChangeStream: indexChangeStream, isBinary: isBinary)
