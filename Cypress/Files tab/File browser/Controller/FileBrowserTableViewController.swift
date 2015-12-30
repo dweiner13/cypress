@@ -76,6 +76,9 @@ class FileBrowserTableViewController: CypressMasterViewController, UITableViewDe
             if file.isDirectory {
                 cell.accessoryType = .DisclosureIndicator
             }
+            else {
+                cell.accessoryType = .None
+            }
             return cell
         }
         

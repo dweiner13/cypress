@@ -10,7 +10,7 @@ import UIKit
 import GitUpKit
 import RxSwift
 
-let kCypressDefaultDiffOptions = GCDiffOptions.IncludeUntracked.union(.FindRenames)
+let kCypressDefaultDiffOptions = GCDiffOptions.IncludeUntracked
 
 struct ChangedFileList {
     
@@ -45,11 +45,11 @@ struct ChangedFileList {
             var isBinary = ObjCBool(false)
             let patch = try repository.makePatchForDiffDelta(delta, isBinary: &isBinary)
             let file = delta.canonicalPath
-            unstagedFiles.append(ChangedFileViewModel(patch: patch, delta: delta, staged: false, indexChangeStream: indexChangeStream))
+            unstagedFiles.append(ChangedFileViewModel(patch: patch, delta: delta, staged: false, indexChangeStream: indexChangeStream, isBinary: isBinary.boolValue))
         }
         
         // staged changes
-        let stagedDiff = try repository.diffRepositoryIndexWithHEAD(nil, options: kCypressDefaultDiffOptions, maxInterHunkLines: 0, maxContextLines: 3)
+        let stagedDiff = try repository.diffRepositoryIndexWithHEAD(nil, options: kCypressDefaultDiffOptions.union(.FindRenames), maxInterHunkLines: 0, maxContextLines: 3)
         
         guard let stagedDeltas = stagedDiff.deltas as? [GCDiffDelta] else {
             throw NSError(domain: "Could not get list of deltas", code: 0, userInfo: nil)
@@ -59,7 +59,7 @@ struct ChangedFileList {
             var isBinary = ObjCBool(false)
             let patch = try repository.makePatchForDiffDelta(delta, isBinary: &isBinary)
             let file = delta.canonicalPath
-            stagedFiles.append(ChangedFileViewModel(patch: patch, delta: delta, staged: true, indexChangeStream: indexChangeStream))
+            stagedFiles.append(ChangedFileViewModel(patch: patch, delta: delta, staged: true, indexChangeStream: indexChangeStream, isBinary: isBinary.boolValue))
         }
         
         return (unstagedFiles, stagedFiles)

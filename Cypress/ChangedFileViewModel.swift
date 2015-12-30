@@ -17,6 +17,7 @@ struct ChangedFileViewModel {
     let staged: Bool
     let hunks: [Hunk]
     let delta: GCDiffDelta
+    let isBinary: Bool
     
     var indexChangeStream: Variable<String>
     
@@ -44,12 +45,13 @@ struct ChangedFileViewModel {
         return hunks
     }
     
-    init(patch: GCDiffPatch, delta: GCDiffDelta, staged: Bool, indexChangeStream: Variable<String>) {
+    init(patch: GCDiffPatch, delta: GCDiffDelta, staged: Bool, indexChangeStream: Variable<String>, isBinary: Bool) {
         self.patch = patch
         self.staged = staged
         self.indexChangeStream = indexChangeStream
         self.canonicalPath = delta.canonicalPath
         self.delta = delta
+        self.isBinary = isBinary
         
         var changedHunks: [Hunk] = []
         var hunk: Hunk? = nil
@@ -83,7 +85,13 @@ struct ChangedFileViewModel {
         
         do {
             print(canonicalPath)
-            try repo.addFileToIndex(canonicalPath)
+            let fileManager = NSFileManager.defaultManager()
+            if fileManager.fileExistsAtPath(repo.absolutePathForFile(canonicalPath)) {
+                try repo.addFileToIndex(canonicalPath)
+            }
+            else {
+                try repo.removeFileFromIndex(canonicalPath)
+            }
             indexChangeStream.value = "stagedFile"
         }
         catch let e as NSError {
@@ -111,7 +119,9 @@ struct ChangedFileViewModel {
         }
         
         do {
+            try repo.safeDeleteFileIfExists(canonicalPath)
             try repo.checkoutFileFromIndex(canonicalPath)
+            
             indexChangeStream.value = "discardedFile"
         }
         catch let e as NSError {
@@ -237,7 +247,7 @@ struct ChangedFileViewModel {
                 throw NSError(domain: "delta count when recalculating changed file != 1", code: 0, userInfo: nil)
             }
             let patch = try repo.makePatchForDiffDelta(diff.deltas[0] as! GCDiffDelta, isBinary: nil)
-            let newChangedFile = ChangedFileViewModel(patch: patch, delta: diff.deltas[0] as! GCDiffDelta, staged: self.staged, indexChangeStream: indexChangeStream)
+            let newChangedFile = ChangedFileViewModel(patch: patch, delta: diff.deltas[0] as! GCDiffDelta, staged: staged, indexChangeStream: indexChangeStream, isBinary: isBinary)
             return newChangedFile
         }
         catch let e as NSError {

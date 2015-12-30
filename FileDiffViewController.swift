@@ -14,6 +14,8 @@ import RxCocoa
 class FileDiffViewController: UIViewController, UITableViewDelegate {
     
     @IBOutlet weak var defaultView: UIView!
+    @IBOutlet weak var defaultViewLabel: UILabel!
+    
     @IBOutlet var tableView: UITableView!
     @IBOutlet weak var leftActionButton: UIBarButtonItem!
     @IBOutlet weak var rightActionButton: UIBarButtonItem!
@@ -54,6 +56,15 @@ class FileDiffViewController: UIViewController, UITableViewDelegate {
                 return
             }
             s.defaultView.hidden = $0 != nil
+            if let file = $0 {
+                if file.isBinary {
+                    s.defaultView.hidden = false
+                    s.defaultViewLabel.text = "Binary File"
+                }
+            }
+            else {
+                s.defaultViewLabel.text = "No file selected"
+            }
         }
         
         let allLines = self.detailItem.map() {

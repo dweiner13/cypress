@@ -173,6 +173,7 @@
                     <navigationItem key="navigationItem" id="sqf-Th-ZgB"/>
                     <connections>
                         <outlet property="defaultView" destination="s29-hc-IfS" id="oXb-od-p9Z"/>
+                        <outlet property="defaultViewLabel" destination="ZeT-sU-dAk" id="hZe-Ik-liT"/>
                         <outlet property="leftActionButton" destination="mfL-9Z-JcD" id="5sE-Rz-qwT"/>
                         <outlet property="rightActionButton" destination="5Ab-GH-izG" id="D49-bv-Pwx"/>
                         <outlet property="tableView" destination="tYI-aY-5cW" id="Kxc-Ha-eLT"/>
@@ -252,7 +253,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="qhj-mn-ZGN"/>
-        <segue reference="znS-5Q-MZK"/>
         <segue reference="k50-DV-bzX"/>
+        <segue reference="jY5-DC-oBq"/>
     </inferredMetricsTieBreakers>
 </document>
