@@ -8,7 +8,8 @@
     "8B123162C394A0A0A138779108E4C59DD771865A" : 0,
     "23FA20E70D0528EA0774E7AEF649B9012F8A36AC" : 0,
     "BE225267DC3B2D4E20DDA5A69C0155B71425F8BE" : 0,
-    "70783EE7218D87FCBAABD7787F6E3A25EFFAFB2F" : 0
+    "70783EE7218D87FCBAABD7787F6E3A25EFFAFB2F" : 0,
+    "EE83DA14852173089C59631969EDB7A9A8713EC2" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "6438BF46-F783-4AED-B648-74E0113BF04E",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
@@ -16,7 +17,8 @@
     "8B123162C394A0A0A138779108E4C59DD771865A" : "Cypress\/RxSwift\/",
     "23FA20E70D0528EA0774E7AEF649B9012F8A36AC" : "Cypress\/GitUp\/",
     "BE225267DC3B2D4E20DDA5A69C0155B71425F8BE" : "Cypress\/GitUp\/GitUpKit\/Third-Party\/XLFacility\/",
-    "70783EE7218D87FCBAABD7787F6E3A25EFFAFB2F" : "Cypress\/GitUp\/GitUpKit\/Third-Party\/libgit2\/"
+    "70783EE7218D87FCBAABD7787F6E3A25EFFAFB2F" : "Cypress\/GitUp\/GitUpKit\/Third-Party\/libgit2\/",
+    "EE83DA14852173089C59631969EDB7A9A8713EC2" : "Cypress\/Action\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Cypress",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -46,6 +48,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/swisspol\/XLFacility.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "BE225267DC3B2D4E20DDA5A69C0155B71425F8BE"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ashfurrow\/Action.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "EE83DA14852173089C59631969EDB7A9A8713EC2"
     }
   ]
 }

@@ -16,6 +16,7 @@
 		E010E8591C011D090027E6CD /* CommitMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E010E8581C011D090027E6CD /* CommitMasterViewController.swift */; };
 		E0363E601BEDA1F800C8584F /* FileContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */; };
 		E0363E651BEE5BBB00C8584F /* FileBrowserNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0363E641BEE5BBB00C8584F /* FileBrowserNavigationController.swift */; };
+		E039E9091C345EB4004FADAE /* Action in Resources */ = {isa = PBXBuildFile; fileRef = E039E9081C345EB4004FADAE /* Action */; };
 		E04F43A71BFD50D300AEAE40 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E04F43901BFD50D300AEAE40 /* RxSwift.framework */; };
 		E04F43A81BFD50D300AEAE40 /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E04F43901BFD50D300AEAE40 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E04F43AD1BFD50EF00AEAE40 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E04F43981BFD50D300AEAE40 /* RxCocoa.framework */; };
@@ -284,6 +285,7 @@
 		E02D95EA1BFD4DB2004CCC78 /* Rx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Rx.xcodeproj; path = RxSwift/Rx.xcodeproj; sourceTree = "<group>"; };
 		E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FileContentsViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E0363E641BEE5BBB00C8584F /* FileBrowserNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FileBrowserNavigationController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		E039E9081C345EB4004FADAE /* Action */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Action; sourceTree = "<group>"; };
 		E05290AE1C1F600E00B93FA5 /* FileDiffViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileDiffViewController.swift; path = ../FileDiffViewController.swift; sourceTree = "<group>"; };
 		E05290B01C1F722900B93FA5 /* lineDiffCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = lineDiffCell.xib; sourceTree = "<group>"; };
 		E053FC4B1BFBADAE00B09411 /* RepositoryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RepositoryManager.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -659,6 +661,7 @@
 				E0DEAF691BE685840018EA8B /* CypressTests */,
 				E0DEAF741BE685840018EA8B /* CypressUITests */,
 				E0DEAF531BE685840018EA8B /* Products */,
+				E039E9081C345EB4004FADAE /* Action */,
 				E02D95EA1BFD4DB2004CCC78 /* Rx.xcodeproj */,
 				E0A775091BE68FB20021EE34 /* GitUpKit.xcodeproj */,
 			);
@@ -982,6 +985,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E039E9091C345EB4004FADAE /* Action in Resources */,
 				E0CF3A331C31B20100126CB2 /* Components.xcassets in Resources */,
 				E0D0DE6B1C0A57710003D497 /* RepositoryList.storyboard in Resources */,
 				E0D0DE5A1C0A2F720003D497 /* CommitView.storyboard in Resources */,

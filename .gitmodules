@@ -4,3 +4,6 @@
 [submodule "RxSwift"]
 	path = RxSwift
 	url = https://github.com/ReactiveX/RxSwift.git
+[submodule "Action"]
+	path = Action
+	url = https://github.com/ashfurrow/Action.git
