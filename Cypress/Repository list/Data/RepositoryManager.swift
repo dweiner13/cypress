@@ -10,14 +10,40 @@ import Foundation
 import GitUpKit
 import RxSwift
 
-private let _singletonSharedInstance = RepositoryManager()
-
 class RepositoryManager {
     
     let disposeBag = DisposeBag()
     
-    static func defaultManager() -> RepositoryManager {
-        return _singletonSharedInstance
+    var repositories = Variable<[RepositoryViewModel]>([])
+    
+    init() {
+        try! updateRepositoryList()
+    }
+    
+    private func updateRepositoryList() throws {
+        var repos: [RepositoryViewModel] = []
+        let fileManager = NSFileManager.defaultManager()
+        let directoryURL = Cypress.getRepositoriesDirectoryURL()
+        guard let contents = try? fileManager.contentsOfDirectoryAtURL(directoryURL, includingPropertiesForKeys: nil, options: .SkipsHiddenFiles) else {
+            throw NSError(domain: "could not get contents of repositories directory", code: 0, userInfo: nil)
+        }
+        for item: NSURL in contents {
+            var isDirectory: ObjCBool = ObjCBool(false)
+            guard let path = item.path else {
+                throw NSError(domain: "could not get path for url \(item)", code: 0, userInfo: nil)
+            }
+            NSFileManager.defaultManager().fileExistsAtPath(path, isDirectory: &isDirectory)
+            if isDirectory {
+                repos.append(RepositoryViewModel(url: item))
+            }
+        }
+        repositories.value = repos
+    }
+    
+    // MARK: - Getting
+    
+    func getRepositories() -> Variable<[RepositoryViewModel]> {
+        return repositories
     }
     
     // MARK: - Creation
@@ -42,11 +68,13 @@ class RepositoryManager {
         else {
             errorStream.value = NSError(domain: "Could not create repository at \(url): could not get path", code: 0, userInfo: nil)
         }
+        try updateRepositoryList()
     }
     
     func createNewRepositoryAtDefaultPathWithName(name: String) throws -> NSURL {
         let url = Cypress.getRepositoriesDirectoryURL().URLByAppendingPathComponent(name)
         try createNewRepositoryAtURL(url)
+        try updateRepositoryList()
         return url
     }
     
@@ -94,10 +122,11 @@ class RepositoryManager {
                         .subscribeError() {
                             [weak self] _ in
                             debugLog("error received, deleting temporary repo at \(repoURL)")
-                            self?.deleteRepositoryAtURL(repoURL)
+                            try! self?.deleteRepositoryAtURL(repoURL)
                         }
                         .addDisposableTo(disposeBag)
                     
+                    try updateRepositoryList()
                     return (repoURL, cloningProgress)
                 }
             }
@@ -112,20 +141,13 @@ class RepositoryManager {
     
     // MARK: - Deletion
     
-    func deleteRepositoryAtURL(url: NSURL) {
+    func deleteRepositoryAtURL(url: NSURL) throws {
         if let path = url.path {
-            do {
-                try NSFileManager.defaultManager().removeItemAtPath(path)
-                if activeRepositoryStream.value == url {
-                    activeRepositoryStream.value = nil
-                }
-            }
-            catch let e as NSError {
-                errorStream.value = e
+            try NSFileManager.defaultManager().removeItemAtPath(path)
+            if activeRepositoryStream.value == url {
+                activeRepositoryStream.value = nil
             }
         }
-        else {
-            errorStream.value = NSError(domain: "Could not delete repository at \(url): could not get path", code: 0, userInfo: nil)
-        }
+        try updateRepositoryList()
     }
 }

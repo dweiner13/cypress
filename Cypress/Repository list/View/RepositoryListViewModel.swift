@@ -1,5 +1,5 @@
 //
-//  RepositoryViewModel.swift
+//  RepositoryListViewModel.swift
 //  Cypress
 //
 //  Created by Daniel A. Weiner on 11/18/15.
@@ -9,7 +9,17 @@
 import Foundation
 import RxSwift
 
-struct RepositoryViewModel: Equatable {
+class RepositoryListViewModel: BaseViewModel {
+    var repositories: Variable<[RepositoryViewModel]>
+    
+    override init(coordinator: AppCoordinator) {
+        repositories = coordinator.repositoryManager.getRepositories()
+        super.init(coordinator: coordinator)
+    }
+    
+}
+
+class RepositoryViewModel: Equatable {
     
     enum RepoStatus {
         case Available

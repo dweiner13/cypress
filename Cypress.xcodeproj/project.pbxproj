@@ -16,7 +16,12 @@
 		E010E8591C011D090027E6CD /* CommitMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E010E8581C011D090027E6CD /* CommitMasterViewController.swift */; };
 		E0363E601BEDA1F800C8584F /* FileContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */; };
 		E0363E651BEE5BBB00C8584F /* FileBrowserNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0363E641BEE5BBB00C8584F /* FileBrowserNavigationController.swift */; };
-		E039E9091C345EB4004FADAE /* Action in Resources */ = {isa = PBXBuildFile; fileRef = E039E9081C345EB4004FADAE /* Action */; };
+		E039E8DE1C344C14004FADAE /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E039E8DD1C344C14004FADAE /* AppCoordinator.swift */; };
+		E039E8EB1C344C7B004FADAE /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E039E8EA1C344C7B004FADAE /* BaseViewModel.swift */; };
+		E039E8ED1C344CA6004FADAE /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E039E8EC1C344CA6004FADAE /* ViewModelType.swift */; };
+		E039E8EF1C344D28004FADAE /* SceneTransitionIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E039E8EE1C344D28004FADAE /* SceneTransitionIntent.swift */; };
+		E039E8F11C344EAE004FADAE /* CypressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E039E8F01C344EAE004FADAE /* CypressViewController.swift */; };
+		E039E9041C3450CA004FADAE /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E039E9031C3450CA004FADAE /* BaseViewController.swift */; };
 		E04F43A71BFD50D300AEAE40 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E04F43901BFD50D300AEAE40 /* RxSwift.framework */; };
 		E04F43A81BFD50D300AEAE40 /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E04F43901BFD50D300AEAE40 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E04F43AD1BFD50EF00AEAE40 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E04F43981BFD50D300AEAE40 /* RxCocoa.framework */; };
@@ -39,7 +44,12 @@
 		E0A7751E1BE691EF0021EE34 /* GitUpKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E0A775131BE68FB20021EE34 /* GitUpKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E0AADFC51C319F8900ADD9CF /* FileDiffCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E0AADFC41C319F8900ADD9CF /* FileDiffCell.xib */; };
 		E0AADFC71C31A0EB00ADD9CF /* FileDiffCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0AADFC61C31A0EB00ADD9CF /* FileDiffCell.swift */; };
-		E0AAF3A21BFD863A00320EA2 /* RepositoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0AAF3A11BFD863A00320EA2 /* RepositoryViewModel.swift */; };
+		E0AAF3A21BFD863A00320EA2 /* RepositoryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0AAF3A11BFD863A00320EA2 /* RepositoryListViewModel.swift */; };
+		E0BB432B1C34DFE9007F1768 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BB430B1C34DFE9007F1768 /* Action.swift */; };
+		E0BB432C1C34DFE9007F1768 /* AlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BB430C1C34DFE9007F1768 /* AlertAction.swift */; };
+		E0BB433E1C34DFE9007F1768 /* UIBarButtonItem+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BB43261C34DFE9007F1768 /* UIBarButtonItem+Action.swift */; };
+		E0BB433F1C34DFE9007F1768 /* UIButton+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BB43271C34DFE9007F1768 /* UIButton+Rx.swift */; };
+		E0BB43521C34E2F6007F1768 /* CypressCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BB43511C34E2F6007F1768 /* CypressCoordinator.swift */; };
 		E0C713161BEEC8CD008595B9 /* RepositoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C713141BEEC8CD008595B9 /* RepositoryTableViewCell.swift */; };
 		E0C713171BEEC8CD008595B9 /* RepositoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E0C713151BEEC8CD008595B9 /* RepositoryTableViewCell.xib */; };
 		E0CF3A331C31B20100126CB2 /* Components.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0CF3A321C31B20100126CB2 /* Components.xcassets */; };
@@ -285,7 +295,12 @@
 		E02D95EA1BFD4DB2004CCC78 /* Rx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Rx.xcodeproj; path = RxSwift/Rx.xcodeproj; sourceTree = "<group>"; };
 		E0363E5F1BEDA1F800C8584F /* FileContentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FileContentsViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E0363E641BEE5BBB00C8584F /* FileBrowserNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FileBrowserNavigationController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		E039E9081C345EB4004FADAE /* Action */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Action; sourceTree = "<group>"; };
+		E039E8DD1C344C14004FADAE /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		E039E8EA1C344C7B004FADAE /* BaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		E039E8EC1C344CA6004FADAE /* ViewModelType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
+		E039E8EE1C344D28004FADAE /* SceneTransitionIntent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneTransitionIntent.swift; sourceTree = "<group>"; };
+		E039E8F01C344EAE004FADAE /* CypressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CypressViewController.swift; sourceTree = "<group>"; };
+		E039E9031C3450CA004FADAE /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		E05290AE1C1F600E00B93FA5 /* FileDiffViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileDiffViewController.swift; path = ../FileDiffViewController.swift; sourceTree = "<group>"; };
 		E05290B01C1F722900B93FA5 /* lineDiffCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = lineDiffCell.xib; sourceTree = "<group>"; };
 		E053FC4B1BFBADAE00B09411 /* RepositoryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RepositoryManager.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -303,7 +318,12 @@
 		E0A775091BE68FB20021EE34 /* GitUpKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GitUpKit.xcodeproj; path = GitUp/GitUpKit/GitUpKit.xcodeproj; sourceTree = "<group>"; };
 		E0AADFC41C319F8900ADD9CF /* FileDiffCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileDiffCell.xib; sourceTree = "<group>"; };
 		E0AADFC61C31A0EB00ADD9CF /* FileDiffCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDiffCell.swift; sourceTree = "<group>"; };
-		E0AAF3A11BFD863A00320EA2 /* RepositoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryViewModel.swift; sourceTree = "<group>"; };
+		E0AAF3A11BFD863A00320EA2 /* RepositoryListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryListViewModel.swift; sourceTree = "<group>"; };
+		E0BB430B1C34DFE9007F1768 /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
+		E0BB430C1C34DFE9007F1768 /* AlertAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertAction.swift; sourceTree = "<group>"; };
+		E0BB43261C34DFE9007F1768 /* UIBarButtonItem+Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Action.swift"; sourceTree = "<group>"; };
+		E0BB43271C34DFE9007F1768 /* UIButton+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Rx.swift"; sourceTree = "<group>"; };
+		E0BB43511C34E2F6007F1768 /* CypressCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CypressCoordinator.swift; sourceTree = "<group>"; };
 		E0C713141BEEC8CD008595B9 /* RepositoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RepositoryTableViewCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E0C713151BEEC8CD008595B9 /* RepositoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepositoryTableViewCell.xib; sourceTree = "<group>"; };
 		E0CF3A321C31B20100126CB2 /* Components.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Components.xcassets; path = GitUp/GitUpKit/Components/Components.xcassets; sourceTree = "<group>"; };
@@ -436,6 +456,13 @@
 			path = "Files tab";
 			sourceTree = "<group>";
 		};
+		E039E8F51C344FE8004FADAE /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
 		E04F43811BFD50B500AEAE40 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -553,11 +580,23 @@
 		E0A920DD1BF9581D009C0552 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E0D0DE691C0A57710003D497 /* RepositoryList.storyboard */,
 				E0954D1A1BED713F00649A5E /* RepositoryTableViewController.swift */,
 				E06EB6B91BF7D7000035D2E6 /* Progress cell */,
 			);
 			name = View;
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		E0BB43071C34DFE9007F1768 /* Action */ = {
+			isa = PBXGroup;
+			children = (
+				E0BB430B1C34DFE9007F1768 /* Action.swift */,
+				E0BB430C1C34DFE9007F1768 /* AlertAction.swift */,
+				E0BB43261C34DFE9007F1768 /* UIBarButtonItem+Action.swift */,
+				E0BB43271C34DFE9007F1768 /* UIButton+Rx.swift */,
+			);
+			path = Action;
 			sourceTree = "<group>";
 		};
 		E0D0DE611C0A45D70003D497 /* View */ = {
@@ -604,7 +643,7 @@
 		E0D207921BF861FA000B54D1 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				E0AAF3A11BFD863A00320EA2 /* RepositoryViewModel.swift */,
+				E0AAF3A11BFD863A00320EA2 /* RepositoryListViewModel.swift */,
 			);
 			name = ViewModel;
 			path = View;
@@ -661,7 +700,7 @@
 				E0DEAF691BE685840018EA8B /* CypressTests */,
 				E0DEAF741BE685840018EA8B /* CypressUITests */,
 				E0DEAF531BE685840018EA8B /* Products */,
-				E039E9081C345EB4004FADAE /* Action */,
+				E0BB43071C34DFE9007F1768 /* Action */,
 				E02D95EA1BFD4DB2004CCC78 /* Rx.xcodeproj */,
 				E0A775091BE68FB20021EE34 /* GitUpKit.xcodeproj */,
 			);
@@ -680,6 +719,7 @@
 		E0DEAF541BE685840018EA8B /* Cypress */ = {
 			isa = PBXGroup;
 			children = (
+				E039E8F51C344FE8004FADAE /* Services */,
 				E0954D251BED8A2E00649A5E /* Global */,
 				E0F815B11C00CD6F00EFAEC7 /* EZSwiftExtensions */,
 				E0D207911BF861C9000B54D1 /* Repository list */,
@@ -690,7 +730,13 @@
 				E0DEAF611BE685840018EA8B /* Info.plist */,
 				E0DEAF5E1BE685840018EA8B /* LaunchScreen.storyboard */,
 				E0DEAF591BE685840018EA8B /* Main.storyboard */,
-				E0D0DE691C0A57710003D497 /* RepositoryList.storyboard */,
+				E0BB43511C34E2F6007F1768 /* CypressCoordinator.swift */,
+				E039E8DD1C344C14004FADAE /* AppCoordinator.swift */,
+				E039E8EE1C344D28004FADAE /* SceneTransitionIntent.swift */,
+				E039E8EA1C344C7B004FADAE /* BaseViewModel.swift */,
+				E039E8F01C344EAE004FADAE /* CypressViewController.swift */,
+				E039E9031C3450CA004FADAE /* BaseViewController.swift */,
+				E039E8EC1C344CA6004FADAE /* ViewModelType.swift */,
 			);
 			path = Cypress;
 			sourceTree = "<group>";
@@ -985,7 +1031,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E039E9091C345EB4004FADAE /* Action in Resources */,
 				E0CF3A331C31B20100126CB2 /* Components.xcassets in Resources */,
 				E0D0DE6B1C0A57710003D497 /* RepositoryList.storyboard in Resources */,
 				E0D0DE5A1C0A2F720003D497 /* CommitView.storyboard in Resources */,
@@ -1043,8 +1088,10 @@
 				E010E8591C011D090027E6CD /* CommitMasterViewController.swift in Sources */,
 				E0DCEDF91BFE43D1000F7164 /* Differentiator.swift in Sources */,
 				E0954D1B1BED713F00649A5E /* RepositoryTableViewController.swift in Sources */,
+				E039E9041C3450CA004FADAE /* BaseViewController.swift in Sources */,
 				E0F815E51C00CD7A00EFAEC7 /* EZSwiftExtensions.swift in Sources */,
 				E0D0DE5C1C0A3AC40003D497 /* AdaptiveScrollView.swift in Sources */,
+				E0BB432C1C34DFE9007F1768 /* AlertAction.swift in Sources */,
 				E0DCEDF21BFE43D1000F7164 /* Changeset.swift in Sources */,
 				E0F815DD1C00CD7A00EFAEC7 /* BlockPinch.swift in Sources */,
 				E0DCEDF71BFE43D1000F7164 /* RxTableViewSectionedDataSource.swift in Sources */,
@@ -1052,6 +1099,7 @@
 				E0DCEDF51BFE43D1000F7164 /* RxCollectionViewSectionedReloadDataSource.swift in Sources */,
 				E0AADFC71C31A0EB00ADD9CF /* FileDiffCell.swift in Sources */,
 				E00FE2791BF014CC00BBC45A /* CypressTabBarViewController.swift in Sources */,
+				E039E8F11C344EAE004FADAE /* CypressViewController.swift in Sources */,
 				E0F815F31C00CD7A00EFAEC7 /* UIViewControllerExtensions.swift in Sources */,
 				E0F815EB1C00CD7A00EFAEC7 /* UIColoredView.swift in Sources */,
 				E06EB6BD1BF7DBA30035D2E6 /* FileContentsViewSettings.swift in Sources */,
@@ -1074,23 +1122,28 @@
 				E0F815F41C00CD7A00EFAEC7 /* UIViewExtensions.swift in Sources */,
 				E0F815E31C00CD7A00EFAEC7 /* CGRectExtensions.swift in Sources */,
 				E053FC4C1BFBADAE00B09411 /* RepositoryManager.swift in Sources */,
-				E0AAF3A21BFD863A00320EA2 /* RepositoryViewModel.swift in Sources */,
+				E0AAF3A21BFD863A00320EA2 /* RepositoryListViewModel.swift in Sources */,
 				E0F815EC1C00CD7A00EFAEC7 /* UIColorExtensions.swift in Sources */,
+				E039E8ED1C344CA6004FADAE /* ViewModelType.swift in Sources */,
 				E0F815E61C00CD7A00EFAEC7 /* IntExtentions.swift in Sources */,
 				E0F815E41C00CD7A00EFAEC7 /* DictionaryExtensions.swift in Sources */,
 				E0F815EE1C00CD7A00EFAEC7 /* UIFontExtensions.swift in Sources */,
 				E05290AF1C1F600E00B93FA5 /* FileDiffViewController.swift in Sources */,
 				E0D0DE601C0A3D3A0003D497 /* AdaptiveTableView.swift in Sources */,
 				E0DEAF561BE685840018EA8B /* AppDelegate.swift in Sources */,
+				E0BB43521C34E2F6007F1768 /* CypressCoordinator.swift in Sources */,
 				E0F815E71C00CD7A00EFAEC7 /* NSDateExtensions.swift in Sources */,
+				E039E8EB1C344C7B004FADAE /* BaseViewModel.swift in Sources */,
 				E0E5D8271BEFAD220010A976 /* FileBrowserTableViewController.swift in Sources */,
 				E0F815DA1C00CD7A00EFAEC7 /* BlockButton.swift in Sources */,
 				E0F815ED1C00CD7A00EFAEC7 /* UIDeviceExtensions.swift in Sources */,
 				E0F815E01C00CD7A00EFAEC7 /* BlockWebView.swift in Sources */,
 				E0F815EA1C00CD7A00EFAEC7 /* UIButtonExtensions.swift in Sources */,
 				E0F815E91C00CD7A00EFAEC7 /* StringExtensions.swift in Sources */,
+				E0BB433E1C34DFE9007F1768 /* UIBarButtonItem+Action.swift in Sources */,
 				E0D0DE651C0A461A0003D497 /* ChangedFileViewModel.swift in Sources */,
 				E0DCEDFA1BFE43D1000F7164 /* ObservableConvertibleType+Differentiator.swift in Sources */,
+				E039E8EF1C344D28004FADAE /* SceneTransitionIntent.swift in Sources */,
 				E0DCEDF61BFE43D1000F7164 /* RxTableViewSectionedAnimatedDataSource.swift in Sources */,
 				E0DCEDF81BFE43D1000F7164 /* RxTableViewSectionedReloadDataSource.swift in Sources */,
 				E0F815E11C00CD7A00EFAEC7 /* BoolExtentions.swift in Sources */,
@@ -1100,16 +1153,19 @@
 				E0DCEE001BFE43D1000F7164 /* UISectionedViewType+RxAnimatedDataSource.swift in Sources */,
 				E06EB6C11BF7E3990035D2E6 /* CypressNavigationController.swift in Sources */,
 				E0E5D82C1BEFE76F0010A976 /* NavigationHistoryTableViewController.swift in Sources */,
+				E0BB433F1C34DFE9007F1768 /* UIButton+Rx.swift in Sources */,
 				E0DCEDF41BFE43D1000F7164 /* RxCollectionViewSectionedDataSource.swift in Sources */,
 				E0F815F11C00CD7A00EFAEC7 /* UILabelExtensions.swift in Sources */,
 				E0954D231BED74D200649A5E /* CypressFunctions.swift in Sources */,
 				E0DCEDFC1BFE43D1000F7164 /* RxDataSourceStarterKit.swift in Sources */,
 				E010E84F1C01187B0027E6CD /* Enum.swift in Sources */,
 				E0363E651BEE5BBB00C8584F /* FileBrowserNavigationController.swift in Sources */,
+				E0BB432B1C34DFE9007F1768 /* Action.swift in Sources */,
 				E0363E601BEDA1F800C8584F /* FileContentsViewController.swift in Sources */,
 				E0F815E21C00CD7A00EFAEC7 /* CGFloatExtensions.swift in Sources */,
 				E0D0DE6D1C0A592D0003D497 /* CypressMasterTableViewController.swift in Sources */,
 				E0F815DC1C00CD7A00EFAEC7 /* BlockPan.swift in Sources */,
+				E039E8DE1C344C14004FADAE /* AppCoordinator.swift in Sources */,
 				E0F815F21C00CD7A00EFAEC7 /* UITextViewExtensions.swift in Sources */,
 				E0D0DE681C0A46AC0003D497 /* ChangedFileList.swift in Sources */,
 				B8ED29A93166F5F330F2E1DC /* ChangedFileListViewController.swift in Sources */,
@@ -1183,6 +1239,7 @@
 				E0D0DE6A1C0A57710003D497 /* Base */,
 			);
 			name = RepositoryList.storyboard;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		E0DEAF591BE685840018EA8B /* Main.storyboard */ = {
