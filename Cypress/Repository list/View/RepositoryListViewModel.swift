@@ -11,12 +11,40 @@ import RxSwift
 
 class RepositoryListViewModel: BaseViewModel {
     var repositories: Variable<[RepositoryViewModel]>
-    
+    let disposeBag = DisposeBag()
     override init(coordinator: AppCoordinator) {
         repositories = coordinator.repositoryManager.getRepositories()
         super.init(coordinator: coordinator)
     }
     
+    func addNewRepository(name: String) throws {
+        try coordinator.repositoryManager.createNewRepositoryAtDefaultPathWithName(name)
+    }
+    
+    func cloneRepository(url: NSURL) throws -> Observable<RepositoryCloningDelegate.CloningEvent>? {
+        guard let result = try coordinator.repositoryManager.cloneRepository(url) else {
+            throw NSError(domain: "Error cloning repository", code: 0, userInfo: nil)
+        }
+        let newRepo = RepositoryViewModel(url: result.localURL)
+        newRepo.cloningProgress = result.cloningProgress
+        repositories.value.append(newRepo)
+        newRepo.cloningProgress?
+            .subscribeError({
+                [weak self] (e) -> Void in
+                try! self?.deleteRepository(newRepo.url)
+            })
+        .addDisposableTo(disposeBag)
+        return newRepo.cloningProgress
+    }
+    
+    func deleteRepository(url: NSURL) throws {
+        return try coordinator.repositoryManager.deleteRepositoryAtURL(url)
+    }
+    
+    func selectRepository(url: NSURL) {
+        coordinator.activeRepository.value = url
+        coordinator.popScene()
+    }
 }
 
 class RepositoryViewModel: Equatable {

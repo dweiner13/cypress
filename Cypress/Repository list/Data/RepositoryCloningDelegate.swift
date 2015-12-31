@@ -74,6 +74,7 @@ class RepositoryCloningDelegate: NSObject, GCRepositoryDelegate {
     }
     
     func repository(repository: GCRepository!, updateTransferProgress progress: Float, transferredBytes bytes: UInt) {
+        debugLog("updateTransferProgress \(progress)")
         _cloningProgress.value = .updateTransferProgress(progress)
     }
     
