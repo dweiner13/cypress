@@ -26,7 +26,11 @@ class CypressCoordinator: AppCoordinator {
     }
     
     func popScene() -> Bool {
-        return true
+        if let presenting = currentViewController?.presentingViewController {
+            presenting.dismissViewControllerAnimated(true, completion: nil)
+            return true
+        }
+        return false
     }
     
     func reportError(error: NSError) {

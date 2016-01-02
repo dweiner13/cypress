@@ -24,6 +24,7 @@ class RepositoryTableViewController: BaseViewController {
         super.viewDidLoad()
         tableView.registerNib(UINib(nibName: repositoryListCellIdentifier, bundle: NSBundle.mainBundle()), forCellReuseIdentifier: repositoryListCellIdentifier)
         viewModel = RepositoryListViewModel(coordinator: CypressCoordinator(rootViewController: self))
+        appCoordinator = viewModel?.coordinator
         bindViewModel()
 
         tableView.dataSource = self
@@ -277,5 +278,12 @@ extension RepositoryTableViewController : UITableViewDataSource, UITableViewDele
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let repo = self.repositories?[indexPath.row] {
+            appCoordinator?.activeRepository.value = repo.url
+            appCoordinator?.popScene()
+        }
     }
 }
