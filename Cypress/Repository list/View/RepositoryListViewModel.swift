@@ -17,11 +17,11 @@ class RepositoryListViewModel: BaseViewModel {
         super.init(coordinator: coordinator)
     }
     
-    func addNewRepository(name: String) throws {
-        try coordinator.repositoryManager.createNewRepositoryAtDefaultPathWithName(name)
+    func addNewRepository(name: String) throws -> NSURL {
+        return try coordinator.repositoryManager.createNewRepositoryAtDefaultPathWithName(name)
     }
     
-    func cloneRepository(url: NSURL) throws -> Observable<RepositoryCloningDelegate.CloningEvent>? {
+    func cloneRepository(url: NSURL) throws -> (localURL: NSURL, cloningProgress: Observable<RepositoryCloningDelegate.CloningEvent>)? {
         guard let result = try coordinator.repositoryManager.cloneRepository(url) else {
             throw NSError(domain: "Error cloning repository", code: 0, userInfo: nil)
         }
@@ -34,7 +34,7 @@ class RepositoryListViewModel: BaseViewModel {
                 try! self?.deleteRepository(newRepo.url)
             })
         .addDisposableTo(disposeBag)
-        return newRepo.cloningProgress
+        return result
     }
     
     func deleteRepository(url: NSURL) throws {

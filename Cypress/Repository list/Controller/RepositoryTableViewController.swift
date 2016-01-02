@@ -36,7 +36,6 @@ class RepositoryTableViewController: BaseViewController {
         vm.repositories.subscribeNext() {
             [weak self] in
             self?.repositories = $0
-            debugLog(self?.repositories)
             self?.tableView.reloadData()
         }
         .addDisposableTo(disposeBag)
@@ -76,7 +75,8 @@ class RepositoryTableViewController: BaseViewController {
     func confirmedAddNewRepositoryWithName(name: String) {
         do {
             let vm = viewModel as! RepositoryListViewModel
-            try vm.addNewRepository(name)
+            let newRepoURL = try vm.addNewRepository(name)
+            animateAddedRepo(newRepoURL)
         }
         catch let e as NSError {
             self.showErrorAlertWithMessage(String(reflecting: e))
@@ -88,24 +88,21 @@ class RepositoryTableViewController: BaseViewController {
         showTextInputPrompt("Clone Repository", message: "Enter the URL to clone from", handler: {
             if let url = NSURL(string: $0) {
                 self.confirmedCloneRepositoryWithURL(url)
+                return
             }
-            else {
-                self.showErrorAlertWithMessage("Not a valid URL")
-            }
+            self.showErrorAlertWithMessage("Invalid URL: \($0)")
         })
     }
     
     func confirmedCloneRepositoryWithURL(url: NSURL) {
         let vm = viewModel as! RepositoryListViewModel
-        
         do {
-            if let cloningProgress = try vm.cloneRepository(url) {
+            if let (url, cloningProgress) = try vm.cloneRepository(url) {
                 showProgressPrompt(cloningProgress)
                 // bind actions to observable that emits status of cloning
                 cloningProgress
                     .subscribe(onNext: {
                         [weak self] event in
-                        debugLog(event)
                         switch event {
                             case .requiresPlainTextAuthentication(let url, let delegate):
                                 self?.showAuthenticationPromptForURL(url, withDelegate: delegate)
@@ -119,12 +116,15 @@ class RepositoryTableViewController: BaseViewController {
                             self?.showErrorAlertWithMessage("\(err)")
                         }
                         errorStream.value = err
-                    }, onCompleted: nil, onDisposed: nil)
+                    }, onCompleted: {
+                        [weak self] error in
+                        self?.animateAddedRepo(url)
+                    }, onDisposed: nil)
                     .addDisposableTo(disposeBag)
             }
         }
-        catch let e {
-            showErrorAlertWithMessage(String(reflecting: e))
+        catch let e as NSError {
+            showErrorAlertWithMessage(e.localizedDescription)
         }
     }
     
@@ -203,6 +203,41 @@ class RepositoryTableViewController: BaseViewController {
         }
     }
     
+    func animateAddedRepo(url: NSURL) {
+        guard let vm = viewModel as? RepositoryListViewModel else {
+            return
+        }
+        debugLog("looking for url \(url)")
+        if let newIndex = vm.repositories.value.indexOf({
+            (repo) -> Bool in
+            debugLog("comparing to url \(repo.url)")
+            return repo.url == url
+        }) {
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: newIndex, inSection: 0)) as! RepositoryTableViewCell
+            debugLog("about to flash highlight")
+            cell.flashHighlight()
+        }
+    }
+    
+    func tappedDeleteRepo(indexPath: NSIndexPath) {
+        guard let vm = self.viewModel as? RepositoryListViewModel else {
+            return
+        }
+        askForConfirmation("Are you sure?", message: "Deleting a repository cannot be undone. You will lose any unpushed changes you have made!", confirmActionTitle: "Delete", confirmedHandler: {
+            () -> Void in
+            let deletedURL = self.repositories![indexPath.row].url
+            do {
+                try vm.deleteRepository(deletedURL)
+            }
+            catch let e as NSError {
+                self.showErrorAlertWithMessage(e.localizedDescription)
+            }
+        }, cancelHandler: {
+            () -> Void in
+            self.tableView.editing = false
+        })
+    }
+    
     @IBAction func tappedCancelButton(sender: UIBarButtonItem) {
         dismissSelf()
     }
@@ -214,9 +249,7 @@ extension RepositoryTableViewController : UITableViewDataSource, UITableViewDele
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        debugLog(section)
         if section == 0 {
-            debugLog(repositories)
             if let repos = repositories {
                 return repos.count
             }
@@ -238,10 +271,7 @@ extension RepositoryTableViewController : UITableViewDataSource, UITableViewDele
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         return [UITableViewRowAction(style: UITableViewRowActionStyle.Destructive, title: "Delete", handler: {
             _, _ in
-            guard let vm = self.viewModel as? RepositoryListViewModel else {
-                return
-            }
-            try! vm.deleteRepository(self.repositories![indexPath.row].url)
+            self.tappedDeleteRepo(indexPath)
         })]
     }
     

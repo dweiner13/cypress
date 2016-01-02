@@ -78,8 +78,13 @@ class RepositoryTableViewCell: UITableViewCell, GCRepositoryDelegate {
     }
     
     func flashHighlight() {
+        debugLog("flashing highlight")
         setHighlighted(true, animated: false)
-        setHighlighted(false, animated: true)
+        let delay: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(NSEC_PER_SEC * UInt64(0.5)))
+        dispatch_after(delay, dispatch_get_main_queue()) {
+            () -> Void in
+            self.setHighlighted(false, animated: true)
+        }
     }
     
     func startProgress() {

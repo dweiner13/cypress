@@ -59,14 +59,19 @@ extension UIViewController {
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     
-    func askForConfirmation(title: String, message: String, confirmActionTitle: String, confirmedHandler: () -> Void) {
+    func askForConfirmation(title: String, message: String, confirmActionTitle: String, confirmedHandler: () -> Void, cancelHandler: (() -> Void)?) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         
         let confirmAction = UIAlertAction(title: confirmActionTitle, style: .Destructive, handler: {
             (action: UIAlertAction) -> Void in
             confirmedHandler()
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+            (action: UIAlertAction) -> Void in
+            if let handler = cancelHandler {
+                handler()
+            }
+        })
         
         alertController.addAction(confirmAction)
         alertController.preferredAction = confirmAction

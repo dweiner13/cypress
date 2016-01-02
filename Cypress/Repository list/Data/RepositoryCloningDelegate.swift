@@ -23,7 +23,7 @@ class RepositoryCloningDelegate: NSObject, GCRepositoryDelegate {
     
     let credentials: Variable<(username: String, password: String)?> = Variable(nil)
     
-    private let _cloningProgress: Variable<CloningEvent> = Variable(.initialized)
+    let _cloningProgress: Variable<CloningEvent> = Variable(.initialized)
     var cloningProgress: Observable<CloningEvent>? = nil
     
     var repository: GCRepository?

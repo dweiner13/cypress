@@ -72,14 +72,14 @@ class RepositoryManager {
     }
     
     func createNewRepositoryAtDefaultPathWithName(name: String) throws -> NSURL {
-        let url = Cypress.getRepositoriesDirectoryURL().URLByAppendingPathComponent(name)
+        let url = Cypress.getRepositoriesDirectoryURL().URLByAppendingPathComponent(name + "/")
         try createNewRepositoryAtURL(url)
         try updateRepositoryList()
         return url
     }
     
     func cloneRepository(url: NSURL) throws -> (localURL: NSURL, cloningProgress: Observable<RepositoryCloningDelegate.CloningEvent>)? {
-        if let pathComponents = url.pathComponents {
+        if let pathComponents = url.pathComponents, _ = url.host where pathComponents.count > 0 {
             let gitName = pathComponents[pathComponents.count - 1] // "repo.git"
             let repoName = gitName.substringWithRange(gitName.startIndex ... gitName.endIndex.advancedBy(-5))
             let repoURL = Cypress.getRepositoriesDirectoryURL().URLByAppendingPathComponent(repoName, isDirectory: true)
@@ -97,6 +97,12 @@ class RepositoryManager {
                     delegate.repository = repository
                     delegate.remote = remote
                     
+                    
+                    // On error, delete temporary directory
+                    guard let cloningProgress = delegate.cloningProgress else {
+                        errorStream.value = NSError(domain: "Cloning progress stream not set yet in delegate", code: 0, userInfo: nil)
+                        return nil
+                    }
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                         do {
                             repository.delegate = delegate
@@ -110,14 +116,10 @@ class RepositoryManager {
                             if e.code != -7 {
                                 errorStream.value = e
                             }
+                            delegate._cloningProgress.value = .error(e)
                         }
                     })
                     
-                    // On error, delete temporary directory
-                    guard let cloningProgress = delegate.cloningProgress else {
-                        errorStream.value = NSError(domain: "Cloning progress stream not set yet in delegate", code: 0, userInfo: nil)
-                        return nil
-                    }
                     cloningProgress
                         .subscribeError() {
                             [weak self] _ in
@@ -135,7 +137,7 @@ class RepositoryManager {
             }
         }
         else {
-            throw NSError(domain: "could not clone repository from \(url): could not get URL path components", code: 0, userInfo: nil)
+            throw NSError(domain: "Invalid URL: \(url)", code: 0, userInfo: nil)
         }
     }
     
