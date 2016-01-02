@@ -9,14 +9,15 @@
 import UIKit
 
 enum SceneTransitionStyle {
-    case Detail // e.g. pushing or showing detail in SplitViewController
+    case SplitViewDetail
     case ModalFormSheet
     case ModalPageSheet
-    case Popover
-    case DismissSelf
+    case Popover(sourceView: UIView, sourceRect: CGRect)
+    case Push
 }
 
 struct SceneTransitionIntent {
     let transitionStyle: SceneTransitionStyle
-    let destinationViewControllerIdentifier: String?
+    let destinationViewControllerIdentifier: String
+    let destinationStoryboardIdentifier: String
 }
