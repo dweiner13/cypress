@@ -186,7 +186,7 @@ class FileBrowserTableViewController: CypressMasterViewController, UITableViewDe
         }
         
         // Create long-press view and gesture recognizer
-        let recognizer = UILongPressGestureRecognizer(target: self, action: "longPressedNavigationBar:")
+        let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(FileBrowserTableViewController.longPressedNavigationBar(_:)))
         navigation.navigationBar.addGestureRecognizer(recognizer)
         recognizer.enabled = true
         longPressBackButtonGestureRecognizer = recognizer

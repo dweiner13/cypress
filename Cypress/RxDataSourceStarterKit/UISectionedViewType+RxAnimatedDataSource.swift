@@ -25,8 +25,7 @@ extension UITableView {
             S.Generator.Element == Section,
             Section.Item: Hashable
         >
-        (dataSource: DataSource)
-        (source: O)
+        (dataSource: DataSource, source: O)
         -> Disposable  {
         let differences = source.differentiateForSectionedView()
         return self.rx_itemsWithDataSource(dataSource)(source: differences)
@@ -45,8 +44,7 @@ extension UICollectionView {
             S.Generator.Element == Section,
             Section.Item: Hashable
         >
-        (dataSource: DataSource)
-        (source: O)
+        (dataSource: DataSource, source: O)
         -> Disposable  {
         let differences = source.differentiateForSectionedView()
         return self.rx_itemsWithDataSource(dataSource)(source: differences)
